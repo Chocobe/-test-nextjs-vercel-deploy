@@ -1,0 +1,109 @@
+{
+    "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "next/core-web-vitals"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "ecmaFeatures":  {
+            "jsx": true
+        },
+        "project": "./tsconfig.json"
+    },
+    "plugins": [
+        "testing-library",
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "semi": "error",
+        "indent": [
+            "error", 
+            4, 
+            { "SwitchCase": 1 }
+        ],
+        "comma-dangle": [
+            "error",
+            {
+                "functions": "never",
+                "arrays": "only-multiline",
+                "exports": "only-multiline",
+                "imports": "only-multiline",
+                "objects": "only-multiline"
+            }
+        ],
+        "quotes": [
+            "error", 
+            "single", 
+            { "allowTemplateLiterals": true }
+        ],
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+
+        "no-restricted-imports": [
+            "error",
+            {
+                "patterns": [
+                    {
+                        "group": ["react"],
+                        "importNames": ["default"],
+                        "message": "\n🚫 default import 대신, 사용할 멤버만 import 해주세요.\n"
+                    },
+                    {
+                        "group": ["@react-icons/*"],
+                        "message": "\n🚫 \"@react-icons\" 대신, \"@icons\" 에서 import 해주세요.\n"
+                    },
+                    {
+                        "group": ["lodash-es"],
+                        "importNames": ["default"],
+                        "message": "\n🚫 default import 대신, 사용할 멤버만 import 해주세요.\n"
+                    }
+                ]
+            }
+        ]
+    },
+    "overrides": [
+        // 유닛 테스트 파일은 @testing-library/react 컨벤션 적용
+        {
+            "files": [
+                "**/__tests__/**/*.[jt]s?(x)",
+                "**/?(*.)+(spec|test).[jt]s?(x)"
+            ],
+            "extends": ["plugin:testing-library/react"]
+        },
+        // @react-icons 설정 파일에서는 import 제한 해제
+        {
+            "files": [
+                "libs/reactIcons/reactIconsList.ts",
+                "libs/reactIcons/ReactIconsProvider.tsx"
+            ],
+            "rules": {
+                "no-restricted-imports": ["error", {
+                    "patterns": [
+                        {
+                            "group": ["react"],
+                            "importNames": ["default"],
+                            "message": "\n🚫 default import 대신, 사용할 멤버만 import 해주세요.\n"
+                        },
+                        {
+                            "group": ["@react-icons/*"],
+                            "importNames": ["default"],
+                            "message": "\n🚫 default import 대신, 사용할 멤버만 import 해주세요.\n"
+                        }
+                    ]
+                }]
+            }
+        }
+    ],
+    "ignorePatterns": [
+        "next.config.js",
+        "node_modules/**/*",
+        ".next/**/*",
+        "tailwind.config.js",
+        "postcss.config.js",
+        "jest.config.js",
+        "jest.setup.js"
+    ]
+}
