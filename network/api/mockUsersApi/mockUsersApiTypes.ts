@@ -1,7 +1,7 @@
-export type RetrieveMockUsersApiPayload = {
+export type TRetrieveMockUsersApiPayload = {
     id: number;
 };
 
-export type RetrieveMockUsersApiResponse = {
+export type TRetrieveMockUsersApiResponse = {
     hello: string;
 };

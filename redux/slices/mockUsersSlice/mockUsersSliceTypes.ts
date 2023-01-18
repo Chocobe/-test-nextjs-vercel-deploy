@@ -1,11 +1,11 @@
 import {
-    RetrieveMockUsersApiResponse,
+    TRetrieveMockUsersApiResponse,
 } from '@/network/api/mockUsersApi/mockUsersApiTypes';
 
 export type MockUsersSliceState = {
     retrieve: {
         isPending: boolean;
-        data: RetrieveMockUsersApiResponse | null;
+        data: TRetrieveMockUsersApiResponse | null;
         error: any;
     };
 };

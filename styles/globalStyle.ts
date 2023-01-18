@@ -5,13 +5,12 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: Pretendard Variable, Noto Sans KR, sans-serif;
     }
-
+    
     body {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        font-family: 'Noto Sans KR', sans-serif;
+        font-family: Pretendard Variable, Noto Sans KR, sans-serif;
     }
 
     a {

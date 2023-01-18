@@ -1,6 +1,13 @@
-import type { AppProps } from 'next/app';
+// nextjs
 import Head from 'next/head';
-
+import { 
+    NextComponentType, 
+    NextPageContext
+} from 'next';
+// react
+import {
+    ReactElement,
+} from 'react';
 // styled-components
 import styled, {
     ThemeProvider,
@@ -13,13 +20,24 @@ import store from '@/redux/store';
 // icon
 import ReactIconsProvider from '@/libs/reactIcons/ReactIconsProvider';
 
+export type TPageComponent = NextComponentType<NextPageContext, any, any> & {
+    getLayout?: (page: ReactElement) => ReactElement;
+};
+
+export type TAppPropsWithLayout<T = any> = {
+    Component: TPageComponent;
+    pageProps: T;
+};
+
 const AppRoot = styled.div`
     width: 100%;
     height: 100vh;
     overflow: hidden;
 `;
 
-function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: TAppPropsWithLayout) {
+    const getLayout = Component.getLayout ?? ((page: ReactElement) => page);
+
     return (
         <AppRoot>
             <Head>
@@ -35,7 +53,7 @@ function App({ Component, pageProps }: AppProps) {
                 <ThemeProvider theme={theme}>
                     <GlobalStyle />
                     <ReactIconsProvider>
-                        <Component {...pageProps} />
+                        {getLayout(<Component {...pageProps} />)}
                     </ReactIconsProvider>
                 </ThemeProvider>
             </Provider>

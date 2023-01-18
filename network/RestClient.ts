@@ -1,9 +1,9 @@
 import axios, {
     AxiosRequestConfig,
 } from 'axios';
-import { localStorageItemKey } from './constants';
+import { ELocalStorageItemKey } from './CONSTANTS/ELocalStorageItemKey';
 
-export type SendRequestParams = {
+export type TSendRequestParams = {
     method: (
         typeof axios.get | 
         typeof axios.post |
@@ -31,7 +31,7 @@ const axiosInstance = (function() {
     axiosInstance.interceptors.request.use(
         function (config) {
             // TODO: authToken 처리
-            const accessKey = localStorage.getItem(localStorageItemKey.LABELR_AUTH_TOKEN);
+            const accessKey = localStorage.getItem(ELocalStorageItemKey.LABELR_ACCESS_KEY);
 
             if (accessKey && config.headers) {
                 (config.headers as any)!['Authorization'] = `Token ${accessKey}`;
@@ -63,7 +63,7 @@ const sendRequest = async ({
     params = {},
     config = {},
     callback,
-}: SendRequestParams) => {
+}: TSendRequestParams) => {
     try {
         // if (!url) {
         //     throw new Error('empty url is invalid');
@@ -79,7 +79,7 @@ const sendRequest = async ({
     }
 };
 
-const restClient = {
+const RestClient = {
     get: async (
         url: string,
         params?: any,
@@ -163,5 +163,6 @@ const restClient = {
         });
     },
 };
+Object.freeze(RestClient);
 
-export default restClient;
+export default RestClient;

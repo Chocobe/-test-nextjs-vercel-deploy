@@ -1,14 +1,14 @@
-import restClient from '@/network/restClient';
+import RestClient from '@/network/RestClient';
 import mockUsersApiUrlList from './mockUsersApiUrlList';
 import {
-    RetrieveMockUsersApiResponse,
+    TRetrieveMockUsersApiResponse,
 } from './mockUsersApiTypes';
 
 const mockUsersApi = {
     retrieveMockUsers(id: number) {
-        return restClient.get(
+        return RestClient.get(
             mockUsersApiUrlList.getRetrieveMockUsersUrl(id)
-        ) as any as Promise<RetrieveMockUsersApiResponse>;
+        ) as any as Promise<TRetrieveMockUsersApiResponse>;
     },
 };
 
