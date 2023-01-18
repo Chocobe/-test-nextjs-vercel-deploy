@@ -22,7 +22,14 @@
         "indent": [
             "error", 
             4, 
-            { "SwitchCase": 1 }
+            { 
+                "SwitchCase": 1,
+                "IgnoredNodes": [
+                    "styledComponentArrowFn",
+                    "ArrowFunctionExpression"
+                    // "TaggedTemplateExpression > TemplateLiteral > ArrowFunctionExpression > BlockStatement"
+                ]
+            }
         ],
         "comma-dangle": [
             "error",

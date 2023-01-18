@@ -1,8 +1,16 @@
 import 'styled-components';
-import { ThemeColorsType } from './theme';
+import { 
+    TThemeColorsType,
+    TThemeColorsOfDesignSystem,
+    TThemeMode,
+    TThemeMixins,
+} from './theme';
 
 declare module 'styled-components' {
     export interface DefaultTheme {
-        colors: ThemeColorsType;
+        colors: TThemeColorsType;
+        colorsOfDesignSystem: TThemeColorsOfDesignSystem;
+        themeMode: TThemeMode;
+        mixins: TThemeMixins;
     }
 }
