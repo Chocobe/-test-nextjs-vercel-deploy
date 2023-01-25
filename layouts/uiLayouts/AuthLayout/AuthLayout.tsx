@@ -20,6 +20,7 @@ const StyledAuthLayoutRoot = styled.div`
         width: 100%;
         max-width: 560px;
         background-color: ${({ theme }) => theme.colorsOfDesignSystem.blackAndWhite.white};
+        border-radius: 8px;
     }
 `;
 
