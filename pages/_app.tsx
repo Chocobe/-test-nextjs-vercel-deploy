@@ -4,16 +4,29 @@ import {
     NextComponentType, 
     NextPageContext
 } from 'next';
+import { 
+    useRouter,
+    NextRouter,
+} from 'next/router';
 // react
 import {
+    useReducer,
     ReactElement,
 } from 'react';
 // styled-components
 import styled, {
     ThemeProvider,
 } from 'styled-components';
-import theme from '@/styles/theme';
+import {
+    getGlobalTheme,
+} from '@/styles/theme';
 import GlobalStyle from '@/styles/globalStyle';
+import { 
+    initialState, 
+    reducer,
+    ThemeModeContextDispatch,
+    ThemeModeContextState
+} from '@/styles/ThemeModeContext/ThemeModeContext';
 // Redux
 import { Provider } from 'react-redux';
 import store from '@/redux/store';
@@ -36,7 +49,14 @@ const AppRoot = styled.div`
 `;
 
 function App({ Component, pageProps }: TAppPropsWithLayout) {
-    const getLayout = Component.getLayout ?? ((page: ReactElement) => page);
+    const router = useRouter();
+    
+    const getLayout: (
+        page: ReactElement,
+        router: NextRouter,
+    ) => ReactElement = Component.getLayout ?? ((page: ReactElement) => page);
+
+    const [themeModeState, dispatchThemeMode] = useReducer(reducer, initialState);
 
     return (
         <AppRoot>
@@ -50,10 +70,14 @@ function App({ Component, pageProps }: TAppPropsWithLayout) {
             </Head>
 
             <Provider store={store}>
-                <ThemeProvider theme={theme}>
+                <ThemeProvider theme={getGlobalTheme(themeModeState.themeMode)}>
                     <GlobalStyle />
                     <ReactIconsProvider>
-                        {getLayout(<Component {...pageProps} />)}
+                        <ThemeModeContextDispatch.Provider value={dispatchThemeMode}>
+                            <ThemeModeContextState.Provider value={themeModeState}>
+                                {getLayout(<Component {...pageProps} />, router)}
+                            </ThemeModeContextState.Provider>
+                        </ThemeModeContextDispatch.Provider>
                     </ReactIconsProvider>
                 </ThemeProvider>
             </Provider>
