@@ -3,13 +3,10 @@ import {
     useState,
     useCallback,
 } from 'react';
+// type
+import { TUseLabelrUiAddonInvalidMessagesExecutor } from '../labelrUiAddonInvalidMessagesTypes';
 
-export type TUseLabelrUiAddonInvalidMessagesExecutor<T = any> = {
-    validator: (value: T) => boolean;
-    invalidMessage: string;
-};
-
-export const useLabelrUiAddonInvalidMessages = <T>(
+export const useLabelrUiAddonInvalidMessages = <T = any>(
     validatorExecutors: TUseLabelrUiAddonInvalidMessagesExecutor<T>[]
 ) => {
     const [isValid, setIsValid] = useState(true);

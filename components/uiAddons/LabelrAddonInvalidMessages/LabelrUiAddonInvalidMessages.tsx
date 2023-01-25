@@ -1,44 +1,66 @@
 // react
 import {
+    useMemo,
     memo,
     PropsWithChildren,
 } from 'react';
 // styled-components
 import styled from 'styled-components';
 
-const StyledLabelrAddonInvalidMessagesRoot = styled.div`
+const StyledLabelrAddonInvalidMessagesRoot = styled.div<{
+    fluid?: boolean;
+}>`
+    width: ${({ fluid }) => fluid ? '100%' : '180px'};
+    display: inline-flex;
+    flex-direction: column;
+
+    transition: all 0.28s ease;
+
     .invalidMessages {
-        display: inline-block;
+        margin-top: 4px;
+        display: inline-flex;
+        flex-direction: column;
 
         &-message {
-            display: inline-block;
+            color: ${({ theme }) => theme.colors.red[400]};
+            font-size: 10px;
+            line-height: 16px;
+            font-weight: 400;
         }
     }
 `;
 
 export type TLabelrAddonInvalidMessagesProps = PropsWithChildren<{
     invalidMessages: string[];
+    fluid?: boolean;
 }>;
 
 function LabelrAddonInvalidMessages(props: TLabelrAddonInvalidMessagesProps) {
     const {
         invalidMessages,
+        fluid,
         children,
     } = props;
 
+    const isShowInvalidMessages = useMemo(() => {
+        return invalidMessages?.length > 0;
+    }, [invalidMessages]);
+
     return (
-        <StyledLabelrAddonInvalidMessagesRoot>
+        <StyledLabelrAddonInvalidMessagesRoot fluid={fluid}>
             {children}
 
-            <ul className="invalidMessages">
-                {invalidMessages.map((message, index) => (
-                    <li 
-                        key={index}
-                        className="invalidMessages-message">
-                        {message}
-                    </li>
-                ))}
-            </ul>
+            {isShowInvalidMessages && (
+                <ul className="invalidMessages">
+                    {invalidMessages.map((message, index) => (
+                        <li 
+                            key={index}
+                            className="invalidMessages-message">
+                            {message}
+                        </li>
+                    ))}
+                </ul>
+            )}
         </StyledLabelrAddonInvalidMessagesRoot>
     );
 }

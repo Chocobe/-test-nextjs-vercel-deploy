@@ -1,6 +1,5 @@
 import {
     useMemo,
-    useEffect,
 } from 'react';
 // nextjs
 import {
@@ -34,12 +33,6 @@ function LabelrUiDemoPage() {
             ? <DemoSectionComponent />
             : null;
     }, [demoName]);
-
-    useEffect(() => {
-        if (!demoSection) {
-            router.replace(labelrUiDemoRouteMapper.input.path);
-        }
-    }, [router, demoSection]);
 
     return (
         <StyledLabelrUiDemoPageRoot>
