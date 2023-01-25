@@ -30,7 +30,7 @@ const StyledLabelrInputRoot = styled.div<{
     isPointerEventsNone: boolean;
     fluid?: boolean;
 }>`
-    padding: 9px 16px;
+    padding: 8px 16px;
     width: ${({ fluid }) => fluid ? '100%' : '180px'};
     display: inline-flex;
     align-items: center;
@@ -71,12 +71,12 @@ const StyledLabelrInputRoot = styled.div<{
 
     // size: large
     ${`&.${labelrInputSizeMapper.LARGE}`} {
-        padding: 13px 16px;
+        padding: 12px 16px;
     }
 
     // size: small
     ${`&.${labelrInputSizeMapper.SMALL}`} {
-        padding: 7px 12px;
+        padding: 6px 12px;
 
         .inputElement {
             font-size: 12px;
