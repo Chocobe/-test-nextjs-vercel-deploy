@@ -15,10 +15,12 @@ import {
     labelrInputElementStateMapper,
     labelrInputSizeMapper,
     labelrInputTypeMapper,
+    labelrInputAutoCompleteMapper,
 
     TLabelrInputElementState,
     TLabelrInputType,
     TLabelrInputSize,
+    TLabelrInputAutoComplete,
 } from './labelrInputTypes';
 import styled from 'styled-components';
 
@@ -88,6 +90,7 @@ export type TLabelrInputProps<
     isDisabled?: boolean;
     isReadonly?: boolean;
     autofocus?: boolean;
+    autoComplete?: TLabelrInputAutoComplete;
     size?: TLabelrInputSize;
     slots?: {
         LeftAddonElement?: ((props: TLabelrInputProps<T>) => ReactNode) | null;
@@ -106,6 +109,7 @@ function LabelrInput<T extends string | number>(props: TLabelrInputProps<T>) {
         isDisabled,
         isReadonly,
         autofocus,
+        autoComplete = labelrInputAutoCompleteMapper.OFF,
         size = labelrInputSizeMapper.REGULAR,
         slots,
         // children,
@@ -219,6 +223,7 @@ function LabelrInput<T extends string | number>(props: TLabelrInputProps<T>) {
                 onChange={onChange}
                 disabled={isDisabledElementState}
                 placeholder={placeholder} 
+                autoComplete={autoComplete}
                 onFocus={() => {
                     onChangeElementState(labelrInputElementStateMapper.FOCUS);
                 }}

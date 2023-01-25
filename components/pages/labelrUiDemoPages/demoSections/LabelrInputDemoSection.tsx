@@ -55,6 +55,7 @@ function DemoSectionForLabelrInput() {
     const [isDisabled, setIsDisabled] = useState(false);
     const [isInvalid, setIsInvalid] = useState(false);
     const [isReadonly, setIsReadonly] = useState(false);
+    const [autoComplete, setAutoComplete] = useState<'off' | 'on' | undefined>();
     const [isShowLeftAddonElement, setIsShowLeftAddonElement] = useState(false);
     const [isShowRightAddonElement, setIsShowRightAddonElement] = useState(false);
 
@@ -72,6 +73,7 @@ function DemoSectionForLabelrInput() {
                     isInvalid={isInvalid}
                     isReadonly={isReadonly}
                     autofocus
+                    autoComplete={autoComplete}
                     slots={{
                         LeftAddonElement: isShowLeftAddonElement
                             ? () => <FiGithub size="14px" />
@@ -156,6 +158,18 @@ function DemoSectionForLabelrInput() {
                         type="checkbox"
                         checked={isReadonly}
                         onChange={e => setIsReadonly(e.target.checked)} />
+                </div>
+
+                <div className="configSection-prop">
+                    <label className="configSection-prop-label">
+                        autoComplete
+                    </label>
+                    <select
+                        value={autoComplete}
+                        onChange={e => setAutoComplete(e.target.value as 'off' | 'on')}>
+                        <option value="off">Off</option>
+                        <option value="on">On</option>
+                    </select>
                 </div>
 
                 <div className="configSection-prop">

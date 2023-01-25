@@ -24,3 +24,9 @@ export const labelrInputSizeMapper = {
     LARGE: 'large',
 } as const;
 export type TLabelrInputSize = typeof labelrInputSizeMapper[keyof typeof labelrInputSizeMapper];
+
+export const labelrInputAutoCompleteMapper = {
+    OFF: 'off',
+    ON: 'on',
+} as const;
+export type TLabelrInputAutoComplete = typeof labelrInputAutoCompleteMapper[keyof typeof labelrInputAutoCompleteMapper];
