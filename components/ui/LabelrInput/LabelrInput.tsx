@@ -28,9 +28,13 @@ const StyledLabelrInputRoot = styled.div<{
     themeMode: 'light' | 'dark';
     elementState: TLabelrInputElementState;
     isPointerEventsNone: boolean;
+    fluid?: boolean;
 }>`
     padding: 9px 16px;
-    display: inline-block;
+    width: ${({ fluid }) => fluid ? '100%' : '180px'};
+    display: inline-flex;
+    align-items: center;
+
     border-radius: 4px;
     border: 1px solid ${({ theme, elementState }) => theme.uiThemeMode.input[elementState].borderColor};
     background-color: ${({ theme, elementState }) => theme.uiThemeMode.input[elementState].backgroundColor};
@@ -39,8 +43,10 @@ const StyledLabelrInputRoot = styled.div<{
     .inputElement {
         appearance: none;
         -webkit-appearance: none;
+        width: 100%;
         border: none;
         outline: none;
+        flex: 1;
 
         color: ${({ theme, elementState }) => theme.uiThemeMode.input[elementState].color};
         font-size: 14px;
@@ -54,11 +60,13 @@ const StyledLabelrInputRoot = styled.div<{
         margin-right: 8px;
         display: inline-block;
         stroke: #03a9f4;
+        flex: 0;
     }
-
+    
     .rightAddonElement {
         margin-left: 8px;
         display: inline-block;
+        flex: 0;
     }
 
     // size: large
@@ -92,6 +100,7 @@ export type TLabelrInputProps<
     autofocus?: boolean;
     autoComplete?: TLabelrInputAutoComplete;
     size?: TLabelrInputSize;
+    fluid?: boolean;
     slots?: {
         LeftAddonElement?: ((props: TLabelrInputProps<T>) => ReactNode) | null;
         RightAddonElement?: ((props: TLabelrInputProps<T>) => ReactNode) | null;
@@ -111,6 +120,7 @@ function LabelrInput<T extends string | number>(props: TLabelrInputProps<T>) {
         autofocus,
         autoComplete = labelrInputAutoCompleteMapper.OFF,
         size = labelrInputSizeMapper.REGULAR,
+        fluid,
         slots,
         // children,
     } = props;
@@ -198,6 +208,7 @@ function LabelrInput<T extends string | number>(props: TLabelrInputProps<T>) {
             className={size}
             elementState={elementState}
             isPointerEventsNone={isDisabledElementState}
+            fluid={fluid}
             onMouseUp={() => $input.current?.focus()}
             onMouseEnter={() => { 
                 if (elementState !== labelrInputElementStateMapper.FOCUS) {

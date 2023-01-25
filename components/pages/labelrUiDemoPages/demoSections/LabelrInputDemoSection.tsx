@@ -56,6 +56,7 @@ function DemoSectionForLabelrInput() {
     const [isInvalid, setIsInvalid] = useState(false);
     const [isReadonly, setIsReadonly] = useState(false);
     const [autoComplete, setAutoComplete] = useState<'off' | 'on' | undefined>();
+    const [fluid, setFluid] = useState(false);
     const [isShowLeftAddonElement, setIsShowLeftAddonElement] = useState(false);
     const [isShowRightAddonElement, setIsShowRightAddonElement] = useState(false);
 
@@ -73,6 +74,7 @@ function DemoSectionForLabelrInput() {
                     isInvalid={isInvalid}
                     isReadonly={isReadonly}
                     autofocus
+                    fluid={fluid}
                     autoComplete={autoComplete}
                     slots={{
                         LeftAddonElement: isShowLeftAddonElement
@@ -170,6 +172,16 @@ function DemoSectionForLabelrInput() {
                         <option value="off">Off</option>
                         <option value="on">On</option>
                     </select>
+                </div>
+
+                <div className="configSection-prop">
+                    <label className="configSection-prop-label">
+                        fluid
+                    </label>
+                    <input 
+                        type="checkbox"
+                        checked={fluid}
+                        onChange={e => setFluid(e.target.checked)} />
                 </div>
 
                 <div className="configSection-prop">
