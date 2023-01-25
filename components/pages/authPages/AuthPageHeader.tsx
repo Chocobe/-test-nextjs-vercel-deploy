@@ -4,12 +4,13 @@ import {
 } from 'react';
 // nextjs
 import Link from 'next/link';
+import Image from 'next/image';
 // styled-components
 import styled from 'styled-components';
 // utils
 import {
     getStaticImageFilePath,
-} from '@/utils/getStaticFilePath';
+} from '@/utils';
 
 const StyledAuthPageHeaderRoot = styled.header`
     .linkWrapper {
@@ -73,11 +74,11 @@ function AuthPageHeader(props: TAuthPageHeaderProps) {
             )}
 
             <figure className="logoWrapper">
-                <img 
+                <Image 
                     src={getStaticImageFilePath('logo.png')} 
                     alt="로고" 
-                    width="48px"
-                    height="48px" />
+                    width={48}
+                    height={48} />
             </figure>
 
             <h1 className="title">
