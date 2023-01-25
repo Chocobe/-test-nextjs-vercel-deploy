@@ -1,7 +1,8 @@
 // react
 import { 
-    memo,
+    useState,
     useCallback,
+    memo,
     ChangeEvent, 
 } from 'react';
 // UI Components
@@ -51,21 +52,29 @@ function LabelrInputEmail(props: TLabelrInputEmailProps) {
         fluid,
     } = props;
 
+    const [isValid, setIsValid] = useState(true);
+    const [invalidMessages, setInvalidMessages] = useState<string[]>([]);
+
     const {
-        isValid,
-        invalidMessages,
         checkIsValidValue,
     } = useLabelrUiAddonInvalidMessages(labelrInputEmailValidatorExecutors);
 
     const onChangeInputElement = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value;
         
-        checkIsValidValue(value);
+        const {
+            isValid,
+            invalidMessages,
+        } = checkIsValidValue(value);
+
+        setIsValid(isValid);
+        setInvalidMessages(invalidMessages);
+
         onChange(e, {
             isValid,
             invalidMessages
         });
-    }, [checkIsValidValue, invalidMessages, isValid, onChange]);
+    }, [checkIsValidValue, onChange]);
 
     return (
         <LabelrUiAddonInvalidMessages 
