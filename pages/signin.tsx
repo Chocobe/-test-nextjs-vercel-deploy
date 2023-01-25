@@ -3,10 +3,10 @@ import {
     ReactElement,
 } from 'react';
 // page
-import SigninPage from '@/components/pages/SigninPage/SigninPage';
+import SigninPage from '@/components/pages/authPages/SigninPage/SigninPage';
 // layouts
-import SomeServiceLayout from '@/layouts/uiLayouts/SomeServiceLayout/SomeServiceLayout';
 import NoneAuthRouteGuard from '@/layouts/routeGuardLayouts/NoneAuthRouteGuard';
+import AuthLayout from '@/layouts/uiLayouts/AuthLayout/AuthLayout';
 
 function Signin() {
     return <SigninPage />;
@@ -14,11 +14,11 @@ function Signin() {
 
 Signin.getLayout = (page: ReactElement) => {
     return (
-        <SomeServiceLayout>
+        <AuthLayout>
             <NoneAuthRouteGuard>
                 {page}
             </NoneAuthRouteGuard>
-        </SomeServiceLayout>
+        </AuthLayout>
     );
 };
 

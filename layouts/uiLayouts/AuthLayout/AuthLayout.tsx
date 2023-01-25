@@ -1,29 +1,35 @@
+// react
 import {
-    useState,
-    useEffect,
     PropsWithChildren,
 } from 'react';
+// styled-components
+import styled from 'styled-components';
+
+const StyledAuthLayoutRoot = styled.div`
+    width: 100%;
+    height: 100vh;
+    background-color: ${({ theme }) => theme.colorsOfDesignSystem.neutral.bs['50']};
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .main {
+        padding: 80px;
+
+        width: 100%;
+        max-width: 560px;
+        background-color: ${({ theme }) => theme.colorsOfDesignSystem.blackAndWhite.white};
+    }
+`;
 
 function AuthLayout(props: PropsWithChildren) {
-    const [randomValue, setRandomValue] = useState<number | null>(null);
-
-    useEffect(() => {
-        setRandomValue(Math.floor(Math.random() * 1000));
-    }, []);
-    
     return (
-        <div style={{
-            padding: '40px',
-            width:'100%',
-            height: '100vh',
-            backgroundColor: '#f0a87a',
-        }}>
-            <div>
-                <h1>Auth Layout</h1>
-                <div>Auth Random Value: {randomValue}</div>
-            </div>
-            {props.children}
-        </div>
+        <StyledAuthLayoutRoot>
+            <main className="main">
+                {props. children}
+            </main>
+        </StyledAuthLayoutRoot>
     );
 }
 

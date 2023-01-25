@@ -10,6 +10,8 @@ import {
     TRetrieveMockUsersApiResponse,
 } from '@/network/api/mockUsersApi/mockUsersApiTypes';
 
+const NAMESPACE = 'mockUsers';
+
 const initialState: MockUsersSliceState = {
     retrieve: {
         isPending: false,
@@ -19,7 +21,7 @@ const initialState: MockUsersSliceState = {
 };
 
 const mockUsersSlice = createSlice({
-    name: 'mockUsers',
+    name: NAMESPACE,
     initialState,
     reducers: {
         // reset
