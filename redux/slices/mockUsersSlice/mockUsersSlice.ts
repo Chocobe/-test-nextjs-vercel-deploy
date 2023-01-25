@@ -1,7 +1,9 @@
+// rtk
 import { 
     createSlice,
     PayloadAction,
 } from '@reduxjs/toolkit';
+// types
 import {
     MockUsersSliceState,
 } from './mockUsersSliceTypes';
