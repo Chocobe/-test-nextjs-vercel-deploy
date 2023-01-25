@@ -22,14 +22,7 @@
         "indent": [
             "error", 
             4, 
-            { 
-                "SwitchCase": 1,
-                "IgnoredNodes": [
-                    "styledComponentArrowFn",
-                    "ArrowFunctionExpression"
-                    // "TaggedTemplateExpression > TemplateLiteral > ArrowFunctionExpression > BlockStatement"
-                ]
-            }
+            { "SwitchCase": 1 }
         ],
         "comma-dangle": [
             "error",
@@ -69,7 +62,11 @@
                     }
                 ]
             }
-        ]
+        ],
+        "react/jsx-boolean-value": ["error"]
+        // "react/jsx-boolean-value": [
+        //     "error"
+        // ]
     },
     "overrides": [
         // 유닛 테스트 파일은 @testing-library/react 컨벤션 적용
