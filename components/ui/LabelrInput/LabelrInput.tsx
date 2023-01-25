@@ -192,7 +192,7 @@ function LabelrInput<T extends string | number>(props: TLabelrInputProps<T>) {
     useEffect(() => {
         if (isInitialized) return;
 
-        $input.current?.focus();
+        autofocus && $input.current?.focus();
         setElementState(autofocus
             ? labelrInputElementStateMapper.FOCUS
             : labelrInputElementStateMapper.NORMAL
