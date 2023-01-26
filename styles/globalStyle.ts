@@ -45,7 +45,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     a {
-        color: ${({ theme }) => theme.colors.brand['500']};
+        color: ${({ theme }) => theme.colors.indigo['500']};
         text-decoration: none;
     }
 

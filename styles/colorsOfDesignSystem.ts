@@ -5,6 +5,7 @@ const colorsOfDesignSystem = {
         brand: colors.brand,
     },
     secondary: {
+        sky: colors.sky,
         blue: colors.blue,
         indigo: colors.indigo,
         purple: colors.purple,
@@ -31,7 +32,7 @@ const colorsOfDesignSystem = {
         black: colors.black,
         white: colors.white,
     },
-};
+} as const;
 
 export default colorsOfDesignSystem;
 export type TThemeColorsOfDesignSystem = typeof colorsOfDesignSystem;
