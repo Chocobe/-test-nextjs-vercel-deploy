@@ -1,9 +1,7 @@
 import colors from '../../colors';
-// import labelrInputElementState from './labelrInputElementState';
 import {
     labelrInputElementStateMapper,
 } from '@/components/ui/LabelrInput/labelrInputTypes';
-// import themeModeNameMapper from '../themeModeNameMapper';
 import {
     themeModeNameMapper,
 } from '@/styles/uiThemeMode/themeModeNameMapper';

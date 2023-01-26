@@ -4,11 +4,12 @@ import {
     useState,
     useMemo,
     useCallback,
+    useEffect,
     memo,
+
     PropsWithChildren,
     ReactNode,
     ChangeEvent,
-    useEffect,
 } from 'react';
 // type
 import {
@@ -22,68 +23,80 @@ import {
     TLabelrInputSize,
     TLabelrInputAutoComplete,
 } from './labelrInputTypes';
-import styled from 'styled-components';
+// styled-components
+import styled, {
+    css,
+} from 'styled-components';
 
 const StyledLabelrInputRoot = styled.div<{
-    themeMode: 'light' | 'dark';
     elementState: TLabelrInputElementState;
     isPointerEventsNone: boolean;
     fluid?: boolean;
 }>`
-    padding: 8px 16px;
-    width: ${({ fluid }) => fluid ? '100%' : '180px'};
-    display: inline-flex;
-    align-items: center;
+    ${({ theme, elementState, fluid }) => {
+        const {
+            color,
+            borderColor,
+            backgroundColor,
+        } = theme.uiThemeMode.input[elementState];
+        
+        return css`
+            padding: 8px 16px;
+            width: ${fluid ? '100%' : '180px'};
+            display: inline-flex;
+            align-items: center;
 
-    border-radius: 4px;
-    border: 1px solid ${({ theme, elementState }) => theme.uiThemeMode.input[elementState].borderColor};
-    background-color: ${({ theme, elementState }) => theme.uiThemeMode.input[elementState].backgroundColor};
-    transition: all 0.28s ease;
+            border-radius: 4px;
+            border: 1px solid ${borderColor};
+            background-color: ${backgroundColor};
+            transition: all 0.28s ease;
 
-    .inputElement {
-        appearance: none;
-        -webkit-appearance: none;
-        width: 100%;
-        border: none;
-        outline: none;
-        flex: 1;
+            .inputElement {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 100%;
+                border: none;
+                outline: none;
+                flex: 1;
 
-        color: ${({ theme, elementState }) => theme.uiThemeMode.input[elementState].color};
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 22px;
+                color: ${color};
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 22px;
 
-        background-color: inherit;
-    }
+                background-color: inherit;
+            }
 
-    .leftAddonElement {
-        margin-right: 8px;
-        display: inline-block;
-        stroke: #03a9f4;
-        flex: 0;
-    }
-    
-    .rightAddonElement {
-        margin-left: 8px;
-        display: inline-block;
-        flex: 0;
-    }
+            .leftAddonElement {
+                margin-right: 8px;
+                display: inline-block;
+                stroke: #03a9f4;
+                flex: 0;
+            }
+            
+            .rightAddonElement {
+                margin-left: 8px;
+                display: inline-block;
+                flex: 0;
+            }
 
-    // size: large
-    ${`&.${labelrInputSizeMapper.LARGE}`} {
-        padding: 12px 16px;
-    }
+            // size: large
+            ${`&.${labelrInputSizeMapper.LARGE}`} {
+                padding: 12px 16px;
+            }
 
-    // size: small
-    ${`&.${labelrInputSizeMapper.SMALL}`} {
-        padding: 6px 12px;
+            // size: small
+            ${`&.${labelrInputSizeMapper.SMALL}`} {
+                padding: 6px 12px;
 
-        .inputElement {
-            font-size: 12px;
-            font-weight: 400;
-            line-height: 18px;
-        }
-    }
+                .inputElement {
+                    font-size: 12px;
+                    font-weight: 400;
+                    line-height: 18px;
+                }
+            }
+        `;
+    }}
 `;
 
 export type TLabelrInputProps<
@@ -204,7 +217,6 @@ function LabelrInput<T extends string | number>(props: TLabelrInputProps<T>) {
     return (
         <StyledLabelrInputRoot
             role="text"
-            themeMode="light"
             className={size}
             elementState={elementState}
             isPointerEventsNone={isDisabledElementState}
