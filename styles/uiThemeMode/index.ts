@@ -1,4 +1,5 @@
 import input from './labelrInputThemeMode/labelrInputThemeMode';
+import button from './labelrButtonThemeMode/labelrButtonThemeMode';
 import {
     themeModeNameMapper,
     TThemeModeName,
@@ -8,6 +9,7 @@ const uiThemeMode = (
     themeMode: TThemeModeName = themeModeNameMapper.LIGHT
 ) => ({
     input: input[themeMode],
+    button: button[themeMode],
 });
 
 export default uiThemeMode;

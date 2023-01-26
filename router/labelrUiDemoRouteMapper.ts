@@ -3,6 +3,7 @@ import {
     LabelrInputDemoSection,
     LabelrInputEmailDemoSection,
     LabelrInputPasswordDemoSection,
+    LabelrButtonDemoSection,
 } from '@/components/pages/labelrUiDemoPages/demoSections';
 
 export const labelrUiDemoRouteMapper = {
@@ -20,6 +21,12 @@ export const labelrUiDemoRouteMapper = {
         title: 'LabelrInputPassword',
         path: RoutePathFactory['/labelrUiDemo/[demoName]']('inputPassword'),
         DemoSectionComponent: LabelrInputPasswordDemoSection,
+    },
+
+    button: {
+        title: 'LabelrButton',
+        path: RoutePathFactory['/labelrUiDemo/[demoName]']('button'),
+        DemoSectionComponent: LabelrButtonDemoSection,
     },
 } as const;
 
