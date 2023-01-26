@@ -5,21 +5,32 @@ import {
 } from 'react';
 // styled-components
 import styled from 'styled-components';
+import useThemeModeState from '@/styles/ThemeModeContext/hooks/useThemeModeState';
+// types
+import { 
+    themeModeNameMapper, 
+    TThemeModeName
+} from '@/styles/uiThemeMode/themeModeNameMapper';
 
-const StyledDemoSectionTemplateRoot = styled.div`
+const StyledDemoSectionTemplateRoot = styled.div<{
+    themeMode: TThemeModeName;
+}>`
     width: 100%;
     height: 100%;
 
     display: grid;
     grid-template-columns: 1fr minmax(200px, max-content);
-    gap: 20px;
     overflow: hidden;
 
     .demoComponentWrapper {
+        padding: 20px;
         overflow: auto;
+        background-color: ${({ themeMode }) => themeMode === themeModeNameMapper.LIGHT ? '#fff' : '#000'};
+        transition: all 0.28s ease;
     }
 
     .propsWrapper {
+        padding: 20px;
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -47,9 +58,12 @@ function DemoSectionTemplate(props: TDemoSectionTemplateProps) {
         propItems,
         children,
     } = props;
+
+    const { themeMode } = useThemeModeState();
     
     return (
-        <StyledDemoSectionTemplateRoot>
+        <StyledDemoSectionTemplateRoot
+            themeMode={themeMode}>
             <div className="demoComponentWrapper">
                 {children}
             </div>

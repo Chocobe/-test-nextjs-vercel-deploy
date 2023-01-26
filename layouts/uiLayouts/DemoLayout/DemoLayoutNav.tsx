@@ -11,17 +11,16 @@ import {
 import { RoutePathFactory } from '@/router/RoutePathFactory';
 
 const StyledDemoLayoutNavRoot = styled.nav`
-    padding: 12px;
-    width: 100%;
+    width: fit-content;
     height: 100%;
     
     display: flex;
     flex-direction: column;
 
-    box-shadow: -3px 0 9px ${({ theme }) => theme.colors.gs[900]};
+    border-right: 1px solid ${({ theme }) => theme.colors.brand[800]};
 
     .menuItem {
-        padding: 8px 4px;
+        padding: 8px 16px;
         color: ${({ theme }) => theme.colors.gs[500]};
         font-weight: 700;
         transition: all 0.28s ease;

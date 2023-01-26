@@ -18,7 +18,8 @@ const StyledLabelrUiDemoPageRoot = styled.div`
     height: 100%;
 
     .demoArticle {
-        padding: 20px;
+        height: 100%;
+        overflow: hidden;
     }
 `;
 
