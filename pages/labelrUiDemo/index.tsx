@@ -13,7 +13,7 @@ function LabelrUiDemo() {
     const router = useRouter();
 
     useEffect(() => {
-        router.replace(RoutePathFactory['/labelrUiDemo/[demoName]']('input'));
+        router.replace(RoutePathFactory['/labelrUiDemo/[demoName]']('button'));
     }, [router]);
 
     return null;

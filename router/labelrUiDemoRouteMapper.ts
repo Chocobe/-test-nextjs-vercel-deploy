@@ -1,12 +1,25 @@
 import { RoutePathFactory } from './RoutePathFactory';
 import {
+    LabelrButtonDemoSection,
+    LabelrSocialButtonDemoSection,
+
     LabelrInputDemoSection,
     LabelrInputEmailDemoSection,
     LabelrInputPasswordDemoSection,
-    LabelrButtonDemoSection,
 } from '@/components/pages/labelrUiDemoPages/demoSections';
 
 export const labelrUiDemoRouteMapper = {
+    button: {
+        title: 'LabelrButton',
+        path: RoutePathFactory['/labelrUiDemo/[demoName]']('button'),
+        DemoSectionComponent: LabelrButtonDemoSection,
+    },
+    socialButton: {
+        title: 'LabelrSocialButton',
+        path: RoutePathFactory['/labelrUiDemo/[demoName]']('socialButton'),
+        DemoSectionComponent: LabelrSocialButtonDemoSection,
+    },
+
     input: {
         title: 'LabelrInput',
         path: RoutePathFactory['/labelrUiDemo/[demoName]']('input'),
@@ -23,11 +36,6 @@ export const labelrUiDemoRouteMapper = {
         DemoSectionComponent: LabelrInputPasswordDemoSection,
     },
 
-    button: {
-        title: 'LabelrButton',
-        path: RoutePathFactory['/labelrUiDemo/[demoName]']('button'),
-        DemoSectionComponent: LabelrButtonDemoSection,
-    },
 } as const;
 
 export type TLabelrUiDemoRouteMapperKey = keyof typeof labelrUiDemoRouteMapper;

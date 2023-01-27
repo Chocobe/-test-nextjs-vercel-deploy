@@ -65,6 +65,10 @@ const StyledLabelrButtonRoot = styled.button<{
 
             .leftAddonElement,
             .rightAddonElement {
+                height: 100%;
+                display: flex;
+                align-items: center;
+
                 flex: 0;
             }
 
@@ -111,8 +115,8 @@ export type TLabelrButtonProps = PropsWithChildren<{
     fluid?: boolean;
     onClick: MouseEventHandler<HTMLButtonElement>;
     slots?: {
-        LeftAddonElement: ((props: TLabelrButtonProps) => ReactNode) | null;
-        RightAddonElement: ((props: TLabelrButtonProps) => ReactNode) | null;
+        LeftAddonElement?: ((props: TLabelrButtonProps) => ReactNode) | null;
+        RightAddonElement?: ((props: TLabelrButtonProps) => ReactNode) | null;
     };
 }>;
 
