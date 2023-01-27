@@ -10,6 +10,7 @@ import {
     PropsWithChildren,
     ReactNode,
     ChangeEvent,
+    FocusEvent,
 } from 'react';
 // type
 import {
@@ -106,6 +107,8 @@ export type TLabelrInputProps<
     id?: string;
     value: T;
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    onFocus?: (event: FocusEvent<HTMLInputElement>) => void;
+    onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
     placeholder?: string;
     isInvalid?: boolean;
     isDisabled?: boolean;
@@ -126,6 +129,8 @@ function LabelrInput<T extends string | number>(props: TLabelrInputProps<T>) {
         id,
         value,
         onChange,
+        onFocus,
+        onBlur,
         placeholder,
         isInvalid,
         isDisabled,
@@ -181,6 +186,7 @@ function LabelrInput<T extends string | number>(props: TLabelrInputProps<T>) {
         setElementState(elementState);
     }, [isDisabled, isReadonly, isInvalid]);
 
+    // effect
     useEffect(() => {
         if (isReadonly) {
             setElementState(labelrInputElementStateMapper.READONLY);
@@ -247,11 +253,13 @@ function LabelrInput<T extends string | number>(props: TLabelrInputProps<T>) {
                 disabled={isDisabledElementState}
                 placeholder={placeholder} 
                 autoComplete={autoComplete}
-                onFocus={() => {
+                onFocus={e => {
                     onChangeElementState(labelrInputElementStateMapper.FOCUS);
+                    onFocus?.(e);
                 }}
-                onBlur={() => {
+                onBlur={e => {
                     onChangeElementState(labelrInputElementStateMapper.NORMAL);
+                    onBlur?.(e);
                 }} />
 
             {slots?.RightAddonElement && (

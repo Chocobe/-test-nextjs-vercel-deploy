@@ -5,12 +5,6 @@ import {
     memo,
     ChangeEvent, 
 } from 'react';
-// UI Components
-import LabelrInput from '../LabelrInput/LabelrInput';
-import LabelrUiAddonInvalidMessages from '@/components/uiAddons/LabelrAddonInvalidMessages/LabelrUiAddonInvalidMessages';
-import { 
-    useLabelrUiAddonInvalidMessages,
-} from '@/components/uiAddons/LabelrAddonInvalidMessages/hooks/useLabelrUiAddonInvalidMessages';
 // type
 import { 
     labelrInputTypeMapper, 
@@ -20,6 +14,13 @@ import {
 import {
     TOnChangeForLabelrUiAddonInvalidMessages,
 } from '@/components/uiAddons/LabelrAddonInvalidMessages/labelrUiAddonInvalidMessagesTypes';
+// hook
+import { 
+    useLabelrUiAddonInvalidMessages,
+} from '@/components/uiAddons/LabelrAddonInvalidMessages/hooks/useLabelrUiAddonInvalidMessages';
+// UI Components
+import LabelrInput from '../LabelrInput/LabelrInput';
+import LabelrUiAddonInvalidMessages from '@/components/uiAddons/LabelrAddonInvalidMessages/LabelrUiAddonInvalidMessages';
 
 import { 
     labelrInputEmailValidatorExecutors,
@@ -52,20 +53,21 @@ function LabelrInputEmail(props: TLabelrInputEmailProps) {
         fluid,
     } = props;
 
+    // state
     const [isValid, setIsValid] = useState(true);
     const [invalidMessages, setInvalidMessages] = useState<string[]>([]);
 
+    // hook
     const {
         checkIsValidValue,
     } = useLabelrUiAddonInvalidMessages(labelrInputEmailValidatorExecutors);
 
+    // callback
     const onChangeInputElement = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        const value = e.currentTarget.value;
-        
         const {
             isValid,
             invalidMessages,
-        } = checkIsValidValue(value);
+        } = checkIsValidValue(e.currentTarget.value);
 
         setIsValid(isValid);
         setInvalidMessages(invalidMessages);
@@ -85,6 +87,7 @@ function LabelrInputEmail(props: TLabelrInputEmailProps) {
                 id={id}
                 value={value}
                 onChange={onChangeInputElement}
+                onBlur={onChangeInputElement}
                 placeholder={placeholder}
                 isInvalid={!isValid}
                 isDisabled={isDisabled}
