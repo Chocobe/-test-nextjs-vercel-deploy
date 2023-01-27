@@ -1,6 +1,7 @@
 // react
 import {
     useMemo,
+    PropsWithChildren,
 } from 'react';
 // nextjs
 import Link from 'next/link';
@@ -39,35 +40,34 @@ const StyledAuthPageHeaderRoot = styled.header`
     }
 `;
 
-export type TAuthPageHeaderProps = {
-    prefixMessageForLink?: string;
-    linkMessage?: string;
+export type TAuthPageHeaderProps = PropsWithChildren<{
+    message?: string;
+    linkText?: string;
     linkHref?: string;
-    title: string;
-};
+}>;
 
 function AuthPageHeader(props: TAuthPageHeaderProps) {
     const {
-        prefixMessageForLink,
-        linkMessage,
+        message,
+        linkText,
         linkHref = '#',
-        title,
+        children,
     } = props;
 
     const hasLinkMessage = useMemo(() => {
-        return prefixMessageForLink || linkMessage;
-    }, [prefixMessageForLink, linkMessage]);
+        return message || linkText;
+    }, [message, linkText]);
 
     return (
         <StyledAuthPageHeaderRoot>
             {hasLinkMessage && (
                 <div className="linkWrapper">
                     <div>
-                        {prefixMessageForLink}
+                        {message}
                     </div>
                     <Link href={linkHref} passHref legacyBehavior>
                         <a>
-                            {linkMessage}
+                            {linkText}
                         </a>
                     </Link>
                 </div>
@@ -82,7 +82,7 @@ function AuthPageHeader(props: TAuthPageHeaderProps) {
             </figure>
 
             <h1 className="title">
-                {title}
+                {children}
             </h1>
         </StyledAuthPageHeaderRoot>
     );
