@@ -7,6 +7,9 @@ import {
 } from 'react';
 // nextjs
 import Link from 'next/link';
+import {
+    useRouter,
+} from 'next/router';
 // redux
 import {
     useAppSelector,
@@ -92,7 +95,9 @@ function SignupPage() {
         isValidPasswordConfirm: false,
     });
 
+    // hook
     const dispatch = useAppDispatch();
+    const router = useRouter();
 
     // cache
     const routePathForSignin = useMemo(() => {
@@ -140,8 +145,10 @@ function SignupPage() {
     }, []);
 
     const onClickSignup = useCallback(() => {
-        console.log('Signup 버튼 클릭');
-    }, []);
+        // TODO: API 응답 결과 => 성공 시
+        // TODO: => (임시) verifyEmail 페이지로 이동
+        router.push(RoutePathFactory['/verifyEmail']());
+    }, [router]);
 
     const onClickGoogleSignup = useCallback(() => {
         console.log('Google Signup 버튼 클릭');
