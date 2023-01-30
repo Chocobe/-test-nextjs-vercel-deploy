@@ -6,6 +6,7 @@ import mockUsersSlice from './mockUsersSlice/mockUsersSlice';
 import {
     signinPageSlice,
     signupPageSlice,
+    findPasswordSlice,
 } from './pageSlices';
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     // page reducers
     signinPage: signinPageSlice.reducer,
     signupPage: signupPageSlice.reducer,
+    findPasswordPage: findPasswordSlice.reducer,
 
     // ui reducers
 });
