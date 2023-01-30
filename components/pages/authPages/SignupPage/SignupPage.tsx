@@ -52,6 +52,7 @@ const StyledSignupPageRoot = styled.div`
         .noticeMessage {
             margin-top: 8px;
 
+            color: ${({ theme }) => theme.colors.gs[600]};
             font-size: 10px;
             line-height: 16px;
             font-weight: 400;
@@ -77,7 +78,7 @@ const StyledSignupPageRoot = styled.div`
             font-weight: 400;
 
             &-link {
-                //
+                font-weight: 500;
             }
         }
     }
@@ -207,11 +208,11 @@ function SignupPage() {
                 <div className="noticeMessage">
                     회원가입은 
                     <span className="noticeMessage-accent">
-                        이용약관
+                        &nbsp;이용약관&nbsp;
                     </span> 
                     및 
                     <span className="noticeMessage-accent">
-                        개인정보 보호정책
+                        &nbsp;개인정보 보호정책
                     </span>
                     에 동의하시는 것으로 간주합니다.
                 </div>

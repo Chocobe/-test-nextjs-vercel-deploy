@@ -70,7 +70,7 @@ const StyledSigninPageRoot = styled.div`
             font-weight: 400;
 
             &-link {
-                //
+                font-weight: 500;
             }
         }
     }

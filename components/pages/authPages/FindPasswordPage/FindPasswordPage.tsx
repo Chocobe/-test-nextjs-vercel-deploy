@@ -33,6 +33,7 @@ const StyledFindPasswordPageRoot = styled.div`
     .messageWrapper {
         margin-top: 12px;
 
+        color: ${({ theme }) => theme.colors.gs[700]};
         font-size: 14px;
         line-height: 22px;
         font-weight: 400;
