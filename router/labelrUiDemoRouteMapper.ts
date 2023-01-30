@@ -6,6 +6,7 @@ import {
     LabelrInputDemoSection,
     LabelrInputEmailDemoSection,
     LabelrInputPasswordDemoSection,
+    LabelrInputConfirmDemoSection,
 } from '@/components/pages/labelrUiDemoPages/demoSections';
 
 export const labelrUiDemoRouteMapper = {
@@ -35,7 +36,11 @@ export const labelrUiDemoRouteMapper = {
         path: RoutePathFactory['/labelrUiDemo/[demoName]']('inputPassword'),
         DemoSectionComponent: LabelrInputPasswordDemoSection,
     },
-
+    inputConfirm: {
+        title: 'LabelrInputConfirm',
+        path: RoutePathFactory['/labelrUiDemo/[demoName]']('inputConfirm'),
+        DemoSectionComponent: LabelrInputConfirmDemoSection,
+    },
 } as const;
 
 export type TLabelrUiDemoRouteMapperKey = keyof typeof labelrUiDemoRouteMapper;
