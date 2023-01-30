@@ -21,9 +21,6 @@ import {
     setPassword,
 } from '@/redux/slices/pageSlices/authPageSlices/signinPageSlice/signinPageSlice';
 // types
-import {
-    TOnChangeForLabelrUiAddonInvalidMessages,
-} from '@/components/uiAddons/LabelrAddonInvalidMessages/labelrUiAddonInvalidMessagesTypes';
 import { 
     authPageFooterTypeMapper
 } from '../AuthPageFooter/authPageFooterTypes';
@@ -35,9 +32,6 @@ import AuthPageFooter from '../AuthPageFooter/AuthPageFooter';
 import LabelrInputEmail from '@/components/ui/LabelrInputEmail/LabelrInputEmail';
 import LabelrInputPassword from '@/components/ui/LabelrInputPassword/LabelrInputPassword';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
-
-// type alias
-type TOnChange = TOnChangeForLabelrUiAddonInvalidMessages<ChangeEvent<HTMLInputElement>>;
 
 const StyledSigninPageRoot = styled.div`
     //
@@ -61,7 +55,7 @@ const StyledSigninPageRoot = styled.div`
             }
         }
 
-        .noticeMessage {
+        .questionMessage {
             margin: 8px 0;
             padding: 20px 0;
             width: 100%;
@@ -110,21 +104,27 @@ function SigninPage() {
     }, [validationState]);
 
     // callback
-    const onChangeEmail = useCallback<TOnChange>((e, { isValid }) => {
+    const onChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setEmail(e.currentTarget.value));
-        setValidationState(state => ({
-            ...state,
-            isValidEmail: isValid,
-        }));
     }, [dispatch]);
 
-    const onChangePassword = useCallback<TOnChange>((e, { isValid }) => {
+    const onChangePassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setPassword(e.currentTarget.value));
+    }, [dispatch]);
+
+    const onIsValidEmail = useCallback((isValidEmail: boolean) => {
         setValidationState(state => ({
             ...state,
-            isValidPassword: isValid,
+            isValidEmail,
         }));
-    }, [dispatch]);
+    }, []);
+
+    const onIsValidPassword = useCallback((isValidPassword: boolean) => {
+        setValidationState(state => ({
+            ...state,
+            isValidPassword,
+        }));
+    }, []);
 
     const onClickSignin = useCallback(() => {
         console.log('로그인 버튼 클릭');
@@ -154,12 +154,15 @@ function SigninPage() {
                     <LabelrInputEmail
                         value={email}
                         onChange={onChangeEmail}
+                        onIsValid={onIsValidEmail}
                         placeholder="이메일 주소를 입력해 주세요"
                         autofocus
                         fluid />
+
                     <LabelrInputPassword
                         value={password}
                         onChange={onChangePassword}
+                        onIsValid={onIsValidPassword}
                         placeholder="비밀번호를 입력해 주세요"
                         fluid />
                 </div>
@@ -182,20 +185,20 @@ function SigninPage() {
                     로그인
                 </LabelrButton>
 
-                <div className="noticeMessage">
+                <div className="questionMessage">
                     아직 계정이 없으세요?
                     <Link
                         passHref
                         legacyBehavior
                         href={routePathForSignup}>
-                        <a className="noticeMessage-link">
+                        <a className="questionMessage-link">
                             회원가입
                         </a>
                     </Link>
                 </div>
             </div>
 
-            {/* AuthPageFooter */}
+            {/* Footer */}
             <AuthPageFooter 
                 type={authPageFooterTypeMapper.SIGNIN}
                 onClickGoogle={onClickGoogleSignin}

@@ -8,7 +8,7 @@ import styled from 'styled-components';
 const StyledAuthLayoutRoot = styled.div`
     width: 100%;
     height: 100vh;
-    background-color: ${({ theme }) => theme.colorsOfDesignSystem.neutral.bs['50']};
+    background-color: ${({ theme }) => theme.colors.gs[50]};
 
     display: flex;
     justify-content: center;
@@ -19,7 +19,7 @@ const StyledAuthLayoutRoot = styled.div`
 
         width: 100%;
         max-width: 560px;
-        background-color: ${({ theme }) => theme.colorsOfDesignSystem.blackAndWhite.white};
+        background-color: ${({ theme }) => theme.colors.white};
         border-radius: 8px;
     }
 `;

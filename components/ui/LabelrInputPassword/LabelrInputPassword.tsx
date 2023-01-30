@@ -4,12 +4,10 @@ import {
     useState,
     useCallback,
     ChangeEvent,
-    useMemo, 
+    useMemo,
+    useEffect, 
 } from 'react';
 // type
-import { 
-    TOnChangeForLabelrUiAddonInvalidMessages,
-} from '@/components/uiAddons/LabelrAddonInvalidMessages/labelrUiAddonInvalidMessagesTypes';
 import { 
     labelrInputTypeMapper,
     labelrInputAutoCompleteMapper,
@@ -43,7 +41,8 @@ const StyledMaskingButton = styled.div`
 export type TLabelrInputPasswordProps = {
     id?: string;
     value: string;
-    onChange: TOnChangeForLabelrUiAddonInvalidMessages<ChangeEvent<HTMLInputElement>>,
+    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    onIsValid?: (isValid: boolean, invalidMessages: string[]) => void;
     placeholder?: string;
     isDisabled?: boolean;
     isReadonly?: boolean;
@@ -57,6 +56,7 @@ function LabelrInputPassword(props: TLabelrInputPasswordProps) {
         id,
         value,
         onChange,
+        onIsValid,
         placeholder,
         isDisabled,
         isReadonly,
@@ -66,24 +66,67 @@ function LabelrInputPassword(props: TLabelrInputPasswordProps) {
     } = props; 
 
     // state
-    const [isValid, setIsValid] = useState(true);
-    const [invalidMessages, setInvalidMessages] = useState<string[]>([]);
+    const [hasFirstBlurOrInput, setHasFirstBlurOrInput] = useState(false);
     const [isShowText, setIsShowText] = useState(false);
+    const [resultOfValidators, setResultOfValidators] = useState<{
+        isValid: boolean;
+        invalidMessages: string[];
+    }>({
+        isValid: false,
+        invalidMessages: [],
+    });
 
     // hook
     const theme = useTheme();
     const {
         checkIsValidValue,
-    } = useLabelrUiAddonInvalidMessages(labelrInputPasswordValidatorExecutors);
+    } = useLabelrUiAddonInvalidMessages<string>(labelrInputPasswordValidatorExecutors);
 
     // cache
+    const isInvalid = useMemo(() => {
+        return hasFirstBlurOrInput && !resultOfValidators.isValid;
+    }, [hasFirstBlurOrInput, resultOfValidators.isValid]);
+
+    const invalidMessages = useMemo(() => {
+        return hasFirstBlurOrInput
+            ? resultOfValidators.invalidMessages
+            : [];
+    }, [hasFirstBlurOrInput, resultOfValidators.invalidMessages]);
+
     const type = useMemo(() => {
         return isShowText
             ? labelrInputTypeMapper.TEXT
             : labelrInputTypeMapper.PASSWORD;
     }, [isShowText]);
 
-    const RightAddonElement = useMemo(() => {
+    // method
+    const checkIsValidPassword = useCallback(() => {
+        const {
+            isValid,
+            invalidMessages,
+        } = checkIsValidValue(value);
+
+        setResultOfValidators({
+            isValid,
+            invalidMessages,
+        });
+
+        onIsValid?.(isValid, invalidMessages);
+    }, [value, checkIsValidValue, onIsValid]);
+
+    // callback
+    const onChangeInputElement = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        setHasFirstBlurOrInput(true);
+        onChange(e);
+    }, [onChange]);
+
+    const onBlurInputElement = useCallback(() => {
+        setHasFirstBlurOrInput(true);
+        checkIsValidPassword();
+    }, [checkIsValidPassword]);
+
+    // renderer
+    const RightAddonElement = useCallback(() => {
         const IconElement = isShowText
             ? <FiEye stroke={theme.uiThemeMode.input.normal.iconColor} />
             : <FiEyeOff stroke={theme.uiThemeMode.input.normal.iconColor} />;
@@ -97,21 +140,10 @@ function LabelrInputPassword(props: TLabelrInputPasswordProps) {
         );
     }, [isShowText, theme]);
 
-    // callback
-    const onChangeInputElement = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        const {
-            isValid,
-            invalidMessages,
-        } = checkIsValidValue(e.currentTarget.value);
-
-        setIsValid(isValid);
-        setInvalidMessages(invalidMessages);
-
-        onChange(e, {
-            isValid,
-            invalidMessages,
-        });
-    }, [checkIsValidValue, onChange]);
+    // effect
+    useEffect(() => {
+        checkIsValidPassword();
+    }, [checkIsValidPassword]);
 
     return (
         <LabelrUiAddonInvalidMessages
@@ -122,9 +154,9 @@ function LabelrInputPassword(props: TLabelrInputPasswordProps) {
                 id={id}
                 value={value}
                 onChange={onChangeInputElement}
-                onBlur={onChangeInputElement}
+                onBlur={onBlurInputElement}
                 placeholder={placeholder}
-                isInvalid={!isValid}
+                isInvalid={isInvalid}
                 isDisabled={isDisabled}
                 isReadonly={isReadonly}
                 autofocus={autofocus}
@@ -132,7 +164,7 @@ function LabelrInputPassword(props: TLabelrInputPasswordProps) {
                 size={size}
                 fluid={fluid}
                 slots={{
-                    RightAddonElement: () => RightAddonElement,
+                    RightAddonElement,
                 }} />
         </LabelrUiAddonInvalidMessages>
     );

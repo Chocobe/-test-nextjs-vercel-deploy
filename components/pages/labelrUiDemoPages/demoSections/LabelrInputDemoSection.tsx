@@ -160,7 +160,6 @@ function DemoSectionForLabelrInput() {
                 isDisabled={isDisabled}
                 isInvalid={isInvalid}
                 isReadonly={isReadonly}
-                autofocus
                 fluid={fluid}
                 autoComplete={autoComplete}
                 slots={{

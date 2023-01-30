@@ -6,8 +6,6 @@ import {
 // types
 import {
     TSigninPageSliceState,
-    // TSetEmailPayload,
-    // TSetPasswordPayload,
 } from './signinPageSliceTypes';
 
 const NAMESPACE = 'signinPage';

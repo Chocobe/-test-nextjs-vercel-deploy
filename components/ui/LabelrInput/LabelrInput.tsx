@@ -140,14 +140,12 @@ function LabelrInput<T extends string | number>(props: TLabelrInputProps<T>) {
         size = labelrInputSizeMapper.REGULAR,
         fluid,
         slots,
-        // children,
     } = props;
 
     // ref
     const $input = useRef<HTMLInputElement | null>(null);
 
     // state
-    const [isInitialized, setIsInitialized] = useState(false);
     const [elementState, setElementState] = 
         useState<TLabelrInputElementState>(labelrInputElementStateMapper.NORMAL);
 
@@ -168,22 +166,18 @@ function LabelrInput<T extends string | number>(props: TLabelrInputProps<T>) {
             return;
         }
 
-        if (elementState === labelrInputElementStateMapper.FOCUS) {
-            setElementState(labelrInputElementStateMapper.FOCUS);
-            return;
-        }
-
-        if (elementState === labelrInputElementStateMapper.HOVER) {
-            setElementState(labelrInputElementStateMapper.HOVER);
-            return;
+        switch(elementState) {
+            case labelrInputElementStateMapper.FOCUS:
+            case labelrInputElementStateMapper.HOVER:
+                setElementState(elementState);
+                return;
         }
 
         if (isInvalid) {
             setElementState(labelrInputElementStateMapper.ERROR);
-            return;
+        } else {
+            setElementState(elementState);
         }
-
-        setElementState(elementState);
     }, [isDisabled, isReadonly, isInvalid]);
 
     // effect
@@ -198,27 +192,19 @@ function LabelrInput<T extends string | number>(props: TLabelrInputProps<T>) {
             return;
         }
 
-        setElementState(labelrInputElementStateMapper.NORMAL);
-
         if (isInvalid) {
             setElementState(labelrInputElementStateMapper.ERROR);
             return;
         } else {
             setElementState(labelrInputElementStateMapper.FOCUS);
-        } 
+        }
     }, [isReadonly, isDisabled, isInvalid]);
 
     useEffect(() => {
-        if (isInitialized) return;
-
-        autofocus && $input.current?.focus();
-        setElementState(autofocus
-            ? labelrInputElementStateMapper.FOCUS
-            : labelrInputElementStateMapper.NORMAL
-        );
-
-        setIsInitialized(true);
-    }, [isInitialized, autofocus]);
+        autofocus
+            ? $input.current?.focus()
+            : setElementState(labelrInputElementStateMapper.NORMAL);
+    }, [autofocus]);
 
     return (
         <StyledLabelrInputRoot

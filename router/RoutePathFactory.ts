@@ -3,9 +3,11 @@ export const RoutePathFactory = {
     '/home': () => '/home',
 
     /** Auth pages */
-    // 로그인 페이지
+    // 로그인
     '/signin': () => '/signin',
-    // 비밀번호 찾기 페이지
+    // 회원가입
+    '/signup': () => '/signup',
+    // 비밀번호 찾기
     '/findPassword': () => '/findPassword',
 
     /** Labelr UI Demo pages */

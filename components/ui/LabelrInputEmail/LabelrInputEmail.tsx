@@ -1,7 +1,9 @@
 // react
 import { 
     useState,
+    useMemo,
     useCallback,
+    useEffect,
     memo,
     ChangeEvent, 
 } from 'react';
@@ -11,9 +13,6 @@ import {
     TLabelrInputAutoComplete,
     TLabelrInputSize,
 } from '../LabelrInput/labelrInputTypes';
-import {
-    TOnChangeForLabelrUiAddonInvalidMessages,
-} from '@/components/uiAddons/LabelrAddonInvalidMessages/labelrUiAddonInvalidMessagesTypes';
 // hook
 import { 
     useLabelrUiAddonInvalidMessages,
@@ -29,7 +28,8 @@ import {
 export type TLabelrInputEmailProps = {
     id?: string;
     value: string;
-    onChange: TOnChangeForLabelrUiAddonInvalidMessages<ChangeEvent<HTMLInputElement>>,
+    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    onIsValid?: (isValid: boolean, invalidMessages: string[]) => void;
     placeholder?: string;
     isDisabled?: boolean;
     isReadonly?: boolean;
@@ -44,6 +44,7 @@ function LabelrInputEmail(props: TLabelrInputEmailProps) {
         id,
         value,
         onChange,
+        onIsValid,
         placeholder,
         isDisabled,
         isReadonly,
@@ -54,29 +55,61 @@ function LabelrInputEmail(props: TLabelrInputEmailProps) {
     } = props;
 
     // state
-    const [isValid, setIsValid] = useState(true);
-    const [invalidMessages, setInvalidMessages] = useState<string[]>([]);
+    const [hasFirstBlurOrInput, setHasFirstBlurOrInput] = useState(false);
+    const [resultOfValidators, setResultOfValidators] = useState<{
+        isValid: boolean;
+        invalidMessages: string[];
+    }>({
+        isValid: false,
+        invalidMessages: [],
+    });
 
     // hook
     const {
         checkIsValidValue,
     } = useLabelrUiAddonInvalidMessages(labelrInputEmailValidatorExecutors);
 
-    // callback
-    const onChangeInputElement = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    // cache
+    const isInvalid = useMemo(() => {
+        return hasFirstBlurOrInput && !resultOfValidators.isValid;
+    }, [hasFirstBlurOrInput, resultOfValidators.isValid]);
+
+    const invalidMessages = useMemo(() => {
+        return hasFirstBlurOrInput
+            ? resultOfValidators.invalidMessages
+            : [];
+    }, [hasFirstBlurOrInput, resultOfValidators.invalidMessages]);
+
+    // method
+    const checkIsValidEmail = useCallback(() => {
         const {
             isValid,
             invalidMessages,
-        } = checkIsValidValue(e.currentTarget.value);
+        } = checkIsValidValue(value);
 
-        setIsValid(isValid);
-        setInvalidMessages(invalidMessages);
-
-        onChange(e, {
+        setResultOfValidators({
             isValid,
-            invalidMessages
+            invalidMessages,
         });
-    }, [checkIsValidValue, onChange]);
+
+        onIsValid?.(isValid, invalidMessages);
+    }, [value, checkIsValidValue, onIsValid]);
+
+    // callback
+    const onChangeInputElement = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        setHasFirstBlurOrInput(true);
+        onChange(e);
+    }, [onChange]);
+
+    const onBlurInputElement = useCallback(() => {
+        setHasFirstBlurOrInput(true);
+        checkIsValidEmail();
+    }, [checkIsValidEmail]);
+
+    // effect
+    useEffect(() => {
+        checkIsValidEmail();
+    }, [checkIsValidEmail]);
 
     return (
         <LabelrUiAddonInvalidMessages 
@@ -87,15 +120,15 @@ function LabelrInputEmail(props: TLabelrInputEmailProps) {
                 id={id}
                 value={value}
                 onChange={onChangeInputElement}
-                onBlur={onChangeInputElement}
+                onBlur={onBlurInputElement}
                 placeholder={placeholder}
-                isInvalid={!isValid}
+                isInvalid={isInvalid}
                 isDisabled={isDisabled}
                 isReadonly={isReadonly}
                 autofocus={autofocus}
                 autoComplete={autoComplete}
                 size={size} 
-                fluid={fluid}/>
+                fluid={fluid} />
         </LabelrUiAddonInvalidMessages>
     );
 }

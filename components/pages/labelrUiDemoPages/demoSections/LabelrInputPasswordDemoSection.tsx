@@ -11,11 +11,21 @@ import {
 
     TLabelrInputSize,
 } from '@/components/ui/LabelrInput/labelrInputTypes';
+import styled from 'styled-components';
 // UI components
 import DemoSectionTemplate, {
     TDemoSectionPropItem,
 } from '../DemoSectionTemplate';
 import LabelrInputPassword from '@/components/ui/LabelrInputPassword/LabelrInputPassword';
+
+const StyledIsValid = styled.div`
+    margin-top: 20px;
+
+    display: flex;
+    gap: 8px;
+
+    color: ${({ theme }) => theme.colors.brand[500]};
+`;
 
 function LabelrInputPasswordDemoSection() {
     const [id, setId] = useState('demoComponent');
@@ -25,25 +35,14 @@ function LabelrInputPasswordDemoSection() {
     const [isDisabled, setIsDisabled] = useState(false);
     const [isReadonly, setIsReadonly] = useState(false);
     const [fluid, setFluid] = useState(false);
+    const [isValid, setIsValid] = useState(false);
 
-    const onChange = useCallback((
-        e: ChangeEvent<HTMLInputElement>, 
-        resultOfValidators: {
-            isValid: boolean;
-            invalidMessages: string[];
-        }
-    ) => {
-        console.clear();
-
-        console.group('event: ');
-        console.log(e);
-        console.groupEnd();
-        
-        console.group('resultOfValidators: ');
-        console.log(resultOfValidators);
-        console.groupEnd();
-
+    const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value);
+    }, []);
+
+    const onIsValid = useCallback((isValid: boolean) => {
+        setIsValid(isValid);
     }, []);
 
     const propItems = useMemo<TDemoSectionPropItem[]>(() => [
@@ -114,11 +113,15 @@ function LabelrInputPasswordDemoSection() {
                 size={size}
                 value={value}
                 onChange={onChange}
+                onIsValid={onIsValid}
                 placeholder={placeholder}
                 isDisabled={isDisabled}
                 isReadonly={isReadonly}
-                autofocus
                 fluid={fluid} />
+
+            <StyledIsValid>
+                isValid: {String(isValid)}
+            </StyledIsValid>
         </DemoSectionTemplate>
     );
 }

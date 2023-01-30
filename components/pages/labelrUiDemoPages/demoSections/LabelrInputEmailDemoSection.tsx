@@ -11,11 +11,22 @@ import {
 
     TLabelrInputSize,
 } from '@/components/ui/LabelrInput/labelrInputTypes';
+// styled-components
+import styled from 'styled-components';
 // UI components
 import DemoSectionTemplate, { 
     TDemoSectionPropItem
 } from '../DemoSectionTemplate';
 import LabelrInputEmail from '@/components/ui/LabelrInputEmail/LabelrInputEmail';
+
+const StyledIsValid = styled.div`
+    margin-top: 20px;
+
+    display: flex;
+    gap: 8px;
+
+    color: ${({ theme }) => theme.colors.brand[500]};
+`;
 
 function LabelrInputEmailDemoSection() {
     const [id, setId] = useState('demoComponent');
@@ -26,25 +37,14 @@ function LabelrInputEmailDemoSection() {
     const [isReadonly, setIsReadonly] = useState(false);
     const [autoComplete, setAutoComplete] = useState<'off' | 'on' | undefined>();
     const [fluid, setFluid] = useState(false);
+    const [isValid, setIsValid] = useState(false);
 
-    const onChange = useCallback((
-        e: ChangeEvent<HTMLInputElement>, 
-        resultOfValidators: {
-            isValid: boolean;
-            invalidMessages: string[];
-        }
-    ) => {
-        console.clear();
+    const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        setValue(e.target.value);
+    }, []);
 
-        console.group('event: ');
-        console.log(e);
-        console.groupEnd();
-        
-        console.group('resultOfValidators: ');
-        console.log(resultOfValidators);
-        console.groupEnd();
-
-        setValue(e.currentTarget.value);
+    const onIsValid = useCallback((isValid: boolean) => {
+        setIsValid(isValid);
     }, []);
 
     const propItems = useMemo<TDemoSectionPropItem[]>(() => [
@@ -127,11 +127,15 @@ function LabelrInputEmailDemoSection() {
                 size={size}
                 value={value}
                 onChange={onChange}
+                onIsValid={onIsValid}
                 placeholder={placeholder}
                 isDisabled={isDisabled}
                 isReadonly={isReadonly}
-                autofocus
                 fluid={fluid} />
+
+            <StyledIsValid>
+                isValid: {String(isValid)}
+            </StyledIsValid>
         </DemoSectionTemplate>
     );
 }

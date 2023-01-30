@@ -9,7 +9,6 @@ import {
     TAuthPageFooterType,
 } from './authPageFooterTypes';
 // styled-components
-// styled-components
 import styled from 'styled-components';
 // type
 import { 
@@ -46,7 +45,7 @@ function AuthPageFooter(props: TAuthPageFooterProps) {
                 return '로그인';
             case authPageFooterTypeMapper.SIGNUP:
             default:
-                return '회원가입';
+                return '가입';
         }
     }, [type]);
 
