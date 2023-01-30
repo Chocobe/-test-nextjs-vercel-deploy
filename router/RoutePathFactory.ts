@@ -9,6 +9,8 @@ export const RoutePathFactory = {
     '/signup': () => '/signup',
     // 비밀번호 찾기
     '/findPassword': () => '/findPassword',
+    // 비밀번호 변경
+    '/resetPassword': () => '/resetPassword',
 
     /** Labelr UI Demo pages */
     '/labelrUiDemo/[demoName]': (demoName: string) => `/labelrUiDemo/${demoName}`,
