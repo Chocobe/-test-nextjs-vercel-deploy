@@ -19,7 +19,7 @@ import {
     setEmail,
     setPassword,
     setPasswordConfirm,
-} from '@/redux/slices/pageSlices/authPageSlices/signupPageSlice/signupPageSlice';
+} from '@/redux/slices/pageSlices/accountPageSlices/signupPageSlice/signupPageSlice';
 import {
     RoutePathFactory,
 } from '@/router/RoutePathFactory';
@@ -102,7 +102,7 @@ function SignupPage() {
 
     // cache
     const routePathForSignin = useMemo(() => {
-        return RoutePathFactory['/signin']();
+        return RoutePathFactory.account['/signin']();
     }, []);
 
     const isValidInputValues = useMemo(() => {
@@ -148,7 +148,7 @@ function SignupPage() {
     const onClickSignup = useCallback(() => {
         // TODO: API 응답 결과 => 성공 시
         // TODO: => (임시) verifyEmail 페이지로 이동
-        router.push(RoutePathFactory['/verifyEmail']());
+        router.push(RoutePathFactory.account['/verify-email']());
     }, [router]);
 
     const onClickGoogleSignup = useCallback(() => {

@@ -17,7 +17,7 @@ import {
 import {
     setPassword,
     setPasswordConfirm,
-} from '@/redux/slices/pageSlices/authPageSlices/resetPasswordPageSlice/resetPasswordPageSlice';
+} from '@/redux/slices/pageSlices/accountPageSlices/resetPasswordPageSlice/resetPasswordPageSlice';
 // styled-components
 import styled from 'styled-components';
 // UI components
@@ -98,14 +98,14 @@ function ResetPasswordPage() {
         // TODO: API 응답 결과 => 성공 시
         // TODO: => Snackbar 보여주기
         // TODO: signin 페이지로 이동
-        router.push(RoutePathFactory['/signin']());
+        router.push(RoutePathFactory.account['/signin']());
     }, [router]);
 
     return (
         <StyledResetPasswordPageRoot>
             <AuthPageHeader
                 linkText="로그인"
-                linkHref={RoutePathFactory['/signin']()}>
+                linkHref={RoutePathFactory.account['/signin']()}>
                 비밀번호 재설정
             </AuthPageHeader>
 

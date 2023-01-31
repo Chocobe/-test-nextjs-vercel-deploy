@@ -15,7 +15,7 @@ import {
 } from '@/redux/hooks';
 import {
     setEmail,
-} from '@/redux/slices/pageSlices/authPageSlices/findPasswordPageSlice/findPasswordPageSlice';
+} from '@/redux/slices/pageSlices/accountPageSlices/findPasswordPageSlice/findPasswordPageSlice';
 // styled-components
 import styled from 'styled-components';
 // UI components
@@ -65,14 +65,14 @@ function FindPasswordPage() {
     
     const onClickSendEmail = () => {
         // TODO: API 응답 결과 => 실패 => Snackbar 보여주기
-        router.push(RoutePathFactory['/resetPassword']());
+        router.push(RoutePathFactory.account['/reset-password']());
     };
 
     return (
         <StyledFindPasswordPageRoot>
             <AuthPageHeader
                 linkText="로그인"
-                linkHref={RoutePathFactory['/signin']()}>
+                linkHref={RoutePathFactory.account['/signin']()}>
                 비밀번호를 잊으셨나요?
             </AuthPageHeader>
 

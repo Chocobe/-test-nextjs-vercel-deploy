@@ -7,6 +7,9 @@ import {
 } from 'react';
 // nextjs
 import Link from 'next/link';
+import {
+    useRouter,
+} from 'next/router';
 import { 
     RoutePathFactory,
 } from '@/router/RoutePathFactory';
@@ -19,7 +22,7 @@ import {
 import { 
     setEmail,
     setPassword,
-} from '@/redux/slices/pageSlices/authPageSlices/signinPageSlice/signinPageSlice';
+} from '@/redux/slices/pageSlices/accountPageSlices/signinPageSlice/signinPageSlice';
 // types
 import { 
     authPageFooterTypeMapper
@@ -86,15 +89,17 @@ function SigninPage() {
         isValidPassword: false,
     });
 
+    // hook
     const dispatch = useAppDispatch();
+    const router = useRouter();
 
     // cache
     const routePathForFindPassword = useMemo(() => {
-        return RoutePathFactory['/findPassword']();
+        return RoutePathFactory.account['/find-password']();
     }, []);
 
     const routePathForSignup = useMemo(() => {
-        return RoutePathFactory['/signup']();
+        return RoutePathFactory.account['/signup']();
     }, []);
 
     const isValidInputValues = useMemo(() => {
@@ -127,8 +132,8 @@ function SigninPage() {
     }, []);
 
     const onClickSignin = useCallback(() => {
-        console.log('로그인 버튼 클릭');
-    }, []);
+        router.push(RoutePathFactory.console['/']());
+    }, [router]);
 
     const onClickGoogleSignin = useCallback(() => {
         console.log('Google Social 로그인 버튼 클릭');

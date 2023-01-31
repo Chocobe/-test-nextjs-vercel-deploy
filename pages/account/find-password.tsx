@@ -2,18 +2,19 @@
 import {
     ReactElement,
 } from 'react';
-// UI components
+// page
+import FindPasswordPage from '@/components/pages/accountPages/FindPasswordPage/FindPasswordPage';
+// layouts
 import AuthLayout from '@/layouts/uiLayouts/AuthLayout/AuthLayout';
 import NoneAuthRouteGuard from '@/layouts/routeGuardLayouts/NoneAuthRouteGuard';
-import SignupPage from '@/components/pages/authPages/SignupPage/SignupPage';
 
-function Signup() {
+function FindPassword() {
     return (
-        <SignupPage />
+        <FindPasswordPage />
     );
 }
 
-Signup.getLayout = (page: ReactElement) => {
+FindPassword.getLayout = (page: ReactElement) => {
     return (
         <AuthLayout>
             <NoneAuthRouteGuard>
@@ -23,4 +24,4 @@ Signup.getLayout = (page: ReactElement) => {
     );
 };
 
-export default Signup;
+export default FindPassword;

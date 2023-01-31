@@ -3,7 +3,7 @@ import {
     ReactElement,
 } from 'react';
 // page
-import SigninPage from '@/components/pages/authPages/SigninPage/SigninPage';
+import SigninPage from '@/components/pages/accountPages/SigninPage/SigninPage';
 // layouts
 import NoneAuthRouteGuard from '@/layouts/routeGuardLayouts/NoneAuthRouteGuard';
 import AuthLayout from '@/layouts/uiLayouts/AuthLayout/AuthLayout';

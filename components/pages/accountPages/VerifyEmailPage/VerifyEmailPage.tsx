@@ -47,11 +47,11 @@ function VerifyEmailPage() {
 
     // cache
     const routePathOfSignin = useMemo(() => {
-        return RoutePathFactory['/signin']();
+        return RoutePathFactory.account['/signin']();
     }, []);
 
     const routePathOfSendVerificationEmail = useMemo(() => {
-        return RoutePathFactory['/sendVerificationEmail']();
+        return RoutePathFactory.account['/send-verification-email']();
     }, []);
 
     // callback

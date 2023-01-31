@@ -35,7 +35,7 @@ const StyledDemoLayoutNavRoot = styled.nav`
 function DemoLayoutNav() {
     const router = useRouter();
     const demoName = router.query.demoName as string;
-    const currentPath = RoutePathFactory['/labelrUiDemo/[demoName]'](demoName);
+    const currentPath = RoutePathFactory.labelrUiDemo['/[demoName]'](demoName);
 
     return (
         <StyledDemoLayoutNavRoot>

@@ -9,14 +9,15 @@ import {
 
 import { RoutePathFactory } from '@/router/RoutePathFactory';
 
-function LabelrUiDemo() {
+function LabelrUiDemoIndex() {
     const router = useRouter();
 
     useEffect(() => {
-        router.replace(RoutePathFactory['/labelrUiDemo/[demoName]']('button'));
+        // router.replace(RoutePathFactory['/labelrUiDemo/[demoName]']('button'));
+        router.replace(RoutePathFactory.labelrUiDemo['/[demoName]']('button'));
     }, [router]);
 
     return null;
 }
 
-export default LabelrUiDemo;
+export default LabelrUiDemoIndex;

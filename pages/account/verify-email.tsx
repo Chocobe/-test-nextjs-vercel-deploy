@@ -3,18 +3,18 @@ import {
     ReactElement,
 } from 'react';
 // page
-import FindPasswordPage from '@/components/pages/authPages/FindPasswordPage/FindPasswordPage';
+import VerifyEmailPage from '@/components/pages/accountPages/VerifyEmailPage/VerifyEmailPage';
 // layouts
 import AuthLayout from '@/layouts/uiLayouts/AuthLayout/AuthLayout';
 import NoneAuthRouteGuard from '@/layouts/routeGuardLayouts/NoneAuthRouteGuard';
 
-function FindPassword() {
+function VerifyEmail() {
     return (
-        <FindPasswordPage />
+        <VerifyEmailPage />
     );
 }
 
-FindPassword.getLayout = (page: ReactElement) => {
+VerifyEmail.getLayout = (page: ReactElement) => {
     return (
         <AuthLayout>
             <NoneAuthRouteGuard>
@@ -24,4 +24,4 @@ FindPassword.getLayout = (page: ReactElement) => {
     );
 };
 
-export default FindPassword;
+export default VerifyEmail;

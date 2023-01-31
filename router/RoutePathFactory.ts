@@ -1,21 +1,55 @@
 export const RoutePathFactory = {
-    '/console': () => '/console',
-    '/home': () => '/home',
+    /** Root pages */
+    root: createRootPathMapper(),
 
-    /** Auth pages */
-    // 로그인
-    '/signin': () => '/signin',
-    // 회원가입
-    '/signup': () => '/signup',
-    // 비밀번호 찾기
-    '/findPassword': () => '/findPassword',
-    // 비밀번호 변경
-    '/resetPassword': () => '/resetPassword',
-    // 이메일 인증
-    '/verifyEmail': () => '/verifyEmail',
-    // 이메일 인증 전송
-    '/sendVerificationEmail': () => '/sendVerificationEmail',
+    /** Account pages */
+    account: createAccountPathMapper(),
+
+    /** Console pages */
+    console: createConsolePathMapper(),
 
     /** Labelr UI Demo pages */
-    '/labelrUiDemo/[demoName]': (demoName: string) => `/labelrUiDemo/${demoName}`,
+    labelrUiDemo: createLabelrUiDemoPathMapper(),
 } as const;
+
+function createRootPathMapper() {
+    return {
+        '/': () => '/',
+    };
+}
+
+function createAccountPathMapper() {
+    const BASE_PATH = '/account';
+
+    return {
+        // 로그인
+        '/signin': () => `${BASE_PATH}/signin`,
+        // 회원가입
+        '/signup': () => `${BASE_PATH}/signup`,
+        // 비밀번호 찾기
+        '/find-password': () => `${BASE_PATH}/find-password`,
+        // 비밀번호 변경
+        '/reset-password': () => `${BASE_PATH}/reset-password`,
+        // 이메일 인증
+        '/verify-email': () => `${BASE_PATH}/verify-email`,
+        // 이메일 인증 전송
+        '/send-verification-email': () => `${BASE_PATH}/send-verification-email`,
+    };
+}
+
+function createConsolePathMapper() {
+    const BASE_PATH = '/console';
+
+    return {
+        // Console 메인
+        '/': () => `${BASE_PATH}`,
+    };
+}
+
+function createLabelrUiDemoPathMapper() {
+    const BASE_PATH = '/labelr-ui-demo';
+
+    return {
+        '/[demoName]': (demoName: string) => `${BASE_PATH}/${demoName}`,
+    };
+}
