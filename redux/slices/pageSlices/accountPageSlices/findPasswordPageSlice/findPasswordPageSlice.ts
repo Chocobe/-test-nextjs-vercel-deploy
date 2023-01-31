@@ -19,7 +19,7 @@ const findPasswordSlice = createSlice({
     initialState,
     reducers: {
         // reset
-        resetFindPasswordState(state: TFindPasswordSliceState) {
+        resetFindPasswordPageState(state: TFindPasswordSliceState) {
             state.email = '';
         },
 
@@ -32,6 +32,6 @@ const findPasswordSlice = createSlice({
 
 export default findPasswordSlice;
 export const {
-    resetFindPasswordState,
+    resetFindPasswordPageState,
     setEmail,
 } = findPasswordSlice.actions;

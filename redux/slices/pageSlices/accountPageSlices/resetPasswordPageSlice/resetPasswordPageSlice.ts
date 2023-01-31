@@ -20,7 +20,7 @@ const resetPasswordPageSlice = createSlice({
     initialState,
     reducers: {
         // reset
-        resetResetPasswordPageSliceState(state: TResetPasswordPageSliceState) {
+        resetResetPasswordPageState(state: TResetPasswordPageSliceState) {
             state.password = '';
             state.passwordConfirm = '';
         },
@@ -37,7 +37,7 @@ const resetPasswordPageSlice = createSlice({
 
 export default resetPasswordPageSlice;
 export const {
-    resetResetPasswordPageSliceState,
+    resetResetPasswordPageState,
     setPassword,
     setPasswordConfirm,
 } = resetPasswordPageSlice.actions;

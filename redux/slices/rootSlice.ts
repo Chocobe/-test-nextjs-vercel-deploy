@@ -2,7 +2,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 // mockSlices
 import mockUsersSlice from './mockUsersSlice/mockUsersSlice';
-// authSlices
+// accountSlices
 import {
     signinPageSlice,
     signupPageSlice,
@@ -12,15 +12,15 @@ import {
 
 const rootReducer = combineReducers({
     mockUsers: mockUsersSlice.reducer,
+
     // api reducers
 
-    // page reducers
+    /** page reducers */
+    // accountPages reducers
     signinPage: signinPageSlice.reducer,
     signupPage: signupPageSlice.reducer,
     findPasswordPage: findPasswordPageSlice.reducer,
     resetPasswordPage: resetPasswordPageSlice.reducer,
-
-    // ui reducers
 });
 
 export default rootReducer;

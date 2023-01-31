@@ -20,7 +20,7 @@ const signinPageSlice = createSlice({
     initialState,
     reducers: {
         // reset
-        resetSigninState(state: TSigninPageSliceState) {
+        resetSigninPageState(state: TSigninPageSliceState) {
             state.email = '';
             state.password = '';
         },
@@ -37,7 +37,7 @@ const signinPageSlice = createSlice({
 
 export default signinPageSlice;
 export const {
-    resetSigninState,
+    resetSigninPageState,
     setEmail,
     setPassword,
 } = signinPageSlice.actions;

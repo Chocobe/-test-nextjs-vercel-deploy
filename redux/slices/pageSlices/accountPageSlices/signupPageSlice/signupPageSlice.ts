@@ -21,7 +21,7 @@ const signupPageSlice = createSlice({
     initialState,
     reducers: {
         // reset
-        resetSignupState(state: TSignupPageSliceState) {
+        resetSignupPageState(state: TSignupPageSliceState) {
             state.email = '';
             state.password = '';
             state.passwordConfirm = '';
@@ -42,7 +42,7 @@ const signupPageSlice = createSlice({
 
 export default signupPageSlice;
 export const {
-    resetSignupState,
+    resetSignupPageState,
     setEmail,
     setPassword,
     setPasswordConfirm,

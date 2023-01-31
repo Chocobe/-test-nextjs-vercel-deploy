@@ -7,11 +7,11 @@ import {
 
 function ConsoleIndex() {
     const router = useRouter();
-    
+
     const onClickLogout = () => {
         router.push(RoutePathFactory.account['/signin']());
     };
-    
+
     return (
         <div>
             <div>
