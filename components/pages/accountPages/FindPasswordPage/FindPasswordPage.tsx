@@ -73,7 +73,7 @@ function FindPasswordPage() {
             <AuthPageHeader
                 linkText="로그인"
                 linkHref={RoutePathFactory.account['/signin']()}>
-                비밀번호를 잊으셨나요?
+                {'비밀번호를 잊으셨나요?'}
             </AuthPageHeader>
 
             <div className="messageWrapper">

@@ -106,7 +106,7 @@ function ResetPasswordPage() {
             <AuthPageHeader
                 linkText="로그인"
                 linkHref={RoutePathFactory.account['/signin']()}>
-                비밀번호 재설정
+                {'비밀번호 재설정'}
             </AuthPageHeader>
 
             <div className="messageWrapper">

@@ -166,7 +166,7 @@ function SignupPage() {
                 message="계정이 있으세요?"
                 linkText="로그인"
                 linkHref={routePathForSignin}>
-                회원가입
+                {'회원가입'}
             </AuthPageHeader>
 
             {/* Body */}

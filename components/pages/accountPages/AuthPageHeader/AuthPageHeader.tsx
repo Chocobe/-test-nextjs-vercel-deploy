@@ -23,6 +23,10 @@ const StyledAuthPageHeaderRoot = styled.header`
         justify-content: flex-end;
         align-items: flex-start;
         gap: 4px;
+
+        .linkText {
+            font-weight: 500;
+        }
     }
 
     .logoWrapper {
@@ -37,6 +41,7 @@ const StyledAuthPageHeaderRoot = styled.header`
         margin-top: 20px;
         font-size: 32px;
         line-height: 48px;
+        white-space: pre-line;
     }
 `;
 
@@ -66,7 +71,7 @@ function AuthPageHeader(props: TAuthPageHeaderProps) {
                         {message}
                     </div>
                     <Link href={linkHref} passHref legacyBehavior>
-                        <a>
+                        <a className="linkText">
                             {linkText}
                         </a>
                     </Link>

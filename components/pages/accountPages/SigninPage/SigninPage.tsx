@@ -150,7 +150,7 @@ function SigninPage() {
                 message='아직 계정이 없으세요?'
                 linkText='회원가입'
                 linkHref={routePathForSignup}>
-                로그인
+                {'로그인'}
             </AuthPageHeader>
 
             {/* Body */}
