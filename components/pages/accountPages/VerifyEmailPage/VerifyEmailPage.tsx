@@ -2,12 +2,21 @@
 import {
     useMemo,
     useCallback,
+    useEffect,
 } from 'react';
 // nextjs
 import {
     useRouter,
 } from 'next/router';
 import Link from 'next/link';
+// redux
+import {
+    useAppSelector,
+    useAppDispatch,
+} from '@/redux/hooks';
+import {
+    setHasExpired,
+} from '@/redux/slices/pageSlices/accountPageSlices/resultVerifyEmailPageSlice/resultVerifyEmailPageSlice';
 // UI components
 import AuthPageHeader from '../AuthPageHeader/AuthPageHeader';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
@@ -42,8 +51,8 @@ const StyledVerifyEmailPageRoot = styled.div`
 `;
 
 function VerifyEmailPage() {
-    // hook
-    const router = useRouter();
+    // state
+    const expirationTime = useAppSelector(({ resultVerifyEmailPage }) => resultVerifyEmailPage.expirationTime);
 
     // cache
     const routePathOfSignin = useMemo(() => {
@@ -51,20 +60,36 @@ function VerifyEmailPage() {
     }, []);
 
     const routePathOfSendVerificationEmail = useMemo(() => {
-        return RoutePathFactory.account['/send-verification-email']();
+        return RoutePathFactory.account['/result-verify-email']();
     }, []);
+
+    // hook
+    const dispatch = useAppDispatch();
+    const router = useRouter();
 
     // callback
     const onClickSignin = useCallback(() => {
         router.push(routePathOfSignin);
     }, [router, routePathOfSignin]);
 
+    // effect
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            dispatch(setHasExpired(true));
+            router.replace(RoutePathFactory.account['/result-verify-email']());
+        }, expirationTime);
+
+        return () => {
+            clearTimeout(timeoutId);
+        };
+    }, [dispatch, , expirationTime, router]);
+
     return (
         <StyledVerifyEmailPageRoot>
             <AuthPageHeader
                 linkText="로그인"
                 linkHref={routePathOfSignin}>
-                이메일을 확인해 주세요!
+                {'이메일을 확인해 주세요!'}
             </AuthPageHeader>
 
             <div className="messageWrapper">

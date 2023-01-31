@@ -32,8 +32,8 @@ function createAccountPathMapper() {
         '/reset-password': () => `${BASE_PATH}/reset-password`,
         // 이메일 인증
         '/verify-email': () => `${BASE_PATH}/verify-email`,
-        // 이메일 인증 전송
-        '/send-verification-email': () => `${BASE_PATH}/send-verification-email`,
+        // 이메일 인증 결과
+        '/result-verify-email': () => `${BASE_PATH}/result-verify-email`,
     };
 }
 

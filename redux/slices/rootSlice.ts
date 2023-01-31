@@ -8,6 +8,7 @@ import {
     signupPageSlice,
     findPasswordPageSlice,
     resetPasswordPageSlice,
+    resultVerifyEmailPageSlice,
 } from './pageSlices';
 
 const rootReducer = combineReducers({
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
     signupPage: signupPageSlice.reducer,
     findPasswordPage: findPasswordPageSlice.reducer,
     resetPasswordPage: resetPasswordPageSlice.reducer,
+    resultVerifyEmailPage: resultVerifyEmailPageSlice.reducer,
 });
 
 export default rootReducer;
