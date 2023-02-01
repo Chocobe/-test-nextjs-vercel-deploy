@@ -9,7 +9,7 @@ import {
 
 export const labelrInputPasswordValidatorExecutors: TUseLabelrUiAddonInvalidMessagesExecutor[] = [
     {
-        invalidMessage: '최소 하나이상의 알파벳과 숫자, 그리고 특수문자를 포함해야 합니다.',
+        invalidMessage: '최소 하나 이상의 알파벳과 숫자, 그리고 특수문자를 포함해야 합니다.',
         validator: (password: string) => AlphabetNumberSpecialCharactorRegExp.test(password),
     },
     {
