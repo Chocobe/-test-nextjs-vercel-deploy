@@ -37,9 +37,6 @@ function LabelrUiDemoPage() {
 
     return (
         <StyledLabelrUiDemoPageRoot>
-            <div style={{ position: 'absolute', top: 10, right: 10 }}>
-                {process.env.NEXT_PUBLIC_TEST_VALUE}
-            </div>
             <article className="demoArticle">
                 {demoSection}
             </article>
