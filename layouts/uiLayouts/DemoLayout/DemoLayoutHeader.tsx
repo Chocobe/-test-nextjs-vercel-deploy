@@ -1,19 +1,21 @@
+// react
+import { 
+    useMemo
+} from 'react';
 // nextjs
 import {
     useRouter,
 } from 'next/router';
+import Link from 'next/link';
 // styled-components
-// import { demoSectionMapper, TDemoSectionMapperKey } from '@/components/pages/demoPages/_demoSectionMapper';
+import styled from 'styled-components';
+import useThemeModeState from '@/styles/ThemeModeContext/hooks/useThemeModeState';
+import useToggleThemeMode from '@/styles/ThemeModeContext/hooks/useToggleThemeMode';
+// type
 import {
     labelrUiDemoRouteMapper,
     TLabelrUiDemoRouteMapperKey,
 } from '@/router/labelrUiDemoRouteMapper';
-import styled from 'styled-components';
-import useThemeModeState from '@/styles/ThemeModeContext/hooks/useThemeModeState';
-import useThemeModeDispatch from '@/styles/ThemeModeContext/hooks/useThemeModeDispatch';
-import { useCallback, useMemo } from 'react';
-import { actionToggleThemeMode } from '@/styles/ThemeModeContext/ThemeModeContext';
-import Link from 'next/link';
 
 const StyledDemoLayoutHeader = styled.div`
     padding: 40px 20px;
@@ -50,20 +52,18 @@ function DemoLayoutHeader() {
     const demoName = router.query.demoName as TLabelrUiDemoRouteMapperKey;
     const title = labelrUiDemoRouteMapper[demoName]?.title;
 
-    const themeMode = useThemeModeState();
-    const dispatchThemeMode = useThemeModeDispatch();
+    const themeModeState = useThemeModeState();
+    const {
+        toggleThemeMode,
+    } = useToggleThemeMode();
 
     const isLightTheme = useMemo(() => {
-        return themeMode.themeMode === 'dark';
-    }, [themeMode]);
+        return themeModeState.themeMode === 'dark';
+    }, [themeModeState]);
 
     const themeModeName = useMemo(() => {
-        return themeMode.themeMode;
-    }, [themeMode]);
-
-    const toggleThemeMode = useCallback(() => {
-        dispatchThemeMode(actionToggleThemeMode());
-    }, [dispatchThemeMode]);
+        return themeModeState.themeMode;
+    }, [themeModeState]);
 
     return (
         <StyledDemoLayoutHeader>

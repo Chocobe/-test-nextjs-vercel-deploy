@@ -8,8 +8,6 @@ const GlobalStyle = createGlobalStyle`
     }
     
     body {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
         font-family: Pretendard Variable, Noto Sans KR, sans-serif;
     }
     

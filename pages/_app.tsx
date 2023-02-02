@@ -27,6 +27,11 @@ import {
     ThemeModeContextDispatch,
     ThemeModeContextState
 } from '@/styles/ThemeModeContext/ThemeModeContext';
+// chakra-ui
+import {
+    ChakraProvider,
+} from '@chakra-ui/react';
+import chakraUiTheme from '@/styles/chakraUiTheme/chakraUiTheme';
 // Redux
 import { Provider } from 'react-redux';
 import store from '@/redux/store';
@@ -75,7 +80,9 @@ function App({ Component, pageProps }: TAppPropsWithLayout) {
                     <ReactIconsProvider>
                         <ThemeModeContextDispatch.Provider value={dispatchThemeMode}>
                             <ThemeModeContextState.Provider value={themeModeState}>
-                                {getLayout(<Component {...pageProps} />, router)}
+                                <ChakraProvider theme={chakraUiTheme}>
+                                    {getLayout(<Component {...pageProps} />, router)}
+                                </ChakraProvider>
                             </ThemeModeContextState.Provider>
                         </ThemeModeContextDispatch.Provider>
                     </ReactIconsProvider>
