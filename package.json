@@ -1,15 +1,17 @@
 {
-  "name": "preparing-labelr-web",
+  "name": "labelr-web",
   "version": "0.1.0",
   "private": true,
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build:prod": "env-cmd -f .env.prod next build && next export",
+    "build:staging": "env-cmd -f .env.staging next build && next export",
     "start": "next start",
     "lint": "next lint",
-    "lint-fix": "next lint --fix",
-    "test": "jest --watch"
+    "lint:fix": "next lint --fix",
+    "test": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@next/font": "13.1.1",
@@ -21,6 +23,7 @@
     "axios": "^1.2.2",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.7",
+    "env-cmd": "^10.1.0",
     "lodash-es": "^4.17.21",
     "next": "13.1.1",
     "react": "18.2.0",
