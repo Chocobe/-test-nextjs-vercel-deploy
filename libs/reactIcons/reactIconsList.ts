@@ -1,6 +1,10 @@
 // 사용중인 아이콘
 export { FiEye } from '@react-icons/all-files/fi/FiEye';
 export { FiEyeOff } from '@react-icons/all-files/fi/FiEyeOff';
+export { FiAlertCircle } from '@react-icons/all-files/fi/FiAlertCircle';
+export { FiX } from '@react-icons/all-files/fi/FiX';
+export { FiCheckCircle } from '@react-icons/all-files/fi/FiCheckCircle';
+export { FaCheckCircle } from '@react-icons/all-files/fa/FaCheckCircle';
 
 // 개발 테스트용 아이콘
 export { FiActivity } from '@react-icons/all-files/fi/FiActivity';

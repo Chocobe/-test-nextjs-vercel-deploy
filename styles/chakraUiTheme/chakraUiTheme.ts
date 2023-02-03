@@ -54,7 +54,7 @@ const chakraUiTheme = extendTheme({
             },
 
             li: {
-                marginLeft: '20px',
+                marginLeft: '0',
             },
         },
     },
