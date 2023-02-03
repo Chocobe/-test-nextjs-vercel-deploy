@@ -1,14 +1,18 @@
+// rtk
 import { 
     createSlice,
     PayloadAction,
 } from '@reduxjs/toolkit';
+// types
 import {
     MockUsersSliceState,
 } from './mockUsersSliceTypes';
 import {
-    RetrieveMockUsersApiPayload,
-    RetrieveMockUsersApiResponse,
+    TRetrieveMockUsersApiPayload,
+    TRetrieveMockUsersApiResponse,
 } from '@/network/api/mockUsersApi/mockUsersApiTypes';
+
+const NAMESPACE = 'mockUsers';
 
 const initialState: MockUsersSliceState = {
     retrieve: {
@@ -19,7 +23,7 @@ const initialState: MockUsersSliceState = {
 };
 
 const mockUsersSlice = createSlice({
-    name: 'mockUsers',
+    name: NAMESPACE,
     initialState,
     reducers: {
         // reset
@@ -35,7 +39,7 @@ const mockUsersSlice = createSlice({
         retrieveMockUsersRequested(
             state: MockUsersSliceState, 
             // eslint-disable-next-line
-            action: PayloadAction<RetrieveMockUsersApiPayload>
+            action: PayloadAction<TRetrieveMockUsersApiPayload>
         ) {
             state.retrieve = {
                 isPending: true,
@@ -45,7 +49,7 @@ const mockUsersSlice = createSlice({
         },
         retrieveMockUsersSucceed(
             state: MockUsersSliceState,
-            action: PayloadAction<RetrieveMockUsersApiResponse>
+            action: PayloadAction<TRetrieveMockUsersApiResponse>
         ) {
             state.retrieve = {
                 isPending: false,

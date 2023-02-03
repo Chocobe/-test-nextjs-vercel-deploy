@@ -62,7 +62,11 @@
                     }
                 ]
             }
-        ]
+        ],
+        "react/jsx-boolean-value": ["error"]
+        // "react/jsx-boolean-value": [
+        //     "error"
+        // ]
     },
     "overrides": [
         // 유닛 테스트 파일은 @testing-library/react 컨벤션 적용

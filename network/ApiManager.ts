@@ -1,7 +1,8 @@
 import mockUsersApi from './api/mockUsersApi/mockUsersApi';
 
-const apiManager = {
+const ApiManager = {
     mockUsersApi,
 };
+Object.freeze(ApiManager);
 
-export default apiManager;
+export default ApiManager;

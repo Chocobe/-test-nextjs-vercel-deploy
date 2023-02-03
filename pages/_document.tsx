@@ -41,6 +41,7 @@ export default class MyDocument extends Document {
         return (
             <Html lang="ko">
                 <Head>
+                    {/* font-family: "Pretendard Variable" */}
                     <link 
                         rel="stylesheet" 
                         as="style" 

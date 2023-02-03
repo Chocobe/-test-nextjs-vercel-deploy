@@ -3,16 +3,10 @@ import {
     PutEffect,
 } from 'redux-saga/effects';
 import { AxiosResponse } from 'axios';
-import { RetrieveMockUsersApiResponse } from '@/network/api/mockUsersApi/mockUsersApiTypes';
+import { TRetrieveMockUsersApiResponse } from '@/network/api/mockUsersApi/mockUsersApiTypes';
 
-// export type RetrieveMockUsersGeneratorType = Generator<
-//     any,
-//     void,
-//     AxiosResponse<RetrieveMockUsersApiResponse>
-// >;
-
-export type RetrieveMockUsersSagaType = Generator<
-    CallEffect<RetrieveMockUsersApiResponse> | PutEffect,
+export type TRetrieveMockUsersSagaType = Generator<
+    CallEffect<TRetrieveMockUsersApiResponse> | PutEffect,
     void,
-    AxiosResponse<RetrieveMockUsersApiResponse>
+    AxiosResponse<TRetrieveMockUsersApiResponse>
 >;
