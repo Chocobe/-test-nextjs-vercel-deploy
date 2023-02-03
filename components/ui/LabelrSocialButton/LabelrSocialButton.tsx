@@ -19,6 +19,8 @@ import {
 
     TLabelrButtonSize,
 } from '../LabelrButton/labelrButtonTypes';
+// styled-components
+import styled from 'styled-components';
 // UI components
 import LabelrButton from '../LabelrButton/LabelrButton';
 // utils
@@ -29,6 +31,13 @@ import {
 import {
     useTranslation,
 } from 'react-i18next';
+
+const StyledIconWrapper = styled.div<{
+    iconSize: number;
+}>`
+    width: ${({ iconSize }) => `${iconSize}px`};
+    height: ${({ iconSize }) => `${iconSize}px`};
+`;
 
 export type TLabelrSocialButtonProps = PropsWithChildren<{
     type: TLabelrSocialButtonType;
@@ -70,18 +79,26 @@ function LabelrSocialButton(props: TLabelrSocialButtonProps) {
         return function SocialIcon() {
             switch(type) {
                 case labelrSocialButtonTypeMapper.GOOGLE:
-                    return <Image 
-                        src={getStaticImageFilePath('social-icon-google.svg')} 
-                        alt={i18next.t('LabelrSocialButton/GOOGLE_ICON_ALT')} 
-                        width={iconSize} 
-                        height={iconSize} />;
+                    return (
+                        <StyledIconWrapper iconSize={iconSize}>
+                            <Image 
+                                src={getStaticImageFilePath('social-icon-google.svg')} 
+                                alt={i18next.t('LabelrSocialButton/GOOGLE_ICON_ALT')} 
+                                width={iconSize} 
+                                height={iconSize} />
+                        </StyledIconWrapper>
+                    );
                 case labelrSocialButtonTypeMapper.APPLE:
                 default:
-                    return <Image
-                        src={getStaticImageFilePath('social-icon-apple.svg')} 
-                        alt={i18next.t('LabelrSocialButton/APPLE_ICON_ALT')} 
-                        width={iconSize} 
-                        height={iconSize} />;
+                    return (
+                        <StyledIconWrapper iconSize={iconSize}>
+                            <Image
+                                src={getStaticImageFilePath('social-icon-apple.svg')} 
+                                alt={i18next.t('LabelrSocialButton/APPLE_ICON_ALT')} 
+                                width={iconSize} 
+                                height={iconSize} />
+                        </StyledIconWrapper>
+                    );
             }
         };
     }, [type, iconSize, i18next]);
