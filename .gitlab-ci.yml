@@ -1,0 +1,123 @@
+# OK
+default:
+    image: node:16
+
+# OK
+stages:
+    - lint
+    - test
+    - build
+    - deploy
+
+cache:
+    key: $CI_COMMIT_REF_SLUG # 찾아보기 (캐시 참조명?)
+    paths:
+        - node_modules/
+
+# OK
+lint:
+    stage: lint
+    only:
+        - /^prod-*?/
+        - /^staging-*?/
+        - merge_requests
+    script:
+        - yarn install
+        # - yarn add @deepnatural/annotation-ui --force
+        - yarn lint
+        - echo "LINT SUCCESSFULLY"
+
+# OK
+test:
+    stage: test
+    only:
+        - /^prod-*?/
+        - /^staging-*?/
+        - merge_requests
+    script:
+        - yarn test:coverage
+        - echo "TEST SUCCESSFULLY"
+
+# build
+## build staging
+build_staging:
+    stage: build
+    only:
+        - /^staging-*?/
+    except:
+        - main
+    script:
+        - yarn run build:staging
+        - echo "STAGING BUILD SUCCESSFULLY"
+    artifacts:
+        paths:
+            - out/
+        expire_in: 10 mins
+    environment:
+        name: staging
+
+## build production
+build_next_prod:
+    stage: build
+    only:
+        - /^prod-*?/
+    before_script:
+        - NODE_OPTIONS=--max_old_space_size=8192 # 찾아보기
+    script:
+        - yarn run build:prod
+        - echo "PRODUCTION BUILD SUCCESSFULLY"
+    artifacts:
+        paths:
+            - out/
+        expire_in: 10 mins
+    environment:
+        name: production
+
+# deploy
+## deploy staging
+deploy_s3_staging:
+    image: python:latest 
+    stage: deploy
+    only:
+        - /^staging-*?/
+    except:
+        - main
+    script:
+        - export AWS_ACCESS_KEY=$AWS_ACCESS_KEY
+        - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+        - export S3_BUCKET_NAME=staging.app.labelr.io
+        - export DISTRIBUTION_ID=EOD32LLRJ99YY # 값 바꾸기
+        - pip install awscli --upgrade --user
+        # 찾아보기
+        - export PATH=~/.local/bin:$PATH
+        - aws s3 sync out s3://staging.app.labelr.io
+        # - aws s3 cp dist/tool-version.txt s3://staging.app.deepnatural.ai-kr/tool-version.txt --expires "1990-01-01T20:30:00Z" --cache-control "no-cache, no-store, must-revalidate"
+        # - aws s3 cp dist/ui-version.txt s3://staging.app.deepnatural.ai-kr/ui-version.txt --expires "1990-01-01T20:30:00Z" --cache-control "no-cache, no-store, must-revalidate"
+        - aws s3 cp out/index.html s3://staging.app.labelr.io/index.html --expires "1990-01-01T20:30:00Z" --cache-control "no-cache, no-store, must-revalidate"
+        - aws cloudfront create-invalidation --distribution-id EOD32LLRJ99YY --paths '/*' # distribution-id 값 바꾸기
+        - echo "STAGING DEPLOYED SUCCESSFULLY"
+    environment:
+        name: staging
+    cache: []
+
+deploy_s3_prod:
+    image: python:latest
+    stage: deploy
+    only:
+        - /^prod-*?/
+    script:
+        - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+        - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+        - export S3_BUCKET_NAME=app.labelr.io
+        - export DISTRIBUTION_ID=E2ZLY0Q0H3860F # 값 바꾸기
+        - pip install awscli --upgrade --user
+        - export PATH=~/.local/bin:$PATH
+        - aws s3 sync dist s3://app.labelr.io
+        # - aws s3 cp dist/tool-version.txt s3://app.deepnatural.ai/tool-version.txt --expires "1990-01-01T20:30:00Z" --cache-control "no-cache, no-store, must-revalidate"
+        # - aws s3 cp dist/ui-version.txt s3://app.deepnatural.ai/ui-version.txt --expires "1990-01-01T20:30:00Z" --cache-control "no-cache, no-store, must-revalidate"
+        - aws s3 cp out/index.html s3://app.labelr.io/index.html --expires "1990-01-01T20:30:00Z" --cache-control "no-cache, no-store, must-revalidate"
+        - aws cloudfront create-invalidation --distribution-id E2ZLY0Q0H3860F --paths '/*' # distribution-id 값 바꾸기
+        - echo "PRODUCTION DEPLOYED SUCCESSFULLY"
+    environment:
+        name: production
+    cache: []

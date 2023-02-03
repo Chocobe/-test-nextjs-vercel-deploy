@@ -10,15 +10,15 @@ import {
     retrieveMockUsersFailed,
 } from '@/redux/slices/mockUsersSlice/mockUsersSlice';
 import {
-    RetrieveMockUsersApiPayload, 
+    TRetrieveMockUsersApiPayload, 
 } from '@/network/api/mockUsersApi/mockUsersApiTypes';
 
-import apiManager from '@/network/apiManager';
-import { RetrieveMockUsersSagaType } from './mockUsersSagaTypes';
+import apiManager from '@/network/ApiManager';
+import { TRetrieveMockUsersSagaType } from './mockUsersSagaTypes';
 
 function* retrieveMockUsers(
-    action: PayloadAction<RetrieveMockUsersApiPayload>
-): RetrieveMockUsersSagaType {
+    action: PayloadAction<TRetrieveMockUsersApiPayload>
+): TRetrieveMockUsersSagaType {
     try {
         const { id } = action.payload;
         const response = yield call(
