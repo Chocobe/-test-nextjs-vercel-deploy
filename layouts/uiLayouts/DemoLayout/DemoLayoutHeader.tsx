@@ -52,7 +52,7 @@ const StyledDemoLayoutHeader = styled.div`
 function DemoLayoutHeader() {
     const router = useRouter();
     const demoName = router.query.demoName as TLabelrUiDemoRouteMapperKey;
-    const title = labelrUiDemoRouteMapper[demoName]?.title;
+    const title = labelrUiDemoRouteMapper[demoName]?.name;
 
     const themeModeState = useThemeModeState();
     const {

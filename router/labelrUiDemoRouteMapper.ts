@@ -14,41 +14,41 @@ import {
 export const labelrUiDemoRouteMapper = {
     /** buttons */
     button: {
-        title: 'LabelrButton',
+        name: 'LabelrButton',
         path: RoutePathFactory.labelrUiDemo['/[demoName]']('button'),
         DemoSectionComponent: LabelrButtonDemoSection,
     },
     socialButton: {
-        title: 'LabelrSocialButton',
+        name: 'LabelrSocialButton',
         path: RoutePathFactory.labelrUiDemo['/[demoName]']('socialButton'),
         DemoSectionComponent: LabelrSocialButtonDemoSection,
     },
 
     /** inputs */
     input: {
-        title: 'LabelrInput',
+        name: 'LabelrInput',
         path: RoutePathFactory.labelrUiDemo['/[demoName]']('input'),
         DemoSectionComponent: LabelrInputDemoSection,
     },
     inputEmail: {
-        title: 'LabelrInputEmail',
+        name: 'LabelrInputEmail',
         path: RoutePathFactory.labelrUiDemo['/[demoName]']('inputEmail'),
         DemoSectionComponent: LabelrInputEmailDemoSection,
     },
     inputPassword: {
-        title: 'LabelrInputPassword',
+        name: 'LabelrInputPassword',
         path: RoutePathFactory.labelrUiDemo['/[demoName]']('inputPassword'),
         DemoSectionComponent: LabelrInputPasswordDemoSection,
     },
     inputConfirm: {
-        title: 'LabelrInputConfirm',
+        name: 'LabelrInputConfirm',
         path: RoutePathFactory.labelrUiDemo['/[demoName]']('inputConfirm'),
         DemoSectionComponent: LabelrInputConfirmDemoSection,
     },
 
     /** Overlay */
     useSnackbar: {
-        title: 'useLabelrSnackbar',
+        name: 'useLabelrSnackbar',
         path: RoutePathFactory.labelrUiDemo['/[demoName]']('useSnackbar'),
         DemoSectionComponent: UseLabelrSnackbarDemoSection,
     },

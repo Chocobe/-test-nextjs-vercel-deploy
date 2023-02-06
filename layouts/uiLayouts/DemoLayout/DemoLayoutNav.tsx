@@ -41,7 +41,7 @@ function DemoLayoutNav() {
         <StyledDemoLayoutNavRoot>
             {Object.entries(labelrUiDemoRouteMapper).map(([key, routeData]) => {
                 const {
-                    title,
+                    name,
                     path,
                 } = routeData;
                 
@@ -55,7 +55,7 @@ function DemoLayoutNav() {
                             'menuItem',
                             { 'active': path === currentPath}
                         )}>
-                            {title}
+                            {name}
                         </a>
                     </Link>
                 );
