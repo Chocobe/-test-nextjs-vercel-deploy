@@ -37,6 +37,8 @@ import { Provider } from 'react-redux';
 import store from '@/redux/store';
 // icon
 import ReactIconsProvider from '@/libs/reactIcons/ReactIconsProvider';
+// i18n
+import '@/i18n';
 
 export type TPageComponent = NextComponentType<NextPageContext, any, any> & {
     getLayout?: (page: ReactElement) => ReactElement;
