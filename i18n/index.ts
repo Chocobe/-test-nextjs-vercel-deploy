@@ -44,6 +44,3 @@ export default i18n;
 export interface I18Next {
     t: (str: string, option?: object) => string;
 }
-
-// scanner를 사용하기 위한 dummy function
-export const i18nextScanKey = (key: string): string => key;

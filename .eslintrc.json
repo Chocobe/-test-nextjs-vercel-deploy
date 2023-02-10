@@ -108,6 +108,8 @@
         "tailwind.config.js",
         "postcss.config.js",
         "jest.config.js",
-        "jest.setup.js"
+        "jest.setup.js",
+        "i18next-scanner.config.js",
+        "i18n/**/*"
     ]
 }

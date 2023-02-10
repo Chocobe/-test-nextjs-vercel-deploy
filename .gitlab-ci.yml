@@ -109,14 +109,14 @@ deploy_s3_prod:
         - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
         - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
         - export S3_BUCKET_NAME=app.labelr.io
-        - export DISTRIBUTION_ID=E2ZLY0Q0H3860F # 값 바꾸기
+        - export DISTRIBUTION_ID=XXXXXXXX # 값 바꾸기
         - pip install awscli --upgrade --user
         - export PATH=~/.local/bin:$PATH
         - aws s3 sync dist s3://app.labelr.io
         # - aws s3 cp dist/tool-version.txt s3://app.deepnatural.ai/tool-version.txt --expires "1990-01-01T20:30:00Z" --cache-control "no-cache, no-store, must-revalidate"
         # - aws s3 cp dist/ui-version.txt s3://app.deepnatural.ai/ui-version.txt --expires "1990-01-01T20:30:00Z" --cache-control "no-cache, no-store, must-revalidate"
         - aws s3 cp out/index.html s3://app.labelr.io/index.html --expires "1990-01-01T20:30:00Z" --cache-control "no-cache, no-store, must-revalidate"
-        - aws cloudfront create-invalidation --distribution-id E2ZLY0Q0H3860F --paths '/*' # distribution-id 값 바꾸기
+        - aws cloudfront create-invalidation --distribution-id XXXXXXXX --paths '/*' # distribution-id 값 바꾸기
         - echo "PRODUCTION DEPLOYED SUCCESSFULLY"
     environment:
         name: production
