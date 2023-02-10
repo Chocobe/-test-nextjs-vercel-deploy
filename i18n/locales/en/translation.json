@@ -24,5 +24,18 @@
     "/account/signup/BODY__SIGNUP_BUTTON": "__NOT_TRANSLATED__",
     "/account/signup/BODY__NOTICE_MESSAGE": "__NOT_TRANSLATED__",
     "/account/signup/BODY__SIGNIN_LEADING_MESSAGE": "__NOT_TRANSLATED__",
-    "/account/signup/BODY__BUTTON": "__NOT_TRANSLATED__"
+    "/account/signup/BODY__BUTTON": "__NOT_TRANSLATED__",
+    "/account/verify-email/HEADER__LINK": "__NOT_TRANSLATED__",
+    "/account/verify-email/HEADER__TITLE": "__NOT_TRANSLATED__",
+    "/account/verify-email/BODY__VERIFY_MESSAGE": "__NOT_TRANSLATED__",
+    "/account/verify-email/BODY__HELP_MESSAGE__PREFIX": "__NOT_TRANSLATED__",
+    "/account/verify-email/BODY__HELP_MESSAGE__LINK": "__NOT_TRANSLATED__",
+    "/account/verify-email/BODY__HELP_MESSAGE__POSTFIX": "__NOT_TRANSLATED__",
+    "/account/verify-email/BODY__SIGNIN_BUTTON": "__NOT_TRANSLATED__",
+    "/account/result-verify-email/HEADER__TITLE__EXPIRED": "__NOT_TRANSLATED__",
+    "/account/result-verify-email/HEADER__TITLE__RESULT": "__NOT_TRANSLATED__",
+    "/account/result-verify-email/HEADER__LINK_TEXT": "__NOT_TRANSLATED__",
+    "/account/result-verify-email/HEADER__MESSAGE": "__NOT_TRANSLATED__",
+    "/account/result-verify-email/HEADER__INPUT_EMAIL__PLACEHOLDER": "__NOT_TRANSLATED__",
+    "/account/result-verify-email/BODY__BUTTON_OK": "__NOT_TRANSLATED__"
 }

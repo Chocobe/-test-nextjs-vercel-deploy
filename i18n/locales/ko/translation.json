@@ -24,5 +24,18 @@
     "/account/signup/BODY__SIGNUP_BUTTON": "회원가입",
     "/account/signup/BODY__NOTICE_MESSAGE": "회원가입은 <span style='color: {{color}}'>&nbsp;이용약관&nbsp;</span> 및 <span style='color: {{color}}'>&nbsp;개인정보 보호정책</span>에 동의하시는 것으로 간주합니다.",
     "/account/signup/BODY__SIGNIN_LEADING_MESSAGE": "계정이 있으세요?",
-    "/account/signup/BODY__BUTTON": "로그인"
+    "/account/signup/BODY__BUTTON": "로그인",
+    "/account/verify-email/HEADER__LINK": "로그인",
+    "/account/verify-email/HEADER__TITLE": "이메일을 확인해 주세요!",
+    "/account/verify-email/BODY__VERIFY_MESSAGE": "인증 메일을 보내드렸어요!<br />메일 수신함을 확인해 주시고 인증 버튼을 클릭해 주세요.<br />스팸 이메일로 분류되는 경우도 있으니 확인 부탁 드려요.<br /><br />",
+    "/account/verify-email/BODY__HELP_MESSAGE__PREFIX": "만일 이메일이 오지 않았다면",
+    "/account/verify-email/BODY__HELP_MESSAGE__LINK": "여기",
+    "/account/verify-email/BODY__HELP_MESSAGE__POSTFIX": "를 클릭하여 다시 이메일을 입력하신 뒤 보내기 버튼을 클릭해 주세요.",
+    "/account/verify-email/BODY__SIGNIN_BUTTON": "로그인",
+    "/account/result-verify-email/HEADER__TITLE__EXPIRED": "인증 메일이 만료되었어요!<br />다시 시도해 주세요.",
+    "/account/result-verify-email/HEADER__TITLE__RESULT": "이메일 인증",
+    "/account/result-verify-email/HEADER__LINK_TEXT": "로그인",
+    "/account/result-verify-email/HEADER__MESSAGE": "가입 시 또는 로그인 시 사용되는 이메일 주소를 입력해 주세요.<br />이메일 확인을 위한 인증메일을 보내드려요.",
+    "/account/result-verify-email/HEADER__INPUT_EMAIL__PLACEHOLDER": "이메일 주소를 입력해 주세요",
+    "/account/result-verify-email/BODY__BUTTON_OK": "확인"
 }
