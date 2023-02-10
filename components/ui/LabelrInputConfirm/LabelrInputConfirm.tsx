@@ -29,6 +29,10 @@ import {
     FiEye,
     FiEyeOff,
 } from '@icons';
+// i18n
+import {
+    TTFunctionReturnType,
+} from '@/i18n/i18nextTypes';
 
 import {
     labelrInputConfirmValidatorExecutorsFactory,
@@ -43,10 +47,10 @@ export type TLabelrInputConfirmProps = {
     id?: string;
     value: string;
     targetValue: string;
-    invalidMessage: string;
+    invalidMessage: TTFunctionReturnType | string;
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
     onIsValid?: (isValid: boolean, invalidMessages: string[]) => void;
-    placeholder?: string;
+    placeholder?: TTFunctionReturnType | string;
     isDisabled?: boolean;
     isReadonly?: boolean;
     isEnableMasking?: boolean;
@@ -182,7 +186,7 @@ function LabelrInputConfirm(props: TLabelrInputConfirmProps) {
                 value={value}
                 onChange={onChangeInputElement}
                 onBlur={onBlurInputElement}
-                placeholder={placeholder}
+                placeholder={placeholder as string}
                 isInvalid={isInvalid}
                 isDisabled={isDisabled}
                 isReadonly={isReadonly}
