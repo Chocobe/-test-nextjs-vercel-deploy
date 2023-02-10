@@ -1,3 +1,17 @@
 {
-    "HELLO": "안녕하세요"
+    "/account/signin/HEADER__MESSAGE": "아직 계정이 없으세요?",
+    "/account/signin/HEADER__LINK_TEXT": "회원가입",
+    "/account/signin/HEADER__TITLE": "레이블러 로그인",
+    "/account/signin/BODY__INPUT_EMAIL_PLACEHOLDER": "이메일 주소를 입력해 주세요",
+    "/account/signin/BODY__INPUT_PASSWORD_PLACEHOLDER": "비밀번호를 입력해 주세요",
+    "/account/signin/BODY__FORGOT_PASSWORD": "비밀번호를 잊으셨나요?",
+    "/account/signin/BODY__SIGNIN_BUTTON": "로그인",
+    "/account/signin/BODY__SIGNUP_LEADING_MESSAGE": "아직 계정이 없으세요?",
+    "/account/signin/BODY__SIGNUP_BUTTON": "회원가입",
+    "AuthPageFooter/POSTFIX_BUTTON_NAME__SIGNIN": "로그인",
+    "AuthPageFooter/POSTFIX_BUTTON_NAME__SIGNUP": "가입",
+    "AuthPageFooter/GOOGLE_BUTTON_NAME": "구글 계정으로",
+    "AuthPageFooter/APPLE_BUTTON_NAME": "애플 계정으로",
+    "LabelrSocialButton/GOOGLE_ICON_ALT": "Google 로그인",
+    "LabelrSocialButton/APPLE_ICON_ALT": "Apple 로그인"
 }

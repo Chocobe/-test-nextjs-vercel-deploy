@@ -1,3 +1,17 @@
 {
-    "HELLO": "Hallo"
+    "/account/signin/HEADER__MESSAGE": "__NOT_TRANSLATED__",
+    "/account/signin/HEADER__LINK_TEXT": "__NOT_TRANSLATED__",
+    "/account/signin/HEADER__TITLE": "__NOT_TRANSLATED__",
+    "/account/signin/BODY__INPUT_EMAIL_PLACEHOLDER": "__NOT_TRANSLATED__",
+    "/account/signin/BODY__INPUT_PASSWORD_PLACEHOLDER": "__NOT_TRANSLATED__",
+    "/account/signin/BODY__FORGOT_PASSWORD": "__NOT_TRANSLATED__",
+    "/account/signin/BODY__SIGNIN_BUTTON": "__NOT_TRANSLATED__",
+    "/account/signin/BODY__SIGNUP_LEADING_MESSAGE": "__NOT_TRANSLATED__",
+    "/account/signin/BODY__SIGNUP_BUTTON": "__NOT_TRANSLATED__",
+    "AuthPageFooter/POSTFIX_BUTTON_NAME__SIGNIN": "__NOT_TRANSLATED__",
+    "AuthPageFooter/POSTFIX_BUTTON_NAME__SIGNUP": "__NOT_TRANSLATED__",
+    "AuthPageFooter/GOOGLE_BUTTON_NAME": "__NOT_TRANSLATED__",
+    "AuthPageFooter/APPLE_BUTTON_NAME": "__NOT_TRANSLATED__",
+    "LabelrSocialButton/GOOGLE_ICON_ALT": "__NOT_TRANSLATED__",
+    "LabelrSocialButton/APPLE_ICON_ALT": "__NOT_TRANSLATED__"
 }

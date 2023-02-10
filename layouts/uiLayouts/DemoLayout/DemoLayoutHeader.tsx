@@ -1,7 +1,6 @@
 // react
 import { 
     useMemo,
-    useState,
 } from 'react';
 // nextjs
 import {
@@ -77,7 +76,7 @@ function DemoLayoutHeader() {
     return (
         <StyledDemoLayoutHeader>
             <h1 className="title">
-                {title} ({i18next.t('HELLO')})
+                {title} 
             </h1>
 
             <select 

@@ -25,6 +25,10 @@ import LabelrButton from '../LabelrButton/LabelrButton';
 import { 
     getStaticImageFilePath,
 } from '@/utils/getStaticFilePath';
+// i18n
+import {
+    useTranslation,
+} from 'react-i18next';
 
 export type TLabelrSocialButtonProps = PropsWithChildren<{
     type: TLabelrSocialButtonType;
@@ -44,6 +48,9 @@ function LabelrSocialButton(props: TLabelrSocialButtonProps) {
         children,
     } = props;
 
+    // hook
+    const i18next = useTranslation();
+
     // cache
     const iconSize = useMemo(() => {
         switch (size) {
@@ -60,24 +67,24 @@ function LabelrSocialButton(props: TLabelrSocialButtonProps) {
     }, [size]);
 
     const LeftAddonElement = useMemo(() => {
-        return function Hello() {
+        return function SocialIcon() {
             switch(type) {
                 case labelrSocialButtonTypeMapper.GOOGLE:
                     return <Image 
                         src={getStaticImageFilePath('social-icon-google.svg')} 
-                        alt="Google 로그인" 
+                        alt={i18next.t('LabelrSocialButton/GOOGLE_ICON_ALT')} 
                         width={iconSize} 
                         height={iconSize} />;
                 case labelrSocialButtonTypeMapper.APPLE:
                 default:
                     return <Image
                         src={getStaticImageFilePath('social-icon-apple.svg')} 
-                        alt="Google 로그인" 
+                        alt={i18next.t('LabelrSocialButton/APPLE_ICON_ALT')} 
                         width={iconSize} 
                         height={iconSize} />;
             }
         };
-    }, [type, iconSize]);
+    }, [type, iconSize, i18next]);
 
     return (
         <LabelrButton

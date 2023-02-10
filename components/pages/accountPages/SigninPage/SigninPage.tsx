@@ -35,6 +35,10 @@ import AuthPageFooter from '../AuthPageFooter/AuthPageFooter';
 import LabelrInputEmail from '@/components/ui/LabelrInputEmail/LabelrInputEmail';
 import LabelrInputPassword from '@/components/ui/LabelrInputPassword/LabelrInputPassword';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
+// i18next
+import {
+    useTranslation,
+} from 'react-i18next';
 
 const StyledSigninPageRoot = styled.div`
     //
@@ -92,6 +96,7 @@ function SigninPage() {
     // hook
     const dispatch = useAppDispatch();
     const router = useRouter();
+    const i18next = useTranslation();
 
     // cache
     const routePathForFindPassword = useMemo(() => {
@@ -147,10 +152,10 @@ function SigninPage() {
         <StyledSigninPageRoot>
             {/* Header */}
             <AuthPageHeader 
-                message='아직 계정이 없으세요?'
-                linkText='회원가입'
+                message={i18next.t('/account/signin/HEADER__MESSAGE')}
+                linkText={i18next.t('/account/signin/HEADER__LINK_TEXT')}
                 linkHref={routePathForSignup}>
-                {'레이블러 로그인'}
+                {i18next.t('/account/signin/HEADER__TITLE')}
             </AuthPageHeader>
 
             {/* Body */}
@@ -160,7 +165,7 @@ function SigninPage() {
                         value={email}
                         onChange={onChangeEmail}
                         onIsValid={onIsValidEmail}
-                        placeholder="이메일 주소를 입력해 주세요"
+                        placeholder={i18next.t('/account/signin/BODY__INPUT_EMAIL_PLACEHOLDER')}
                         autofocus
                         fluid />
 
@@ -168,7 +173,7 @@ function SigninPage() {
                         value={password}
                         onChange={onChangePassword}
                         onIsValid={onIsValidPassword}
-                        placeholder="비밀번호를 입력해 주세요"
+                        placeholder={i18next.t('/account/signin/BODY__INPUT_PASSWORD_PLACEHOLDER')}
                         fluid />
                 </div>
 
@@ -178,7 +183,7 @@ function SigninPage() {
                         legacyBehavior
                         href={routePathForFindPassword}>
                         <a className="linkWrapper-link">
-                            비밀번호를 잊으셨나요?
+                            {i18next.t('/account/signin/BODY__FORGOT_PASSWORD')}
                         </a>
                     </Link>
                 </div>
@@ -187,17 +192,17 @@ function SigninPage() {
                     fluid
                     isDisabled={!isValidInputValues}
                     onClick={onClickSignin} >
-                    로그인
+                    {i18next.t('/account/signin/BODY__SIGNIN_BUTTON')}
                 </LabelrButton>
 
                 <div className="questionMessage">
-                    아직 계정이 없으세요?
+                    {i18next.t('/account/signin/BODY__SIGNUP_LEADING_MESSAGE')}
                     <Link
                         passHref
                         legacyBehavior
                         href={routePathForSignup}>
                         <a className="questionMessage-link">
-                            회원가입
+                            {i18next.t('/account/signin/BODY__SIGNUP_BUTTON')}
                         </a>
                     </Link>
                 </div>

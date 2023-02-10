@@ -39,6 +39,7 @@ import store from '@/redux/store';
 import ReactIconsProvider from '@/libs/reactIcons/ReactIconsProvider';
 // i18n
 import '@/i18n';
+import LabelrLanguageDropdown from '@/components/ui/LabelrLanguageDropdown/LabelrLanguageDropdown';
 
 export type TPageComponent = NextComponentType<NextPageContext, any, any> & {
     getLayout?: (page: ReactElement) => ReactElement;
@@ -49,15 +50,22 @@ export type TAppPropsWithLayout<T = any> = {
     pageProps: T;
 };
 
-const AppRoot = styled.div`
+const StyledAppRoot = styled.div`
     width: 100%;
     height: 100vh;
     overflow: hidden;
 `;
 
+// FIXME: i18n 테스트 후 삭제하기
+const StyledLanguageDropdownWrapper = styled.div`
+    position: absolute;
+    top: 10px;
+    right: 10px;
+`;
+
 function App({ Component, pageProps }: TAppPropsWithLayout) {
     const router = useRouter();
-    
+
     const getLayout: (
         page: ReactElement,
         router: NextRouter,
@@ -66,7 +74,7 @@ function App({ Component, pageProps }: TAppPropsWithLayout) {
     const [themeModeState, dispatchThemeMode] = useReducer(reducer, initialState);
 
     return (
-        <AppRoot>
+        <StyledAppRoot>
             <Head>
                 <meta 
                     name="viewport" 
@@ -83,6 +91,11 @@ function App({ Component, pageProps }: TAppPropsWithLayout) {
                         <ThemeModeContextDispatch.Provider value={dispatchThemeMode}>
                             <ThemeModeContextState.Provider value={themeModeState}>
                                 <ChakraProvider theme={chakraUiTheme}>
+                                    {/* FIXME: i18n 테스트 후 삭제하기} */}
+                                    <StyledLanguageDropdownWrapper>
+                                        <LabelrLanguageDropdown />
+                                    </StyledLanguageDropdownWrapper>
+
                                     {getLayout(<Component {...pageProps} />, router)}
                                 </ChakraProvider>
                             </ThemeModeContextState.Provider>
@@ -90,7 +103,7 @@ function App({ Component, pageProps }: TAppPropsWithLayout) {
                     </ReactIconsProvider>
                 </ThemeProvider>
             </Provider>
-        </AppRoot>
+        </StyledAppRoot>
     );
 }
 

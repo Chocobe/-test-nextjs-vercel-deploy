@@ -16,6 +16,10 @@ import {
 } from '@/components/ui/LabelrSocialButton/labelrSocialButtonTypes';
 // UI components
 import LabelrSocialButton from '@/components/ui/LabelrSocialButton/LabelrSocialButton';
+// i18n
+import {
+    useTranslation,
+} from 'react-i18next';
 
 const StyledAuthPageFooterRoot = styled.footer`
     width: 100%;
@@ -38,16 +42,19 @@ function AuthPageFooter(props: TAuthPageFooterProps) {
         onClickApple,
     } = props;
 
+    // hooks
+    const i18next = useTranslation();
+
     // cache
     const postfixButtonName = useMemo(() => {
         switch(type) {
             case authPageFooterTypeMapper.SIGNIN:
-                return '로그인';
+                return i18next.t('AuthPageFooter/POSTFIX_BUTTON_NAME__SIGNIN');
             case authPageFooterTypeMapper.SIGNUP:
             default:
-                return '가입';
+                return i18next.t('AuthPageFooter/POSTFIX_BUTTON_NAME__SIGNUP');
         }
-    }, [type]);
+    }, [type, i18next]);
 
     return (
         <StyledAuthPageFooterRoot>
@@ -55,14 +62,14 @@ function AuthPageFooter(props: TAuthPageFooterProps) {
                 fluid
                 onClick={onClickGoogle}
                 type={labelrSocialButtonTypeMapper.GOOGLE}>
-                구글 계정으로 {postfixButtonName}
+                {i18next.t('AuthPageFooter/GOOGLE_BUTTON_NAME')} {postfixButtonName}
             </LabelrSocialButton>
 
             <LabelrSocialButton
                 fluid
                 onClick={onClickApple}
                 type={labelrSocialButtonTypeMapper.APPLE}>
-                애플 계정으로 {postfixButtonName}
+                {i18next.t('AuthPageFooter/APPLE_BUTTON_NAME')} {postfixButtonName}
             </LabelrSocialButton>
         </StyledAuthPageFooterRoot>
     );
