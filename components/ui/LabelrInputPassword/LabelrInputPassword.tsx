@@ -29,6 +29,10 @@ import {
     FiEye,
     FiEyeOff,
 } from '@icons';
+// i18next
+import { 
+    TTFunctionReturnType
+} from '@/i18n/i18nextTypes';
 
 import { 
     labelrInputPasswordValidatorExecutors,
@@ -43,7 +47,7 @@ export type TLabelrInputPasswordProps = {
     value: string;
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
     onIsValid?: (isValid: boolean, invalidMessages: string[]) => void;
-    placeholder?: string;
+    placeholder?: TTFunctionReturnType | string;
     isDisabled?: boolean;
     isReadonly?: boolean;
     autofocus?: boolean;
@@ -155,7 +159,7 @@ function LabelrInputPassword(props: TLabelrInputPasswordProps) {
                 value={value}
                 onChange={onChangeInputElement}
                 onBlur={onBlurInputElement}
-                placeholder={placeholder}
+                placeholder={placeholder as string}
                 isInvalid={isInvalid}
                 isDisabled={isDisabled}
                 isReadonly={isReadonly}

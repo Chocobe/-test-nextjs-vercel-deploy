@@ -1,12 +1,14 @@
 // react
 import { 
-    useMemo
+    useMemo,
 } from 'react';
 // nextjs
 import {
     useRouter,
 } from 'next/router';
 import Link from 'next/link';
+// i18n
+import { useTranslation } from 'react-i18next';
 // styled-components
 import styled from 'styled-components';
 import useThemeModeState from '@/styles/ThemeModeContext/hooks/useThemeModeState';
@@ -65,11 +67,24 @@ function DemoLayoutHeader() {
         return themeModeState.themeMode;
     }, [themeModeState]);
 
+    // FIXME: i18n 삭제 후, 지우기
+    const i18next = useTranslation();
+    const onChangeLanguage = (lang: string) => {
+        i18next.i18n.changeLanguage(lang);
+    };
+
     return (
         <StyledDemoLayoutHeader>
             <h1 className="title">
-                {title}
+                {title} 
             </h1>
+
+            <select 
+                value={i18next.i18n.language}
+                onChange={e => onChangeLanguage(e.currentTarget.value)}>
+                <option value="ko">Korean</option>
+                <option value="en">English</option>
+            </select>
 
             <div className="themeModeController">
                 <input

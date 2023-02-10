@@ -12,6 +12,10 @@ import styled from 'styled-components';
 import {
     getStaticImageFilePath,
 } from '@/utils';
+// i18next
+import { 
+    TTFunctionReturnType,
+} from '@/i18n/i18nextTypes';
 
 const StyledAuthPageHeaderRoot = styled.header`
     .linkWrapper {
@@ -46,8 +50,8 @@ const StyledAuthPageHeaderRoot = styled.header`
 `;
 
 export type TAuthPageHeaderProps = PropsWithChildren<{
-    message?: string;
-    linkText?: string;
+    message?: TTFunctionReturnType;
+    linkText?: TTFunctionReturnType;
     linkHref?: string;
 }>;
 

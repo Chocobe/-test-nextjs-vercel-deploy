@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "deepnatural-console",
+  "private_key_id": "fef690b62620ea5801b5f6ec712ee6603bed4f50",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCyTLEA7s7igYmT\nn0w2wvL7Mv3KzIuN9VUifrb/H0OQtcMXYV8TF4EpzW2rafGaiEnz5KWa+71T4zKL\nsIiLLWD11Ig0N3IDv6LMPz+bY56MUVa1+tC335H91ilXI01BGbrjpP8Rxa3g4bzk\n7mdoTzVASawdmBOaM6OlW/y9w77603AeIHJdOgQJw2YtgrQgfzFToKUeGkGD+4gs\nuCJFuLS4+lz+yYWIyY04mrBlmrHf9KHAYyPE/LMQhQQ4L3bep6qJj5HddFHnTZcc\njURkBizJR3QuRXkPTeTCvJupTXnBrVQibyj3PA1KgL8htt3XdTvXa4mqn0TGkPdS\nmffZQGAFAgMBAAECggEAU0p+OVhVrvwiX6K/wKkrRuuYIV+SJbugjJ+zLtTVBEnU\nnBxxhIKrZPLBM50nLzBRk6yRLChDVmfBGf5amuGU9OHWysXH7jZcf5tgRF+yFgx9\nPD+xtuOq2HBuGXW1Rh8V7fgK66tzwaTSUAOKrPCriJ+h1qVPKu7KmJmzJJbHpXXO\ntI6B5U4cXSfvlvXCZ996ZpzUOsq2dzldfxXdS2Ab7Ad+n4tRfLfsewCs6v1CUxZe\nQTQkdi64Y9ku+Ui5bePoO/3qmFaN8ew2D5GuGHOhSxkThyrarCW6yTfAHnTz8kX/\n7zP4H9Xt2oOq6Bqf6i8T+uwjYk1xx0pfL07YmLtvdQKBgQDa4EnaHosXn9uFAMPb\novjUL8tYWMCynB5kMvRnM9D8jPQ3c6okYVmsHslUf/6Guh/xyuLqgETxZXZwdoxN\ntB7Nhk8fpQtzmZOaj+WkZa4GZIwOVPbntrFsB2DBDXh6/T1oLWUaFTLbvBzzo5SC\nqd1292zJLoWdXT46L2HTeqwBVwKBgQDQiox2agPCBD03DXGlOfyVEE5j3H8AL2J7\nYQO0Xrsl3upSNEBKr26IB8WAoBAA5oZ73ir1xtYFmHr3PhcZ5GRe8wdDMv1oNE4T\nfxGfl0+l5fISOCUAhIy6B86rJzMOE3uaABg0KXim8gaqLCIBOwfPF95SY1vWe5wE\nxtp0uyEEAwKBgAIheNaUwYnjVoG+9iknNwDpzjL3+jhC6NDU5igzCu/Kd34qtBdS\nk0rnqdIWxOWO3ky+SuM5iHJJKJQDs232OO6LRi3qr2fasOMqT3QAQWdyhyKElTrA\nPo3srHZ0qR2ZZYWkG33bgvk8pZOBnip/eNZ1pit3NnnHtJlgaLVkVlRVAoGAJr6W\n+ikYKaO/+8pzos7zLn6pEcSVk+M52NJdbdVrz81qm3s5tqaBUqSe/Ra/4mrx8XGF\nacRXXxLFRcozYIweWcWtQ77ldcbB+r1Q+OWT1q6yGtBzj3UQ8D8jFolh4uubuzDp\nTkemMt4kftlUOAZPnRpCI+xx05eDlR+c1rMtnyECgYB84O8EboPmsVHb71v83kBI\nr0qhTtUKJwCQaxaci//ivP4BU5bLb9jaRv531mPy1XSgeQ7trOvE1Jm3cW9HGd9H\nxxSOAndQgyZdPrFlOJpq1QjHrXlYdxERN2RSlAxMlD1SdsRnS4swYus+tP3t8zHS\noUYh7jKcVO5WqqgwD/nH/w==\n-----END PRIVATE KEY-----\n",
+  "client_email": "labelr-v2@deepnatural-console.iam.gserviceaccount.com",
+  "client_id": "104732785494214604531",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/labelr-v2%40deepnatural-console.iam.gserviceaccount.com"
+}
