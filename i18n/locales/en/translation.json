@@ -13,5 +13,16 @@
     "AuthPageFooter/GOOGLE_BUTTON_NAME": "__NOT_TRANSLATED__",
     "AuthPageFooter/APPLE_BUTTON_NAME": "__NOT_TRANSLATED__",
     "LabelrSocialButton/GOOGLE_ICON_ALT": "__NOT_TRANSLATED__",
-    "LabelrSocialButton/APPLE_ICON_ALT": "__NOT_TRANSLATED__"
+    "LabelrSocialButton/APPLE_ICON_ALT": "__NOT_TRANSLATED__",
+    "/account/signup/HEADER__MESSAGE": "__NOT_TRANSLATED__",
+    "/account/signup/HEADER__LINK_TEXT": "__NOT_TRANSLATED__",
+    "/account/signup/HEADER__TITLE": "__NOT_TRANSLATED__",
+    "/account/signup/BODY__INPUT_EMAIL__PLACEHOLDER": "__NOT_TRANSLATED__",
+    "/account/signup/BODY__INPUT_PASSWORD__PLACEHOLDER": "__NOT_TRANSLATED__",
+    "/account/signup/BODY__INPUT_PASSWORD_CONFIRM__INVALID_MESSAGE": "__NOT_TRANSLATED__",
+    "/account/signup/BODY__INPUT_PASSWORD_CONFIRM__PLACEHOLDER": "__NOT_TRANSLATED__",
+    "/account/signup/BODY__SIGNUP_BUTTON": "__NOT_TRANSLATED__",
+    "/account/signup/BODY__NOTICE_MESSAGE": "__NOT_TRANSLATED__",
+    "/account/signup/BODY__SIGNIN_LEADING_MESSAGE": "__NOT_TRANSLATED__",
+    "/account/signup/BODY__BUTTON": "__NOT_TRANSLATED__"
 }

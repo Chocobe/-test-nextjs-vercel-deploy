@@ -13,5 +13,16 @@
     "AuthPageFooter/GOOGLE_BUTTON_NAME": "구글 계정으로",
     "AuthPageFooter/APPLE_BUTTON_NAME": "애플 계정으로",
     "LabelrSocialButton/GOOGLE_ICON_ALT": "Google 로그인",
-    "LabelrSocialButton/APPLE_ICON_ALT": "Apple 로그인"
+    "LabelrSocialButton/APPLE_ICON_ALT": "Apple 로그인",
+    "/account/signup/HEADER__MESSAGE": "계정이 있으세요?",
+    "/account/signup/HEADER__LINK_TEXT": "로그인",
+    "/account/signup/HEADER__TITLE": "레이블러 회원가입",
+    "/account/signup/BODY__INPUT_EMAIL__PLACEHOLDER": "이메일 주소를 입력해 주세요",
+    "/account/signup/BODY__INPUT_PASSWORD__PLACEHOLDER": "비밀번호를 입력해 주세요",
+    "/account/signup/BODY__INPUT_PASSWORD_CONFIRM__INVALID_MESSAGE": "비밀번호가 일치하지 않습니다.",
+    "/account/signup/BODY__INPUT_PASSWORD_CONFIRM__PLACEHOLDER": "비밀번호를 다시한번 입력해 주세요",
+    "/account/signup/BODY__SIGNUP_BUTTON": "회원가입",
+    "/account/signup/BODY__NOTICE_MESSAGE": "회원가입은 <span style='color: {{color}}'>&nbsp;이용약관&nbsp;</span> 및 <span style='color: {{color}}'>&nbsp;개인정보 보호정책</span>에 동의하시는 것으로 간주합니다.",
+    "/account/signup/BODY__SIGNIN_LEADING_MESSAGE": "계정이 있으세요?",
+    "/account/signup/BODY__BUTTON": "로그인"
 }
