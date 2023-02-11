@@ -61,7 +61,9 @@ function FindPasswordPage() {
     const email = useAppSelector(({ findPasswordPage }) => findPasswordPage.email);
 
     // hooks
-    const i18next = useTranslation();
+    const { 
+        t,
+    } = useTranslation();
     const {
         openLabelrSnackbar,
     } = useLabelrSnackbar();
@@ -79,7 +81,7 @@ function FindPasswordPage() {
 
     const onClickSendEmail = () => {
         openLabelrSnackbar({
-            content: i18next.t('/account/find-password/SEND_EMAIL__SNACKBAR_MESSAGE'),
+            content: t('/account/find-password/SEND_EMAIL__SNACKBAR_MESSAGE'),
         });
 
         // FIXME: result-verify-email 페이지로 이동 
@@ -90,13 +92,13 @@ function FindPasswordPage() {
     return (
         <StyledFindPasswordPageRoot>
             <AuthPageHeader
-                linkText={i18next.t('/account/find-password/HEADER__LINK')}
+                linkText={t('/account/find-password/HEADER__LINK')}
                 linkHref={RoutePathFactory.account['/signin']()}>
-                {i18next.t('/account/find-password/HEADER__TITLE')}
+                {t('/account/find-password/HEADER__TITLE')}
             </AuthPageHeader>
 
             <div className="message">
-                {i18next.t('/account/find-password/BODY__MESSAGE')}
+                {t('/account/find-password/BODY__MESSAGE')}
             </div>
 
             <div className="formWrapper">
@@ -104,7 +106,7 @@ function FindPasswordPage() {
                     value={email}
                     onChange={onChangeEmail}
                     onIsValid={onIsValidEmail}
-                    placeholder={i18next.t('/account/find-password/BODY__INPUT_EMAIL_PLACEHOLDER')}
+                    placeholder={t('/account/find-password/BODY__INPUT_EMAIL_PLACEHOLDER')}
                     fluid
                     autofocus />
 
@@ -112,7 +114,7 @@ function FindPasswordPage() {
                     onClick={onClickSendEmail}
                     isDisabled={!isValidEmail}
                     fluid>
-                    {i18next.t('/account/find-password/BODY__SEND_BUTTON')}
+                    {t('/account/find-password/BODY__SEND_BUTTON')}
                 </LabelrButton>
             </div>
         </StyledFindPasswordPageRoot>
