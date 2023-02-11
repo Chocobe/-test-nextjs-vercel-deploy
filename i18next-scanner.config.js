@@ -17,7 +17,7 @@ module.exports = {
         defaultLng: 'ko',
         lngs: languages,
         func: {
-            list: ['i18next.t'],
+            list: ['i18next.t', 'i18n.t', 't'],
             extensions: ['.js', '.jsx', '.ts', '.tsx'],
         },
         resource: {
@@ -29,7 +29,6 @@ module.exports = {
         keySeparator: false,
         nsSeparator: false,
 
-        // TODO: 동작 확인하기
         interpolation: {
             prefix: '{{',
             suffix: '}}',
