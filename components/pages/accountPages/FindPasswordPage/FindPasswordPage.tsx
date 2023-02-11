@@ -24,7 +24,7 @@ import LabelrInputEmail from '@/components/ui/LabelrInputEmail/LabelrInputEmail'
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
 import { 
     useLabelrSnackbar,
-} from '@/components/ui/LabelrSnackbar/useLabelrSnackbar';
+} from '@/components/ui/LabelrSnackbar/hooks/useLabelrSnackbar';
 // i18n
 import {
     useTranslation,

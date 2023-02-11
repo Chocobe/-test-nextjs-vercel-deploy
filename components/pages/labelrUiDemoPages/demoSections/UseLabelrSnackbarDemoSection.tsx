@@ -10,7 +10,7 @@ import DemoSectionTemplate, {
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
 import {
     useLabelrSnackbar,
-} from '@/components/ui/LabelrSnackbar/useLabelrSnackbar';
+} from '@/components/ui/LabelrSnackbar/hooks/useLabelrSnackbar';
 // styled-components
 import styled from 'styled-components';
 // type
@@ -20,7 +20,7 @@ import {
 
     TUseLabelrSnackbarType,
     TUseLabelrSnackbarPosition,
-} from '@/components/ui/LabelrSnackbar/useLabelrSnackbarTypes';
+} from '@/components/ui/LabelrSnackbar/hooks/useLabelrSnackbarTypes';
 
 const StyledButtonWrapper = styled.div`
     display: flex;
