@@ -25,6 +25,13 @@ import AuthPageHeader from '../AuthPageHeader/AuthPageHeader';
 import LabelrInputPassword from '@/components/ui/LabelrInputPassword/LabelrInputPassword';
 import LabelrInputConfirm from '@/components/ui/LabelrInputConfirm/LabelrInputConfirm';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
+import {
+    useLabelrSnackbar,
+} from '@/components/ui/LabelrSnackbar/hooks/useLabelrSnackbar';
+// i18n
+import {
+    useTranslation,
+} from 'react-i18next';
 
 import { 
     RoutePathFactory
@@ -33,13 +40,14 @@ import {
 const StyledResetPasswordPageRoot = styled.div`
     //
 
-    .messageWrapper {
+    .message {
         margin-top: 12px;
 
         color: ${({ theme }) => theme.colors.gs[700]};
         font-size: 14px;
         line-height: 22px;
         font-weight: 400;
+        white-space: pre-line;
     }
 
     .formWrapper {
@@ -70,6 +78,12 @@ function ResetPasswordPage() {
     // hook
     const dispatch = useAppDispatch();
     const router = useRouter();
+    const {
+        openLabelrSnackbar,
+    } = useLabelrSnackbar();
+    const {
+        t,
+    } = useTranslation();
 
     // callback
     const onChangePassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -95,27 +109,26 @@ function ResetPasswordPage() {
     }, []);
 
     const onClickSubmit = useCallback(() => {
+        openLabelrSnackbar({
+            content: t('/account/reset-password/SUBMIT__SNACKBAR_MESSAGE'),
+        });
+
         // TODO: API 응답 결과 => 성공 시
         // TODO: => Snackbar 보여주기
         // TODO: signin 페이지로 이동
         router.push(RoutePathFactory.account['/signin']());
-    }, [router]);
+    }, [router, openLabelrSnackbar, t]);
 
     return (
         <StyledResetPasswordPageRoot>
             <AuthPageHeader
-                linkText="로그인"
+                linkText={t('/account/reset-password/HEADER__LINK')}
                 linkHref={RoutePathFactory.account['/signin']()}>
-                {'비밀번호 재설정'}
+                {t('/account/reset-password/HEADER__TITLE')}
             </AuthPageHeader>
 
-            <div className="messageWrapper">
-                <div className="messagse">
-                    새로운 비밀번호를 설정합니다.
-                </div>
-                <div className="message">
-                    아래 입력칸에 새 비밀번호를 입력해 주시고 확인해 주세요.
-                </div>
+            <div className="message">
+                {t('/account/reset-password/BODY__MESSAGE')}
             </div>
 
             <div className="formWrapper">
@@ -123,7 +136,7 @@ function ResetPasswordPage() {
                     value={password}
                     onChange={onChangePassword}
                     onIsValid={onIsValidPassword}
-                    placeholder="새 비밀번호를 입력해 주세요"
+                    placeholder={t('/account/reset-password/BODY__INPUT_EMAIL__PLACEHOLDER')}
                     autofocus
                     fluid />
 
@@ -132,8 +145,8 @@ function ResetPasswordPage() {
                     targetValue={password}
                     onChange={onChangePasswordConfirm}
                     onIsValid={onIsValidPasswordConfirm}
-                    invalidMessage="비밀번호가 일치하지 않습니다."
-                    placeholder="새 비밀번호를 다시 한번 입력해 주세요"
+                    invalidMessage={t('/account/reset-password/BODY__INPUT_CONFIRM__INVALID_MESSAGE')}
+                    placeholder={t('/account/reset-password/BODY__INPUT_CONFIRM__PLACEHOLDER')}
                     isEnableMasking
                     fluid />
 
@@ -141,7 +154,7 @@ function ResetPasswordPage() {
                     onClick={onClickSubmit}
                     isDisabled={!isValidInputValues}
                     fluid>
-                    저장
+                    {t('/account/reset-password/BODY__SUBMIT_BUTTON')}
                 </LabelrButton>
             </div>
         </StyledResetPasswordPageRoot>
