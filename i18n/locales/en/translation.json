@@ -38,5 +38,7 @@
     "AuthPageFooter/POSTFIX_BUTTON_NAME__SIGNUP": "_N/A",
     "LabelrSocialButton/APPLE_ICON_ALT": "_N/A",
     "LabelrSocialButton/GOOGLE_ICON_ALT": "_N/A",
-    "UseLabelrInputEmailValidatorExecutors/INVALID_MESSAGE__EMAIL_FORM": "_N/A"
+    "UseLabelrInputEmailValidatorExecutors/INVALID_MESSAGE__EMAIL_FORM": "_N/A",
+    "UseLabelrInputPasswordValidatorExecutors/INVALID_MESSAGE__LENGTH": "_N/A",
+    "UseLabelrInputPasswordValidatorExecutors/INVALID_MESSAGE__PASSWORD_FORM": "_N/A"
 }

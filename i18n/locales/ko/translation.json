@@ -38,5 +38,7 @@
     "AuthPageFooter/POSTFIX_BUTTON_NAME__SIGNUP": "가입",
     "LabelrSocialButton/APPLE_ICON_ALT": "애플",
     "LabelrSocialButton/GOOGLE_ICON_ALT": "구글",
-    "UseLabelrInputEmailValidatorExecutors/INVALID_MESSAGE__EMAIL_FORM": "올바르지 않은 이메일 형식입니다."
+    "UseLabelrInputEmailValidatorExecutors/INVALID_MESSAGE__EMAIL_FORM": "올바르지 않은 이메일 형식입니다.",
+    "UseLabelrInputPasswordValidatorExecutors/INVALID_MESSAGE__LENGTH": "최소 8자 이상 이어야 합니다.",
+    "UseLabelrInputPasswordValidatorExecutors/INVALID_MESSAGE__PASSWORD_FORM": "최소 하나 이상의 알파벳과 숫자, 그리고 특수문자를 포함해야 합니다."
 }

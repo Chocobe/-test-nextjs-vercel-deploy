@@ -17,7 +17,10 @@ import {
 import styled, {
     useTheme,
 } from 'styled-components';
-// hook
+// hooks
+import {
+    useLabelrInputPasswordValidatorExecutors,
+} from './hooks/useLabelrInputPasswordValidatorExecutors';
 import { 
     useLabelrUiAddonInvalidMessages,
 } from '@/components/uiAddons/LabelrAddonInvalidMessages/hooks/useLabelrUiAddonInvalidMessages';
@@ -33,10 +36,9 @@ import {
 import { 
     TTFunctionReturnType
 } from '@/i18n/i18nextTypes';
-
-import { 
-    labelrInputPasswordValidatorExecutors,
-} from './labelrInputPasswordValidatorExecutors';
+import {
+    useTranslation,
+} from 'react-i18next';
 
 const StyledMaskingButton = styled.div`
     cursor: pointer;
@@ -82,6 +84,10 @@ function LabelrInputPassword(props: TLabelrInputPasswordProps) {
 
     // hook
     const theme = useTheme();
+    const { t } = useTranslation();
+    const {
+        labelrInputPasswordValidatorExecutors,
+    } = useLabelrInputPasswordValidatorExecutors(t);
     const {
         checkIsValidValue,
     } = useLabelrUiAddonInvalidMessages<string>(labelrInputPasswordValidatorExecutors);
