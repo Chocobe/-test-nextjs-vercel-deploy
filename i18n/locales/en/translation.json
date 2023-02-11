@@ -1,5 +1,5 @@
 {
-    "/account/find-password/BODY__INPUT_EMAIL_PLACEHOLDER": "_N/A",
+    "/account/find-password/BODY__INPUT_EMAIL__PLACEHOLDER": "_N/A",
     "/account/find-password/BODY__MESSAGE": "_N/A",
     "/account/find-password/BODY__SEND_BUTTON": "_N/A",
     "/account/find-password/HEADER__LINK": "_N/A",
@@ -20,8 +20,8 @@
     "/account/result-verify-email/HEADER__TITLE__EXPIRED": "_N/A",
     "/account/result-verify-email/HEADER__TITLE__RESULT": "_N/A",
     "/account/signin/BODY__FORGOT_PASSWORD": "_N/A",
-    "/account/signin/BODY__INPUT_EMAIL_PLACEHOLDER": "_N/A",
-    "/account/signin/BODY__INPUT_PASSWORD_PLACEHOLDER": "_N/A",
+    "/account/signin/BODY__INPUT_EMAIL__PLACEHOLDER": "_N/A",
+    "/account/signin/BODY__INPUT_PASSWORD__PLACEHOLDER": "_N/A",
     "/account/signin/BODY__SIGNIN_BUTTON": "_N/A",
     "/account/signin/BODY__SIGNUP_BUTTON": "_N/A",
     "/account/signin/BODY__SIGNUP_LEADING_MESSAGE": "_N/A",

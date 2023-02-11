@@ -1,5 +1,5 @@
 {
-    "/account/find-password/BODY__INPUT_EMAIL_PLACEHOLDER": "이메일 주소를 입력해 주세요",
+    "/account/find-password/BODY__INPUT_EMAIL__PLACEHOLDER": "이메일 주소를 입력해 주세요",
     "/account/find-password/BODY__MESSAGE": "가입 시 사용하신 이메일 주소를 아래에 입력해 주세요.\n비밀번호를 다시 설정 하실 수 있도록 링크를 보내 드립니다.",
     "/account/find-password/BODY__SEND_BUTTON": "이메일 전송",
     "/account/find-password/HEADER__LINK": "로그인",
@@ -20,8 +20,8 @@
     "/account/result-verify-email/HEADER__TITLE__EXPIRED": "인증 메일이 만료되었어요!\n다시 시도해 주세요.",
     "/account/result-verify-email/HEADER__TITLE__RESULT": "이메일 인증",
     "/account/signin/BODY__FORGOT_PASSWORD": "비밀번호를 잊으셨나요?",
-    "/account/signin/BODY__INPUT_EMAIL_PLACEHOLDER": "이메일 주소를 입력해 주세요",
-    "/account/signin/BODY__INPUT_PASSWORD_PLACEHOLDER": "비밀번호를 입력해 주세요",
+    "/account/signin/BODY__INPUT_EMAIL__PLACEHOLDER": "이메일 주소를 입력해 주세요",
+    "/account/signin/BODY__INPUT_PASSWORD__PLACEHOLDER": "비밀번호를 입력해 주세요",
     "/account/signin/BODY__SIGNIN_BUTTON": "로그인",
     "/account/signin/BODY__SIGNUP_BUTTON": "회원가입",
     "/account/signin/BODY__SIGNUP_LEADING_MESSAGE": "아직 계정이 없으세요?",

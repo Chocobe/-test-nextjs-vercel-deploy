@@ -106,7 +106,7 @@ function FindPasswordPage() {
                     value={email}
                     onChange={onChangeEmail}
                     onIsValid={onIsValidEmail}
-                    placeholder={t('/account/find-password/BODY__INPUT_EMAIL_PLACEHOLDER')}
+                    placeholder={t('/account/find-password/BODY__INPUT_EMAIL__PLACEHOLDER')}
                     fluid
                     autofocus />
 

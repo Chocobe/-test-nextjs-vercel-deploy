@@ -165,7 +165,7 @@ function SigninPage() {
                         value={email}
                         onChange={onChangeEmail}
                         onIsValid={onIsValidEmail}
-                        placeholder={i18next.t('/account/signin/BODY__INPUT_EMAIL_PLACEHOLDER')}
+                        placeholder={i18next.t('/account/signin/BODY__INPUT_EMAIL__PLACEHOLDER')}
                         autofocus
                         fluid />
 
@@ -173,7 +173,7 @@ function SigninPage() {
                         value={password}
                         onChange={onChangePassword}
                         onIsValid={onIsValidPassword}
-                        placeholder={i18next.t('/account/signin/BODY__INPUT_PASSWORD_PLACEHOLDER')}
+                        placeholder={i18next.t('/account/signin/BODY__INPUT_PASSWORD__PLACEHOLDER')}
                         fluid />
                 </div>
 
