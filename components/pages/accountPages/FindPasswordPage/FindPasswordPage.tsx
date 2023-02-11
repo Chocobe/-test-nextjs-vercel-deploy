@@ -22,6 +22,13 @@ import styled from 'styled-components';
 import AuthPageHeader from '../AuthPageHeader/AuthPageHeader';
 import LabelrInputEmail from '@/components/ui/LabelrInputEmail/LabelrInputEmail';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
+import { 
+    useLabelrSnackbar,
+} from '@/components/ui/LabelrSnackbar/useLabelrSnackbar';
+// i18n
+import {
+    useTranslation,
+} from 'react-i18next';
 
 import {
     RoutePathFactory
@@ -30,13 +37,14 @@ import {
 const StyledFindPasswordPageRoot = styled.div`
     //
 
-    .messageWrapper {
+    .message {
         margin-top: 12px;
 
         color: ${({ theme }) => theme.colors.gs[700]};
         font-size: 14px;
         line-height: 22px;
         font-weight: 400;
+        white-space: pre-line;
     }
 
     .formWrapper {
@@ -52,9 +60,15 @@ function FindPasswordPage() {
     const [isValidEmail, setIsValidEmail] = useState(false);
     const email = useAppSelector(({ findPasswordPage }) => findPasswordPage.email);
 
+    // hooks
+    const i18next = useTranslation();
+    const {
+        openLabelrSnackbar,
+    } = useLabelrSnackbar();
     const dispatch = useAppDispatch();
     const router = useRouter();
 
+    // callback
     const onChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setEmail(e.currentTarget.value));
     }, [dispatch]);
@@ -62,27 +76,27 @@ function FindPasswordPage() {
     const onIsValidEmail = useCallback((isValidEmail: boolean) => {
         setIsValidEmail(isValidEmail);
     }, []);
-    
+
     const onClickSendEmail = () => {
-        // TODO: API 응답 결과 => 실패 => Snackbar 보여주기
+        openLabelrSnackbar({
+            content: i18next.t('/account/find-password/SEND_EMAIL__SNACKBAR_MESSAGE'),
+        });
+
+        // FIXME: result-verify-email 페이지로 이동 
+        // => 인증 완료 callback 호출 시, reset-password 페이지로 이동
         router.push(RoutePathFactory.account['/reset-password']());
     };
 
     return (
         <StyledFindPasswordPageRoot>
             <AuthPageHeader
-                linkText="로그인"
+                linkText={i18next.t('/account/find-password/HEADER__LINK')}
                 linkHref={RoutePathFactory.account['/signin']()}>
-                {'비밀번호를 잊으셨나요?'}
+                {i18next.t('/account/find-password/HEADER__TITLE')}
             </AuthPageHeader>
 
-            <div className="messageWrapper">
-                <div className="message">
-                    가입 시 사용하신 이메일 주소를 아래에 입력해 주세요.
-                </div>
-                <div className="message">
-                    비밀번호를 다시 설정 하실 수 있도록 링크를 보내 드립니다.
-                </div>
+            <div className="message">
+                {i18next.t('/account/find-password/BODY__MESSAGE')}
             </div>
 
             <div className="formWrapper">
@@ -90,7 +104,7 @@ function FindPasswordPage() {
                     value={email}
                     onChange={onChangeEmail}
                     onIsValid={onIsValidEmail}
-                    placeholder="이메일 주소를 입력해 주세요"
+                    placeholder={i18next.t('/account/find-password/BODY__INPUT_EMAIL_PLACEHOLDER')}
                     fluid
                     autofocus />
 
@@ -98,7 +112,7 @@ function FindPasswordPage() {
                     onClick={onClickSendEmail}
                     isDisabled={!isValidEmail}
                     fluid>
-                    이메일 전송
+                    {i18next.t('/account/find-password/BODY__SEND_BUTTON')}
                 </LabelrButton>
             </div>
         </StyledFindPasswordPageRoot>

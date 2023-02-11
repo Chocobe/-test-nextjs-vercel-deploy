@@ -1,4 +1,10 @@
 {
+    "/account/find-password/BODY__INPUT_EMAIL_PLACEHOLDER": "이메일 주소를 입력해 주세요",
+    "/account/find-password/BODY__MESSAGE": "가입 시 사용하신 이메일 주소를 아래에 입력해 주세요.\n비밀번호를 다시 설정 하실 수 있도록 링크를 보내 드립니다.",
+    "/account/find-password/BODY__SEND_BUTTON": "이메일 전송",
+    "/account/find-password/HEADER__LINK": "로그인",
+    "/account/find-password/HEADER__TITLE": "비밀번호를 잊으셨나요?",
+    "/account/find-password/SEND_EMAIL__SNACKBAR_MESSAGE": "인증 메일을 전송하였습니다.",
     "/account/result-verify-email/BODY__BUTTON_OK": "확인",
     "/account/result-verify-email/HEADER__INPUT_EMAIL__PLACEHOLDER": "이메일 주소를 입력해 주세요",
     "/account/result-verify-email/HEADER__LINK": "로그인",

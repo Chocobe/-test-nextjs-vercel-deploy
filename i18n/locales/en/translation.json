@@ -1,4 +1,10 @@
 {
+    "/account/find-password/BODY__INPUT_EMAIL_PLACEHOLDER": "_N/A",
+    "/account/find-password/BODY__MESSAGE": "_N/A",
+    "/account/find-password/BODY__SEND_BUTTON": "_N/A",
+    "/account/find-password/HEADER__LINK": "_N/A",
+    "/account/find-password/HEADER__TITLE": "_N/A",
+    "/account/find-password/SEND_EMAIL__SNACKBAR_MESSAGE": "_N/A",
     "/account/result-verify-email/BODY__BUTTON_OK": "_N/A",
     "/account/result-verify-email/HEADER__INPUT_EMAIL__PLACEHOLDER": "_N/A",
     "/account/result-verify-email/HEADER__LINK": "_N/A",
