@@ -37,5 +37,6 @@
     "AuthPageFooter/POSTFIX_BUTTON_NAME__SIGNIN": "로그인",
     "AuthPageFooter/POSTFIX_BUTTON_NAME__SIGNUP": "가입",
     "LabelrSocialButton/APPLE_ICON_ALT": "애플",
-    "LabelrSocialButton/GOOGLE_ICON_ALT": "구글"
+    "LabelrSocialButton/GOOGLE_ICON_ALT": "구글",
+    "UseLabelrInputEmailValidatorExecutors/INVALID_MESSAGE__EMAIL_FORM": "올바르지 않은 이메일 형식입니다."
 }

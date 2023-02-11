@@ -14,6 +14,9 @@ import {
     TLabelrInputSize,
 } from '../LabelrInput/labelrInputTypes';
 // hook
+import {
+    useLabelrInputEmailValidatorExecutors,
+} from './hooks/useLabelrInputEmailValidatorExecutors';
 import { 
     useLabelrUiAddonInvalidMessages,
 } from '@/components/uiAddons/LabelrAddonInvalidMessages/hooks/useLabelrUiAddonInvalidMessages';
@@ -24,10 +27,10 @@ import LabelrUiAddonInvalidMessages from '@/components/uiAddons/LabelrAddonInval
 import {
     TTFunctionReturnType,
 } from '@/i18n/i18nextTypes';
+import {
+    useTranslation,
+} from 'react-i18next';
 
-import { 
-    labelrInputEmailValidatorExecutors,
-} from './labelrInputEmailValidatorExecutors';
 
 export type TLabelrInputEmailProps = {
     id?: string;
@@ -68,7 +71,11 @@ function LabelrInputEmail(props: TLabelrInputEmailProps) {
         invalidMessages: [],
     });
 
-    // hook
+    // hooks
+    const { t } = useTranslation();
+    const {
+        labelrInputEmailValidatorExecutors
+    } = useLabelrInputEmailValidatorExecutors(t);
     const {
         checkIsValidValue,
     } = useLabelrUiAddonInvalidMessages(labelrInputEmailValidatorExecutors);
