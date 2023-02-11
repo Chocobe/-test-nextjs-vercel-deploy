@@ -153,7 +153,7 @@ function SigninPage() {
             {/* Header */}
             <AuthPageHeader 
                 message={i18next.t('/account/signin/HEADER__MESSAGE')}
-                linkText={i18next.t('/account/signin/HEADER__LINK_TEXT')}
+                linkText={i18next.t('/account/signin/HEADER__LINK')}
                 linkHref={routePathForSignup}>
                 {i18next.t('/account/signin/HEADER__TITLE')}
             </AuthPageHeader>

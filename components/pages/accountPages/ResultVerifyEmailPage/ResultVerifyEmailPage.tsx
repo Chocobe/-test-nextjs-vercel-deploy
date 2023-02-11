@@ -31,17 +31,14 @@ import {
 } from '@/router/RoutePathFactory';
 
 const StyledResultVerifyEmailPageRoot = styled.div`
-    //
-
-    .messageWrapper {
+    .message {
         margin-top: 12px;
 
-        .message {
-            color: ${({ theme }) => theme.colors.gs[700]};
-            font-size: 14px;
-            line-height: 22px;
-            font-weight: 400;
-        }
+        color: ${({ theme }) => theme.colors.gs[700]};
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 400;
+        white-space: pre-line;
     }
 
     .formWrapper {
@@ -102,14 +99,13 @@ function ResultVerifyEmailPage() {
     return (
         <StyledResultVerifyEmailPageRoot>
             <AuthPageHeader
-                linkText={i18next.t('/account/result-verify-email/HEADER__LINK_TEXT')}
+                linkText={i18next.t('/account/result-verify-email/HEADER__LINK')}
                 linkHref={RoutePathFactory.account['/signin']()}>
-                <span dangerouslySetInnerHTML={{ __html: title }} />
+                {title}
             </AuthPageHeader>
 
-            <div className="messageWrapper">
-                <div 
-                    className="message" dangerouslySetInnerHTML={{ __html: i18next.t('/account/result-verify-email/HEADER__MESSAGE')}} />
+            <div className="message">
+                {i18next.t('/account/result-verify-email/HEADER__MESSAGE')}
             </div>
 
             <div className="formWrapper">

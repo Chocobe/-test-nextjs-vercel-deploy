@@ -42,6 +42,7 @@ const StyledVerifyEmailPageRoot = styled.div`
             font-size: 14px;
             line-height: 22px;
             font-weight: 400;
+            white-space: pre-line;
 
             .linkMessage {
                 font-weight: 700;
@@ -98,9 +99,11 @@ function VerifyEmailPage() {
             </AuthPageHeader>
 
             <div className="messageWrapper">
-                <div 
-                    className="message"
-                    dangerouslySetInnerHTML={{ __html: i18next.t('/account/verify-email/BODY__VERIFY_MESSAGE')}} />
+                <div className="message">
+                    {i18next.t('/account/verify-email/BODY__NOTICE_MESSAGE')}
+                </div>
+
+                <br />
 
                 <div className="message">
                     {i18next.t('/account/verify-email/BODY__HELP_MESSAGE__PREFIX')}

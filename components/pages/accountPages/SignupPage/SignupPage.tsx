@@ -168,7 +168,7 @@ function SignupPage() {
             {/* Header */}
             <AuthPageHeader
                 message={i18next.t('/account/signup/HEADER__MESSAGE')}
-                linkText={i18next.t('/account/signup/HEADER__LINK_TEXT')}
+                linkText={i18next.t('/account/signup/HEADER__LINK')}
                 linkHref={routePathForSignin}>
                 {i18next.t('/account/signup/HEADER__TITLE')}
             </AuthPageHeader>
@@ -210,10 +210,10 @@ function SignupPage() {
                 </div>
 
                 <div className="noticeMessage">
-                    <span 
-                        dangerouslySetInnerHTML={{ __html: i18next.t('/account/signup/BODY__NOTICE_MESSAGE', {
-                            color: theme.colors.indigo[500],
-                        })}} />
+                    <span dangerouslySetInnerHTML={{ __html: i18next.t('/account/signup/BODY__NOTICE_MESSAGE', {
+                        accentTagStart: `<span style="color: ${theme.colors.indigo[500]}">`,
+                        accentTagEnd: '</span>',
+                    })}} />
                 </div>
 
                 <div className="questionMessage">
