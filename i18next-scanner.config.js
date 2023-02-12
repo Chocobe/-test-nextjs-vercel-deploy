@@ -12,10 +12,12 @@ module.exports = {
     options: {
         debug: false,
         ns: 'translation',
+        sort: true,
+        // removeUnusedKeys: true,
         defaultLng: 'ko',
         lngs: languages,
         func: {
-            list: ['i18next.t'],
+            list: ['i18next.t', 'i18n.t', 't'],
             extensions: ['.js', '.jsx', '.ts', '.tsx'],
         },
         resource: {
@@ -23,19 +25,14 @@ module.exports = {
             savePath: path.join(__dirname, '/i18n/locales/{{lng}}/{{ns}}.json'),
             jsonIndent: 4,
         },
-        defaultValue: '__NOT_TRANSLATED__',
+        defaultValue: '_N/A',
         keySeparator: false,
         nsSeparator: false,
 
-        // TODO: 동작 확인하기
-        // interpolation: {
-        //     // prefix: '%{',
-        //     // suffix: '}',
-        //     prefix: '{{',
-        //     suffix: '}}',
-        // },
-        prefix: '{{',
-        suffix: '}}',
+        interpolation: {
+            prefix: '{{',
+            suffix: '}}',
+        },
     },
     transform: (function(options = {
         extensions: [".ts", ".tsx"],

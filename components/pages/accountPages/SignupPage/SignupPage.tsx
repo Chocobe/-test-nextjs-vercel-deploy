@@ -28,7 +28,9 @@ import {
     authPageFooterTypeMapper,
 } from '../AuthPageFooter/authPageFooterTypes';
 // styled-components
-import styled from 'styled-components';
+import styled, {
+    useTheme,
+} from 'styled-components';
 // UI components
 import AuthPageHeader from '../AuthPageHeader/AuthPageHeader';
 import AuthPageFooter from '../AuthPageFooter/AuthPageFooter';
@@ -36,6 +38,10 @@ import LabelrInputEmail from '@/components/ui/LabelrInputEmail/LabelrInputEmail'
 import LabelrInputPassword from '@/components/ui/LabelrInputPassword/LabelrInputPassword';
 import LabelrInputConfirm from '@/components/ui/LabelrInputConfirm/LabelrInputConfirm';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
+// i18n
+import {
+    useTranslation,
+} from 'react-i18next';
 
 const StyledSignupPageRoot = styled.div`
     //
@@ -57,10 +63,6 @@ const StyledSignupPageRoot = styled.div`
             line-height: 16px;
             font-weight: 400;
             text-align: center;
-
-            &-accent {
-                color: ${({ theme }) => theme.colors.indigo[500]};
-            }
         }
 
         .questionMessage {
@@ -99,6 +101,8 @@ function SignupPage() {
     // hook
     const dispatch = useAppDispatch();
     const router = useRouter();
+    const theme = useTheme();
+    const i18next = useTranslation();
 
     // cache
     const routePathForSignin = useMemo(() => {
@@ -163,10 +167,10 @@ function SignupPage() {
         <StyledSignupPageRoot>
             {/* Header */}
             <AuthPageHeader
-                message="계정이 있으세요?"
-                linkText="로그인"
+                message={i18next.t('/account/signup/HEADER__MESSAGE')}
+                linkText={i18next.t('/account/signup/HEADER__LINK')}
                 linkHref={routePathForSignin}>
-                {'레이블러 회원가입'}
+                {i18next.t('/account/signup/HEADER__TITLE')}
             </AuthPageHeader>
 
             {/* Body */}
@@ -176,7 +180,7 @@ function SignupPage() {
                         value={email}
                         onChange={onChangeEmail}
                         onIsValid={onIsValidEmail}
-                        placeholder="이메일 주소를 입력해 주세요"
+                        placeholder={i18next.t('/account/signup/BODY__INPUT_EMAIL__PLACEHOLDER')}
                         fluid
                         autofocus />
 
@@ -184,7 +188,7 @@ function SignupPage() {
                         value={password}
                         onChange={onChangePassword}
                         onIsValid={onIsValidPassword}
-                        placeholder="비밀번호를 입력해 주세요"
+                        placeholder={i18next.t('/account/signup/BODY__INPUT_PASSWORD__PLACEHOLDER')}
                         fluid />
 
                     <LabelrInputConfirm
@@ -192,8 +196,8 @@ function SignupPage() {
                         targetValue={password}
                         onChange={onChangePasswordConfirm}
                         onIsValid={onIsValidPasswordConfirm}
-                        invalidMessage="비밀번호가 일치하지 않습니다."
-                        placeholder="비밀번호를 다시한번 입력해 주세요"
+                        invalidMessage={i18next.t('/account/signup/BODY__INPUT_PASSWORD_CONFIRM__INVALID_MESSAGE')}
+                        placeholder={i18next.t('/account/signup/BODY__INPUT_PASSWORD_CONFIRM__PLACEHOLDER')}
                         fluid
                         isEnableMasking />
 
@@ -201,30 +205,25 @@ function SignupPage() {
                         fluid
                         isDisabled={!isValidInputValues}
                         onClick={onClickSignup}>
-                        회원가입
+                        {i18next.t('/account/signup/BODY__SIGNUP_BUTTON')}
                     </LabelrButton>
                 </div>
 
                 <div className="noticeMessage">
-                    회원가입은 
-                    <span className="noticeMessage-accent">
-                        &nbsp;이용약관&nbsp;
-                    </span> 
-                    및 
-                    <span className="noticeMessage-accent">
-                        &nbsp;개인정보 보호정책
-                    </span>
-                    에 동의하시는 것으로 간주합니다.
+                    <span dangerouslySetInnerHTML={{ __html: i18next.t('/account/signup/BODY__NOTICE_MESSAGE', {
+                        accentTagStart: `<span style="color: ${theme.colors.indigo[500]}">`,
+                        accentTagEnd: '</span>',
+                    })}} />
                 </div>
 
                 <div className="questionMessage">
-                    계정이 있으세요?
+                    {i18next.t('/account/signup/BODY__SIGNIN_LEADING_MESSAGE')}
                     <Link
                         passHref
                         legacyBehavior
                         href={routePathForSignin}>
                         <a className="questionMessage-link">
-                            로그인
+                            {i18next.t('/account/signup/BODY__BUTTON')}
                         </a>
                     </Link>
                 </div>

@@ -21,23 +21,24 @@ import styled from 'styled-components';
 import AuthPageHeader from '../AuthPageHeader/AuthPageHeader';
 import LabelrInputEmail from '@/components/ui/LabelrInputEmail/LabelrInputEmail';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
+// i18n
+import {
+    useTranslation,
+} from 'react-i18next';
 
 import {
     RoutePathFactory
 } from '@/router/RoutePathFactory';
 
 const StyledResultVerifyEmailPageRoot = styled.div`
-    //
-
-    .messageWrapper {
+    .message {
         margin-top: 12px;
 
-        .message {
-            color: ${({ theme }) => theme.colors.gs[700]};
-            font-size: 14px;
-            line-height: 22px;
-            font-weight: 400;
-        }
+        color: ${({ theme }) => theme.colors.gs[700]};
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 400;
+        white-space: pre-line;
     }
 
     .formWrapper {
@@ -60,13 +61,14 @@ function ResultVerifyEmailPage() {
 
     // hook
     const dispatch = useAppDispatch();
+    const i18next = useTranslation();
 
     // cache
     const title = useMemo(() => {
         return hasExpired
-            ? '인증 메일이 만료되었어요!\n다시 시도해 주세요.'
-            : '이메일 인증';
-    }, [hasExpired]);
+            ? i18next.t('/account/result-verify-email/HEADER__TITLE__EXPIRED')
+            : i18next.t('/account/result-verify-email/HEADER__TITLE__RESULT');
+    }, [hasExpired, i18next]);
 
     // callback
     const onChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -97,19 +99,13 @@ function ResultVerifyEmailPage() {
     return (
         <StyledResultVerifyEmailPageRoot>
             <AuthPageHeader
-                linkText="로그인"
+                linkText={i18next.t('/account/result-verify-email/HEADER__LINK')}
                 linkHref={RoutePathFactory.account['/signin']()}>
                 {title}
             </AuthPageHeader>
 
-            <div className="messageWrapper">
-                <div className="message">
-                    가입 시 또는 로그인 시 사용되는 이메일 주소를 입력해 주세요.
-                </div>
-
-                <div className="message">
-                    이메일 확인을 위한 인증메일을 보내드려요.
-                </div>
+            <div className="message">
+                {i18next.t('/account/result-verify-email/HEADER__MESSAGE')}
             </div>
 
             <div className="formWrapper">
@@ -117,6 +113,7 @@ function ResultVerifyEmailPage() {
                     value={email}
                     onChange={onChangeEmail}
                     onIsValid={onIsValidEmail}
+                    placeholder={i18next.t('/account/result-verify-email/HEADER__INPUT_EMAIL__PLACEHOLDER')}
                     autofocus
                     fluid />
 
@@ -124,7 +121,7 @@ function ResultVerifyEmailPage() {
                     onClick={onClickSubmit}
                     isDisabled={!isValidEmail}
                     fluid>
-                    확인
+                    {i18next.t('/account/result-verify-email/BODY__BUTTON_OK')}
                 </LabelrButton>
             </div>
         </StyledResultVerifyEmailPageRoot>

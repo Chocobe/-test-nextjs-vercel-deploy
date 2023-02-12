@@ -15,12 +15,8 @@ const {
  * @param {GoogleSpreadsheet} doc GoogleSpreadsheet document
  * @returns [object] translation map
  * {
- *   "ko": {
- *     "key": "value"
- *   },
- *   "en": {
- *     "key": "value"
- *   },
+ *   "ko": { "key": "value" },
+ *   "en": { "key": "value" },
  * }
  */
 async function fetchTranslationsFromSheetToJson(doc) {
@@ -37,16 +33,12 @@ async function fetchTranslationsFromSheetToJson(doc) {
         const key = row[columnKeyToHeader.key];
         lngs.forEach((lng) => {
             const translation = row[columnKeyToHeader[lng]];
-            // NOT_AVAILABLE_CELL("_N/A") means no related language
-            if (translation === NOT_AVAILABLE_CELL) {
-                return;
-            }
-
             if (!lngsMap[lng]) {
                 lngsMap[lng] = {};
             }
 
-            lngsMap[lng][key] = translation || ''; // prevent to remove undefined value like ({"key": undefined})
+            // prevent to remove undefined value like ({"key": undefined})
+            lngsMap[lng][key] = translation || '';
         });
     });
 

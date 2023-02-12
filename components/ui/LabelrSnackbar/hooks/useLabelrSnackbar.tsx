@@ -15,7 +15,7 @@ import {
     ToastPosition,
     StyleProps,
 } from '@chakra-ui/react';
-import LabelrSnackbar from './LabelrSnackbar';
+import LabelrSnackbar from '../LabelrSnackbar';
 import { useTheme } from 'styled-components';
 
 export const useLabelrSnackbar = (initialOptions: TUseLabelrSnackbarOptions = {}) => {

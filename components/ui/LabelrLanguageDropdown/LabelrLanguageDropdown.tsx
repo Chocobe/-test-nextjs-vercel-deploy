@@ -1,6 +1,5 @@
 // react
 import {
-    useMemo,
     useCallback,
     memo,
 } from 'react';

@@ -15,8 +15,8 @@ import styled from 'styled-components';
 // type
 import { 
     labelrSnackbarTypeMapper, 
-    TUseLabelrSnackbarType
-} from './useLabelrSnackbarTypes';
+    TUseLabelrSnackbarType,
+} from './hooks/useLabelrSnackbarTypes';
 
 const StyledLabelrSnackbarRoot = styled.div`
     display: flex;
