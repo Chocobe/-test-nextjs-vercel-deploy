@@ -2,6 +2,8 @@
 import {
     PropsWithChildren,
 } from 'react';
+// UI component
+import ConsoleLayoutHeader from './ConsoleLayoutHeader';
 // styled-components
 import styled from 'styled-components';
 
@@ -16,29 +18,27 @@ const StyledConsoleLayoutRoot = styled.div`
 
     background-color: rgba(180, 200, 90, 0.5);
 
-    .ConsoleLayout {
-        &-header {
-            flex: 0;
+    .ConsoleLayout-header {
+        flex: 0;
+    }
+
+    .ConsoleLayout-body {
+        flex: 1;
+        display: flex;
+
+        &-navWrapper {
+            flex-shrink: 0;
+            background-color: #d199e2;
         }
-        
-        &-body {
+
+        &-contentWrapper {
             flex: 1;
-            display: flex;
-
-            &-navWrapper {
-                flex-shrink: 0;
-                background-color: #d199e2;
-            }
-
-            &-contentWrapper {
-                flex: 1;
-                width: 100%;
-            }
+            width: 100%;
         }
+    }
 
-        &-footer {
-            flex: 0;
-        }
+    .ConsoleLayout-footer {
+        flex: 0;
     }
 `;
 
@@ -47,9 +47,7 @@ function ConsoleLayout(props: PropsWithChildren) {
         <StyledConsoleLayoutRoot>
             {/* header */}
             <div className="ConsoleLayout-header">
-                <div style={{ padding: '20px', backgroundColor: '#2785cd' }}>
-                    Console Header
-                </div>
+                <ConsoleLayoutHeader />
             </div>
 
             {/* body */}

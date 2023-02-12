@@ -60,7 +60,8 @@ const StyledAppRoot = styled.div`
 const StyledLanguageDropdownWrapper = styled.div`
     position: absolute;
     top: 10px;
-    right: 10px;
+    left: 50%;
+    transform: translateX(-50%);
 `;
 
 function App({ Component, pageProps }: TAppPropsWithLayout) {
@@ -81,7 +82,9 @@ function App({ Component, pageProps }: TAppPropsWithLayout) {
                     content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0" />
                 <meta 
                     name="description" 
-                    content="AI에게 우리의 언어를 알려주고 용돈도 벌어보세요!" />
+                    content="더 빠른 개발, 더 빠른 출시, 더 빠른 혁신. Advanced AIOps, 레이블러" />
+
+                <title>레이블러 콘솔</title>
             </Head>
 
             <Provider store={store}>

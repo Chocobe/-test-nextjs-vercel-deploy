@@ -84,7 +84,7 @@ function AuthPageHeader(props: TAuthPageHeaderProps) {
 
             <figure className="logoWrapper">
                 <Image 
-                    src={getStaticImageFilePath('logo.png')} 
+                    src={getStaticImageFilePath('logo-labelr.png')} 
                     alt="로고" 
                     width={48}
                     height={48} />
