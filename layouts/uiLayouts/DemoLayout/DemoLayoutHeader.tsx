@@ -17,7 +17,7 @@ import useToggleThemeMode from '@/styles/ThemeModeContext/hooks/useToggleThemeMo
 import {
     labelrUiDemoRouteMapper,
     TLabelrUiDemoRouteMapperKey,
-} from '@/router/labelrUiDemoRouteMapper';
+} from '@/router/routeMappers/labelrUiDemoRouteMapper';
 
 const StyledDemoLayoutHeader = styled.div`
     padding: 40px 20px;

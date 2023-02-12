@@ -7,7 +7,7 @@ import classNames from 'classnames';
 
 import {
     labelrUiDemoRouteMapper,
-} from '@/router/labelrUiDemoRouteMapper';
+} from '@/router/routeMappers/labelrUiDemoRouteMapper';
 import { RoutePathFactory } from '@/router/RoutePathFactory';
 
 const StyledDemoLayoutNavRoot = styled.nav`
