@@ -1,9 +1,9 @@
-export const RoutePathFactory = {
-    /** Root pages */
-    root: createRootPathMapper(),
+import root from './pathMappers/rootPathMapper';
+import account from './pathMappers/accountPathMapper';
 
-    /** Account pages */
-    account: createAccountPathMapper(),
+export const RoutePathFactory = {
+    root,
+    account,
 
     /** Console pages */
     console: createConsolePathMapper(),
@@ -12,37 +12,22 @@ export const RoutePathFactory = {
     labelrUiDemo: createLabelrUiDemoPathMapper(),
 } as const;
 
-function createRootPathMapper() {
-    return {
-        '/': () => '/',
-    };
-}
-
-function createAccountPathMapper() {
-    const BASE_PATH = '/account';
-
-    return {
-        // 로그인
-        '/signin': () => `${BASE_PATH}/signin`,
-        // 회원가입
-        '/signup': () => `${BASE_PATH}/signup`,
-        // 비밀번호 찾기
-        '/find-password': () => `${BASE_PATH}/find-password`,
-        // 비밀번호 변경
-        '/reset-password': () => `${BASE_PATH}/reset-password`,
-        // 이메일 인증
-        '/verify-email': () => `${BASE_PATH}/verify-email`,
-        // 이메일 인증 결과
-        '/result-verify-email': () => `${BASE_PATH}/result-verify-email`,
-    };
-}
-
 function createConsolePathMapper() {
     const BASE_PATH = '/console';
 
     return {
         // Console 메인
         '/': () => `${BASE_PATH}`,
+        // EWF (elastic workflow)
+        '/ewf': () => `${BASE_PATH}/ewf`,
+        // AQC (addvanced quality control)
+        '/aqc': () => `${BASE_PATH}/aqc`,
+        // datasets
+        '/datasets': () => `${BASE_PATH}/datasets`,
+        // team
+        '/team': () => `${BASE_PATH}/team`,
+        // settings
+        '/settings': () => `${BASE_PATH}/settings`,
     };
 }
 
