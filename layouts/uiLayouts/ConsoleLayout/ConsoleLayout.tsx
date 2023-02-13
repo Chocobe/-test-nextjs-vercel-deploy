@@ -4,6 +4,7 @@ import {
 } from 'react';
 // UI component
 import ConsoleLayoutHeader from './ConsoleLayoutHeader';
+import ConsoleLayoutFooter from './ConsoleLayoutFooter';
 // styled-components
 import styled from 'styled-components';
 
@@ -67,9 +68,7 @@ function ConsoleLayout(props: PropsWithChildren) {
 
             {/* footer */}
             <div className="ConsoleLayout-footer">
-                <div style={{ padding: '20px', backgroundColor: '#006400' }}>
-                    Console Footer
-                </div>
+                <ConsoleLayoutFooter />
             </div>
         </StyledConsoleLayoutRoot>
     );
