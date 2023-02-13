@@ -4,6 +4,7 @@ import {
 } from 'react';
 // UI component
 import ConsoleLayoutHeader from './ConsoleLayoutHeader';
+import ConsoleLayoutNav from './ConsoleLayoutNav/ConsoleLayoutNav';
 import ConsoleLayoutFooter from './ConsoleLayoutFooter';
 // styled-components
 import styled from 'styled-components';
@@ -17,8 +18,6 @@ const StyledConsoleLayoutRoot = styled.div`
     flex-direction: column;
     justify-content: flex-start;
 
-    background-color: rgba(180, 200, 90, 0.5);
-
     .ConsoleLayout-header {
         flex: 0;
     }
@@ -29,12 +28,14 @@ const StyledConsoleLayoutRoot = styled.div`
 
         &-navWrapper {
             flex-shrink: 0;
-            background-color: #d199e2;
+            background-color: ${({ theme }) => theme.colors.white};
+            border-right: 1px solid ${({ theme }) => theme.colors.gs[200]};
         }
 
         &-contentWrapper {
             flex: 1;
             width: 100%;
+            background-color: ${({ theme }) => theme.colors.gs[50]};
         }
     }
 
@@ -53,13 +54,9 @@ function ConsoleLayout(props: PropsWithChildren) {
 
             {/* body */}
             <div className="ConsoleLayout-body">
-                <nav className="ConsoleLayout-body-navWrapper">
-                    <div>NavItem 1</div>
-                    <div>NavItem 2</div>
-                    <div>NavItem 3</div>
-                    <div>NavItem 4</div>
-                    <div>NavItem 5</div>
-                </nav>
+                <div className="ConsoleLayout-body-navWrapper">
+                    <ConsoleLayoutNav />
+                </div>
 
                 <div className="ConsoleLayout-body-contentWrapper">
                     {props.children}

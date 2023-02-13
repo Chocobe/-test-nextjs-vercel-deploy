@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const StyledConsoleLayoutFooter = styled.footer`
     padding: 9px 16px;
     background-color: ${({ theme }) => theme.colors.gs[50]};
+    border-top: 1px solid ${({ theme }) => theme.colors.gs[200]};
 
     display: flex;
     flex-wrap: wrap;

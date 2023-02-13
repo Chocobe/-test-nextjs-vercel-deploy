@@ -14,7 +14,8 @@ const StyledConsoleLayoutHeaderRoot = styled.header`
     justify-content: space-between;
     align-items: center;
 
-    background-color: ${({ theme }) => theme.colors.gs[200]};
+    background-color: ${({ theme }) => theme.colors.white};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.gs[200]};
 
     .logoWrapper {
         display: flex;
