@@ -1,6 +1,7 @@
 // react
 import {
     useMemo,
+    memo,
     PropsWithChildren,
 } from 'react';
 // nextjs
@@ -17,7 +18,7 @@ import {
     TTFunctionReturnType,
 } from '@/i18n/i18nextTypes';
 
-const StyledAuthPageHeaderRoot = styled.header`
+const StyledAccountPageHeaderRoot = styled.header`
     .linkWrapper {
         text-align: right;
         font-size: 12px;
@@ -49,13 +50,13 @@ const StyledAuthPageHeaderRoot = styled.header`
     }
 `;
 
-export type TAuthPageHeaderProps = PropsWithChildren<{
+export type TAccountPageHeaderProps = PropsWithChildren<{
     message?: TTFunctionReturnType;
     linkText?: TTFunctionReturnType;
     linkHref?: string;
 }>;
 
-function AuthPageHeader(props: TAuthPageHeaderProps) {
+function AccountPageHeader(props: TAccountPageHeaderProps) {
     const {
         message,
         linkText,
@@ -68,7 +69,7 @@ function AuthPageHeader(props: TAuthPageHeaderProps) {
     }, [message, linkText]);
 
     return (
-        <StyledAuthPageHeaderRoot>
+        <StyledAccountPageHeaderRoot>
             {hasLinkMessage && (
                 <div className="linkWrapper">
                     <div>
@@ -93,8 +94,8 @@ function AuthPageHeader(props: TAuthPageHeaderProps) {
             <h1 className="title">
                 {children}
             </h1>
-        </StyledAuthPageHeaderRoot>
+        </StyledAccountPageHeaderRoot>
     );
 }
 
-export default AuthPageHeader;
+export default memo(AccountPageHeader);

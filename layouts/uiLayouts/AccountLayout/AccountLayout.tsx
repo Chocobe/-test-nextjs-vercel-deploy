@@ -5,7 +5,7 @@ import {
 // styled-components
 import styled from 'styled-components';
 
-const StyledAuthLayoutRoot = styled.div`
+const StyledAccountLayoutRoot = styled.div`
     width: 100%;
     height: 100vh;
     background-color: ${({ theme }) => theme.colors.gs[50]};
@@ -24,14 +24,14 @@ const StyledAuthLayoutRoot = styled.div`
     }
 `;
 
-function AuthLayout(props: PropsWithChildren) {
+function AccountLayout(props: PropsWithChildren) {
     return (
-        <StyledAuthLayoutRoot>
+        <StyledAccountLayoutRoot>
             <main className="main">
                 {props. children}
             </main>
-        </StyledAuthLayoutRoot>
+        </StyledAccountLayoutRoot>
     );
 }
 
-export default AuthLayout;
+export default AccountLayout;

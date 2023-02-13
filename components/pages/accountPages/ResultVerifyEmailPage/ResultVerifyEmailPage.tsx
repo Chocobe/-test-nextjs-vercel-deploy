@@ -18,7 +18,7 @@ import {
 // styled-components
 import styled from 'styled-components';
 // UI components
-import AuthPageHeader from '../AuthPageHeader/AuthPageHeader';
+import AccountPageHeader from '../AccountPageHeader/AccountPageHeader';
 import LabelrInputEmail from '@/components/ui/LabelrInputEmail/LabelrInputEmail';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
 // i18n
@@ -98,11 +98,11 @@ function ResultVerifyEmailPage() {
 
     return (
         <StyledResultVerifyEmailPageRoot>
-            <AuthPageHeader
+            <AccountPageHeader
                 linkText={i18next.t('/account/result-verify-email/HEADER__LINK')}
                 linkHref={RoutePathFactory.account['/signin']()}>
                 {title}
-            </AuthPageHeader>
+            </AccountPageHeader>
 
             <div className="message">
                 {i18next.t('/account/result-verify-email/HEADER__MESSAGE')}

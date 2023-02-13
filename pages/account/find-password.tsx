@@ -5,7 +5,7 @@ import {
 // page
 import FindPasswordPage from '@/components/pages/accountPages/FindPasswordPage/FindPasswordPage';
 // layouts
-import AuthLayout from '@/layouts/uiLayouts/AuthLayout/AuthLayout';
+import AccountLayout from '@/layouts/uiLayouts/AccountLayout/AccountLayout';
 import NoneAuthRouteGuard from '@/layouts/routeGuardLayouts/NoneAuthRouteGuard';
 
 function FindPassword() {
@@ -16,11 +16,11 @@ function FindPassword() {
 
 FindPassword.getLayout = (page: ReactElement) => {
     return (
-        <AuthLayout>
+        <AccountLayout>
             <NoneAuthRouteGuard>
                 {page}
             </NoneAuthRouteGuard>
-        </AuthLayout>
+        </AccountLayout>
     );
 };
 

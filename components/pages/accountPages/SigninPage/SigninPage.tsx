@@ -25,13 +25,13 @@ import {
 } from '@/redux/slices/pageSlices/accountPageSlices/signinPageSlice/signinPageSlice';
 // types
 import { 
-    authPageFooterTypeMapper
-} from '../AuthPageFooter/authPageFooterTypes';
+    accountPageFooterTypeMapper
+} from '../AccountPageFooter/accountPageFooterTypes';
 // styled-components
 import styled from 'styled-components';
 // ui components
-import AuthPageHeader from '../AuthPageHeader/AuthPageHeader';
-import AuthPageFooter from '../AuthPageFooter/AuthPageFooter';
+import AccountPageHeader from '../AccountPageHeader/AccountPageHeader';
+import AccountPageFooter from '../AccountPageFooter/AccountPageFooter';
 import LabelrInputEmail from '@/components/ui/LabelrInputEmail/LabelrInputEmail';
 import LabelrInputPassword from '@/components/ui/LabelrInputPassword/LabelrInputPassword';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
@@ -151,12 +151,12 @@ function SigninPage() {
     return (
         <StyledSigninPageRoot>
             {/* Header */}
-            <AuthPageHeader 
+            <AccountPageHeader 
                 message={i18next.t('/account/signin/HEADER__MESSAGE')}
                 linkText={i18next.t('/account/signin/HEADER__LINK')}
                 linkHref={routePathForSignup}>
                 {i18next.t('/account/signin/HEADER__TITLE')}
-            </AuthPageHeader>
+            </AccountPageHeader>
 
             {/* Body */}
             <div className="signin-body">
@@ -209,8 +209,8 @@ function SigninPage() {
             </div>
 
             {/* Footer */}
-            <AuthPageFooter 
-                type={authPageFooterTypeMapper.SIGNIN}
+            <AccountPageFooter 
+                type={accountPageFooterTypeMapper.SIGNIN}
                 onClickGoogle={onClickGoogleSignin}
                 onClickApple={onClickAppleSignin} />
         </StyledSigninPageRoot>

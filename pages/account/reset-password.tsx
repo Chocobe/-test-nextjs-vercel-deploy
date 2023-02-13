@@ -5,7 +5,7 @@ import {
 // page
 import ResetPasswordPage from '@/components/pages/accountPages/ResetPasswordPage/ResetPasswordPage';
 // layouts
-import AuthLayout from '@/layouts/uiLayouts/AuthLayout/AuthLayout';
+import AccountLayout from '@/layouts/uiLayouts/AccountLayout/AccountLayout';
 import NoneAuthRouteGuard from '@/layouts/routeGuardLayouts/NoneAuthRouteGuard';
 
 
@@ -20,11 +20,11 @@ function ResetPassword() {
 
 ResetPassword.getLayout = (page: ReactElement) => {
     return (
-        <AuthLayout>
+        <AccountLayout>
             <NoneAuthRouteGuard>
                 {page}
             </NoneAuthRouteGuard>
-        </AuthLayout>
+        </AccountLayout>
     );
 };
 
