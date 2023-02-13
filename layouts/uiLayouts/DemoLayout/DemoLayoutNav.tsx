@@ -7,7 +7,7 @@ import classNames from 'classnames';
 
 import {
     labelrUiDemoRouteMapper,
-} from '@/router/labelrUiDemoRouteMapper';
+} from '@/router/routeMappers/labelrUiDemoRouteMapper';
 import { RoutePathFactory } from '@/router/RoutePathFactory';
 
 const StyledDemoLayoutNavRoot = styled.nav`
@@ -41,7 +41,7 @@ function DemoLayoutNav() {
         <StyledDemoLayoutNavRoot>
             {Object.entries(labelrUiDemoRouteMapper).map(([key, routeData]) => {
                 const {
-                    title,
+                    name,
                     path,
                 } = routeData;
                 
@@ -55,7 +55,7 @@ function DemoLayoutNav() {
                             'menuItem',
                             { 'active': path === currentPath}
                         )}>
-                            {title}
+                            {name}
                         </a>
                     </Link>
                 );

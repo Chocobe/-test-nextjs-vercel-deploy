@@ -47,6 +47,9 @@ export default class MyDocument extends Document {
                         as="style" 
                         crossOrigin="anonymous"
                         href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/pretendardvariable-dynamic-subset.css" />
+                    <link 
+                        rel="shortcut icon"
+                        href="/favicon-96x96.png" />
                 </Head>
 
                 <body>

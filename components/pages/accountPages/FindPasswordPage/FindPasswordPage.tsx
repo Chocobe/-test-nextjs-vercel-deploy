@@ -19,7 +19,7 @@ import {
 // styled-components
 import styled from 'styled-components';
 // UI components
-import AuthPageHeader from '../AuthPageHeader/AuthPageHeader';
+import AccountPageHeader from '../AccountPageHeader/AccountPageHeader';
 import LabelrInputEmail from '@/components/ui/LabelrInputEmail/LabelrInputEmail';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
 import { 
@@ -91,11 +91,11 @@ function FindPasswordPage() {
 
     return (
         <StyledFindPasswordPageRoot>
-            <AuthPageHeader
+            <AccountPageHeader
                 linkText={t('/account/find-password/HEADER__LINK')}
                 linkHref={RoutePathFactory.account['/signin']()}>
                 {t('/account/find-password/HEADER__TITLE')}
-            </AuthPageHeader>
+            </AccountPageHeader>
 
             <div className="message">
                 {t('/account/find-password/BODY__MESSAGE')}

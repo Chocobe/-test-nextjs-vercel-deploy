@@ -1,3 +1,8 @@
+// react
+import {
+    useEffect,
+} from 'react';
+// nextjs
 import {
     useRouter,
 } from 'next/router';
@@ -8,22 +13,9 @@ import {
 function ConsoleIndex() {
     const router = useRouter();
 
-    const onClickLogout = () => {
-        router.push(RoutePathFactory.account['/signin']());
-    };
-
-    return (
-        <div>
-            <div>
-                Console Index Page
-            </div>
-            <div>
-                <button onClick={onClickLogout}>
-                    Logout
-                </button>
-            </div>
-        </div>
-    );
+    useEffect(() => {
+        router.push(RoutePathFactory.console['/ewf']());
+    }, [router]);
 }
 
 export default ConsoleIndex;

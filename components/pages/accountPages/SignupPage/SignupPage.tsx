@@ -25,15 +25,15 @@ import {
 } from '@/router/RoutePathFactory';
 // type
 import { 
-    authPageFooterTypeMapper,
-} from '../AuthPageFooter/authPageFooterTypes';
+    accountPageFooterTypeMapper,
+} from '../AccountPageFooter/accountPageFooterTypes';
 // styled-components
 import styled, {
     useTheme,
 } from 'styled-components';
 // UI components
-import AuthPageHeader from '../AuthPageHeader/AuthPageHeader';
-import AuthPageFooter from '../AuthPageFooter/AuthPageFooter';
+import AccountPageHeader from '../AccountPageHeader/AccountPageHeader';
+import AccountPageFooter from '../AccountPageFooter/AccountPageFooter';
 import LabelrInputEmail from '@/components/ui/LabelrInputEmail/LabelrInputEmail';
 import LabelrInputPassword from '@/components/ui/LabelrInputPassword/LabelrInputPassword';
 import LabelrInputConfirm from '@/components/ui/LabelrInputConfirm/LabelrInputConfirm';
@@ -166,12 +166,12 @@ function SignupPage() {
     return (
         <StyledSignupPageRoot>
             {/* Header */}
-            <AuthPageHeader
+            <AccountPageHeader
                 message={i18next.t('/account/signup/HEADER__MESSAGE')}
                 linkText={i18next.t('/account/signup/HEADER__LINK')}
                 linkHref={routePathForSignin}>
                 {i18next.t('/account/signup/HEADER__TITLE')}
-            </AuthPageHeader>
+            </AccountPageHeader>
 
             {/* Body */}
             <div className="signup-body">
@@ -230,8 +230,8 @@ function SignupPage() {
             </div>
 
             {/* Footer */}
-            <AuthPageFooter
-                type={authPageFooterTypeMapper.SIGNUP}
+            <AccountPageFooter
+                type={accountPageFooterTypeMapper.SIGNUP}
                 onClickGoogle={onClickGoogleSignup}
                 onClickApple={onClickAppleSignup} />
         </StyledSignupPageRoot>

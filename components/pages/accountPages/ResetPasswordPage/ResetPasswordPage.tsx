@@ -21,7 +21,7 @@ import {
 // styled-components
 import styled from 'styled-components';
 // UI components
-import AuthPageHeader from '../AuthPageHeader/AuthPageHeader';
+import AccountPageHeader from '../AccountPageHeader/AccountPageHeader';
 import LabelrInputPassword from '@/components/ui/LabelrInputPassword/LabelrInputPassword';
 import LabelrInputConfirm from '@/components/ui/LabelrInputConfirm/LabelrInputConfirm';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
@@ -121,11 +121,11 @@ function ResetPasswordPage() {
 
     return (
         <StyledResetPasswordPageRoot>
-            <AuthPageHeader
+            <AccountPageHeader
                 linkText={t('/account/reset-password/HEADER__LINK')}
                 linkHref={RoutePathFactory.account['/signin']()}>
                 {t('/account/reset-password/HEADER__TITLE')}
-            </AuthPageHeader>
+            </AccountPageHeader>
 
             <div className="message">
                 {t('/account/reset-password/BODY__MESSAGE')}

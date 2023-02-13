@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import {
     labelrUiDemoRouteMapper,
     TLabelrUiDemoRouteMapperKey,
-} from '@/router/labelrUiDemoRouteMapper';
+} from '@/router/routeMappers/labelrUiDemoRouteMapper';
 
 const StyledLabelrUiDemoPageRoot = styled.div`
     width: 100%;

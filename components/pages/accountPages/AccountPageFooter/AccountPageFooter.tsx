@@ -5,9 +5,9 @@ import {
 } from 'react';
 // type
 import {
-    authPageFooterTypeMapper,
-    TAuthPageFooterType,
-} from './authPageFooterTypes';
+    accountPageFooterTypeMapper,
+    TAccountPageFooterType,
+} from './accountPageFooterTypes';
 // styled-components
 import styled from 'styled-components';
 // type
@@ -21,7 +21,7 @@ import {
     useTranslation,
 } from 'react-i18next';
 
-const StyledAuthPageFooterRoot = styled.footer`
+const StyledAccountPageFooterRoot = styled.footer`
     width: 100%;
 
     display: flex;
@@ -29,13 +29,13 @@ const StyledAuthPageFooterRoot = styled.footer`
     gap: 8px;
 `;
 
-export type TAuthPageFooterProps = {
-    type: TAuthPageFooterType;
+export type TAccountPageFooterProps = {
+    type: TAccountPageFooterType;
     onClickGoogle: () => void;
     onClickApple: () => void;
 };
 
-function AuthPageFooter(props: TAuthPageFooterProps) {
+function AccountPageFooter(props: TAccountPageFooterProps) {
     const {
         type,
         onClickGoogle,
@@ -48,31 +48,31 @@ function AuthPageFooter(props: TAuthPageFooterProps) {
     // cache
     const postfixButtonName = useMemo(() => {
         switch(type) {
-            case authPageFooterTypeMapper.SIGNIN:
-                return i18next.t('AuthPageFooter/POSTFIX_BUTTON_NAME__SIGNIN');
-            case authPageFooterTypeMapper.SIGNUP:
+            case accountPageFooterTypeMapper.SIGNIN:
+                return i18next.t('AccountPageFooter/POSTFIX_BUTTON_NAME__SIGNIN');
+            case accountPageFooterTypeMapper.SIGNUP:
             default:
-                return i18next.t('AuthPageFooter/POSTFIX_BUTTON_NAME__SIGNUP');
+                return i18next.t('AccountPageFooter/POSTFIX_BUTTON_NAME__SIGNUP');
         }
     }, [type, i18next]);
 
     return (
-        <StyledAuthPageFooterRoot>
+        <StyledAccountPageFooterRoot>
             <LabelrSocialButton
                 fluid
                 onClick={onClickGoogle}
                 type={labelrSocialButtonTypeMapper.GOOGLE}>
-                {i18next.t('AuthPageFooter/GOOGLE_BUTTON_NAME')} {postfixButtonName}
+                {i18next.t('AccountPageFooter/GOOGLE_BUTTON_NAME')} {postfixButtonName}
             </LabelrSocialButton>
 
             <LabelrSocialButton
                 fluid
                 onClick={onClickApple}
                 type={labelrSocialButtonTypeMapper.APPLE}>
-                {i18next.t('AuthPageFooter/APPLE_BUTTON_NAME')} {postfixButtonName}
+                {i18next.t('AccountPageFooter/APPLE_BUTTON_NAME')} {postfixButtonName}
             </LabelrSocialButton>
-        </StyledAuthPageFooterRoot>
+        </StyledAccountPageFooterRoot>
     );
 }
 
-export default memo(AuthPageFooter);
+export default memo(AccountPageFooter);

@@ -18,7 +18,7 @@ import {
     setHasExpired,
 } from '@/redux/slices/pageSlices/accountPageSlices/resultVerifyEmailPageSlice/resultVerifyEmailPageSlice';
 // UI components
-import AuthPageHeader from '../AuthPageHeader/AuthPageHeader';
+import AccountPageHeader from '../AccountPageHeader/AccountPageHeader';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
 // styled-components
 import styled from 'styled-components';
@@ -92,11 +92,11 @@ function VerifyEmailPage() {
 
     return (
         <StyledVerifyEmailPageRoot>
-            <AuthPageHeader
+            <AccountPageHeader
                 linkText={i18next.t('/account/verify-email/HEADER__LINK')}
                 linkHref={routePathOfSignin}>
                 {i18next.t('/account/verify-email/HEADER__TITLE')}
-            </AuthPageHeader>
+            </AccountPageHeader>
 
             <div className="messageWrapper">
                 <div className="message">

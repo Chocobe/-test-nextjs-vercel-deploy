@@ -5,7 +5,7 @@ import {
 // page
 import VerifyEmailPage from '@/components/pages/accountPages/VerifyEmailPage/VerifyEmailPage';
 // layouts
-import AuthLayout from '@/layouts/uiLayouts/AuthLayout/AuthLayout';
+import AccountLayout from '@/layouts/uiLayouts/AccountLayout/AccountLayout';
 import NoneAuthRouteGuard from '@/layouts/routeGuardLayouts/NoneAuthRouteGuard';
 
 function VerifyEmail() {
@@ -16,11 +16,11 @@ function VerifyEmail() {
 
 VerifyEmail.getLayout = (page: ReactElement) => {
     return (
-        <AuthLayout>
+        <AccountLayout>
             <NoneAuthRouteGuard>
                 {page}
             </NoneAuthRouteGuard>
-        </AuthLayout>
+        </AccountLayout>
     );
 };
 

@@ -17,7 +17,7 @@ import useToggleThemeMode from '@/styles/ThemeModeContext/hooks/useToggleThemeMo
 import {
     labelrUiDemoRouteMapper,
     TLabelrUiDemoRouteMapperKey,
-} from '@/router/labelrUiDemoRouteMapper';
+} from '@/router/routeMappers/labelrUiDemoRouteMapper';
 
 const StyledDemoLayoutHeader = styled.div`
     padding: 40px 20px;
@@ -52,7 +52,7 @@ const StyledDemoLayoutHeader = styled.div`
 function DemoLayoutHeader() {
     const router = useRouter();
     const demoName = router.query.demoName as TLabelrUiDemoRouteMapperKey;
-    const title = labelrUiDemoRouteMapper[demoName]?.title;
+    const title = labelrUiDemoRouteMapper[demoName]?.name;
 
     const themeModeState = useThemeModeState();
     const {
