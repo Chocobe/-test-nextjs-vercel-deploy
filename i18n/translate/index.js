@@ -13,9 +13,9 @@ const sheetId = ENV.SHEET_ID;
 
 const NOT_AVAILABLE_CELL = '_N/A';
 const columnKeyToHeader = {
-    'key': '키',
-    'ko': '한글',
-    'en': '영어',
+    'key': 'Key',
+    'ko': 'ko',
+    'en': 'en',
 };
 
 /**

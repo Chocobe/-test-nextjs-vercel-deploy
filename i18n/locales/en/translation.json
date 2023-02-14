@@ -54,5 +54,22 @@
     "LabelrSocialButton/GOOGLE_ICON_ALT": "_N/A",
     "UseLabelrInputEmailValidatorExecutors/INVALID_MESSAGE__EMAIL_FORM": "_N/A",
     "UseLabelrInputPasswordValidatorExecutors/INVALID_MESSAGE__LENGTH": "_N/A",
-    "UseLabelrInputPasswordValidatorExecutors/INVALID_MESSAGE__PASSWORD_FORM": "_N/A"
+    "UseLabelrInputPasswordValidatorExecutors/INVALID_MESSAGE__PASSWORD_FORM": "_N/A",
+    "EWF_IMAGE_DESCRIPTION_TITLE": "Image Description",
+    "EWF_IMAGE_DESCRIPTION_DESC": "Use human intelligence to attach descriptive text to the image. Depending on your purpose, you can specify the tone and manner for the descriptive text or set the length of text being created by presenting guidelines and task criteria. Use the Image Description workflow to attach descriptions of tens to millions of images quickly.",
+    "EWF_INSTANCE_NAME": "Workflow Name",
+    "EWF_IMAGE_DESCRIPTION_NUM_OF_ASSIGNMENTS_AT_STEP_0": "Number of Image Description Writers",
+    "EWF_IMAGE_DESCRIPTION_NUM_OF_ASSIGNMENTS_AT_STEP_1": "Number of Evaluators",
+    "EWF_IMAGE_DESCRIPTION_CUT_OFF_SCORE": "Cut-Off Score",
+    "EWF_IMAGE_DESCRIPTION_CUT_OFF_SCORE_LOW": "Low",
+    "EWF_IMAGE_DESCRIPTION_CUT_OFF_SCORE_NORMAL": "Normal",
+    "EWF_IMAGE_DESCRIPTION_CUT_OFF_SCORE_HIGH": "High",
+    "EWF_IMAGE_DESCRIPTION_DYNAMIC_IMAGE_WATERMARK": "Dynamic Image Watermark",
+    "EWF_IMAGE_DESCRIPTION_LANGUAGE": "Language",
+    "EWF_TASK_GROUP_NAME": "Task Name",
+    "EWF_TASK_GROUP_DESC": "Task Description",
+    "EWF_TEXT_NUM_OF_TOKENS_CRITERIA_TITLE": "Number of Words",
+    "EWF_TEXT_PATTERNS_CRITERIA_TITLE": "Text Patterns",
+    "EWF_TEXT_KEYWORDS_CRITERIA_TITLE": "Keywords",
+    "EWF_PASS_FAIL_CRITERIA_TITLE": "Pass / Fail Evaluation"
 }

@@ -7,3 +7,4 @@ export { default as LabelrInputPasswordDemoSection } from './LabelrInputPassword
 export { default as LabelrInputConfirmDemoSection } from './LabelrInputConfirmDemoSection';
 
 export { default as UseLabelrSnackbarDemoSection } from './UseLabelrSnackbarDemoSection';
+export { default as LabelrPopoverDemoSection } from './LabelrPopoverDemoSection';
