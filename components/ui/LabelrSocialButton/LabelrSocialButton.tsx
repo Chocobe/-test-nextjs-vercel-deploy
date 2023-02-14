@@ -31,6 +31,10 @@ import {
 import {
     useTranslation,
 } from 'react-i18next';
+// google oauth
+import {
+    useGoogleLogin,
+} from '@react-oauth/google';
 
 const StyledIconWrapper = styled.div<{
     iconSize: number;
@@ -57,8 +61,18 @@ function LabelrSocialButton(props: TLabelrSocialButtonProps) {
         children,
     } = props;
 
+    // FIXME: custom hook 으로 분리하기
     // hook
     const i18next = useTranslation();
+    const signinGoogle = useGoogleLogin({
+        flow: 'auth-code',
+        onSuccess(codeResponse) {
+            console.log('codeResponse: ', codeResponse);
+        },
+        onError(error) {
+            console.log('error: ', error);
+        },
+    });
 
     // cache
     const iconSize = useMemo(() => {
@@ -109,7 +123,11 @@ function LabelrSocialButton(props: TLabelrSocialButtonProps) {
             size={size}
             isDisabled={isDisabled}
             fluid={fluid}
-            onClick={onClick}
+            onClick={e => {
+                // FIXME: useCallback 으로 분리하기
+                onClick(e);
+                signinGoogle();
+            }}
             slots={{
                 LeftAddonElement,
             }}>
