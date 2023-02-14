@@ -14,6 +14,8 @@ import {
 import styled, {
     useTheme,
 } from 'styled-components';
+// UI component
+import LabelrPopover from '@/components/ui/LabelrPopover/LabelrPopover';
 
 const StyledConsoleLayoutNavItemRoot = styled.div<{
     isActive: boolean;
@@ -50,7 +52,7 @@ export type TConsoleLayoutNavItemProps = {
 
 function ConsoleLayoutNavItem(props: TConsoleLayoutNavItemProps) {
     const {
-        // name,
+        name,
         path,
         isActive,
         children,
@@ -95,11 +97,20 @@ function ConsoleLayoutNavItem(props: TConsoleLayoutNavItemProps) {
     }, [path, router]);
 
     return (
-        <StyledConsoleLayoutNavItemRoot 
-            isActive={isActive}
-            onClick={onClick}>
-            {renderNavIcon()}
-        </StyledConsoleLayoutNavItemRoot>
+        <LabelrPopover
+            label={name}
+            placement="right"
+            padding="6px 12px"
+            gutter={2}
+            fontSize="12px"
+            lineHeight="18px"
+            fontWeight={500}>
+            <StyledConsoleLayoutNavItemRoot 
+                isActive={isActive}
+                onClick={onClick}>
+                {renderNavIcon()}
+            </StyledConsoleLayoutNavItemRoot>
+        </LabelrPopover>
     );
 }
 
