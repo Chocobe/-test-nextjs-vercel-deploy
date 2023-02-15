@@ -2,6 +2,7 @@
 import {
     useMemo,
     useCallback,
+    useContext,
     useEffect,
 } from 'react';
 // nextjs
@@ -9,14 +10,14 @@ import {
     useRouter,
 } from 'next/router';
 import Link from 'next/link';
-// redux
+// context
 import {
-    useAppSelector,
-    useAppDispatch,
-} from '@/redux/hooks';
-import {
-    setHasExpired,
-} from '@/redux/slices/pageSlices/accountPageSlices/resultVerifyEmailPageSlice/resultVerifyEmailPageSlice';
+    AccountsLayoutContextDispatch,
+    AccountsLayoutContextState,
+} from '@/layouts/uiLayouts/AccountsLayout/context/accountsLayoutContext';
+import { 
+    setHasExpiredToResultVerifyEmailPage
+} from '@/layouts/uiLayouts/AccountsLayout/context/reducers/resultVerifyEmailPageReducer';
 // UI components
 import AccountPageHeader from '../AccountPageHeader/AccountPageHeader';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
@@ -56,10 +57,19 @@ const StyledVerifyEmailPageRoot = styled.div`
 `;
 
 function VerifyEmailPage() {
-    // state
-    const expirationTime = useAppSelector(({ resultVerifyEmailPage }) => resultVerifyEmailPage.expirationTime);
+    //
+    // context
+    //
+    const dispatchContext = useContext(AccountsLayoutContextDispatch)!;
+    const state = useContext(AccountsLayoutContextState)!;
 
+    const expirationTime = useMemo(() => {
+        return state.resultVerifyEmail.expirationTime;
+    }, [state]);
+
+    //
     // cache
+    //
     const routePathOfSignin = useMemo(() => {
         return RoutePathFactory.account['/signin']();
     }, []);
@@ -68,27 +78,32 @@ function VerifyEmailPage() {
         return RoutePathFactory.account['/result-verify-email']();
     }, []);
 
+    //
     // hook
-    const dispatch = useAppDispatch();
+    //
     const router = useRouter();
     const i18next = useTranslation();
 
+    //
     // callback
+    //
     const onClickSignin = useCallback(() => {
         router.push(routePathOfSignin);
     }, [router, routePathOfSignin]);
 
+    //
     // effect
+    //
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-            dispatch(setHasExpired(true));
+            dispatchContext(setHasExpiredToResultVerifyEmailPage(true));
             router.replace(RoutePathFactory.account['/result-verify-email']());
         }, expirationTime);
 
         return () => {
             clearTimeout(timeoutId);
         };
-    }, [dispatch, , expirationTime, router]);
+    }, [expirationTime, dispatchContext, router]);
 
     return (
         <StyledVerifyEmailPageRoot>
