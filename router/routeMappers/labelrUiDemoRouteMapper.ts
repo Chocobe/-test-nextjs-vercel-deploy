@@ -10,6 +10,8 @@ import {
 
     UseLabelrSnackbarDemoSection,
     LabelrPopoverDemoSection,
+
+    LabelrBreadcrumbDemoSection,
 } from '@/components/pages/labelrUiDemoPages/demoSections';
 
 export const labelrUiDemoRouteMapper = {
@@ -57,6 +59,13 @@ export const labelrUiDemoRouteMapper = {
         name: 'LabelrPopover',
         path: RoutePathFactory.labelrUiDemo['/[demoName]']('popover'),
         DemoSectionComponent: LabelrPopoverDemoSection,
+    },
+
+    /** Navigation */
+    breadcrumb: {
+        name: 'LabelrBreadcrumb',
+        path: RoutePathFactory.labelrUiDemo['/[demoName]']('breadcrumb'),
+        DemoSectionComponent: LabelrBreadcrumbDemoSection,
     },
 } as const;
 

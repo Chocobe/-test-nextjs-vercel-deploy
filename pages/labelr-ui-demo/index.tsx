@@ -13,7 +13,9 @@ function LabelrUiDemoIndex() {
     const router = useRouter();
 
     useEffect(() => {
-        router.replace(RoutePathFactory.labelrUiDemo['/[demoName]']('button'));
+        if (router.isReady) {
+            router.replace(RoutePathFactory.labelrUiDemo['/[demoName]']('button'));
+        }
     }, [router]);
 
     return null;
