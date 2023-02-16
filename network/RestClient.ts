@@ -80,7 +80,7 @@ const sendRequest = async <T = any>({
         // }
 
         const response = await method(
-            url, 
+            `/api${url}`, 
             payload, 
             { ...config, params }
         ) as AxiosResponse<T>;
