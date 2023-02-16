@@ -4,6 +4,8 @@ import {
     useMemo,
     useCallback,
     ChangeEvent,
+    useEffect,
+    useContext,
 } from 'react';
 // nextjs
 import Link from 'next/link';
@@ -13,16 +15,24 @@ import {
 import { 
     RoutePathFactory,
 } from '@/router/RoutePathFactory';
-// rtk
+// redux
 import {
     useAppSelector,
     useAppDispatch,
 } from '@/redux/hooks';
-// redux
 import { 
-    setEmail,
-    setPassword,
-} from '@/redux/slices/pageSlices/accountPageSlices/signinPageSlice/signinPageSlice';
+    actionSigninRequested,
+    actionSigninReset,
+} from '@/redux/slices/apiSlices/accountsApiSlice/accountApiSlice';
+// context
+import { 
+    AccountsLayoutContextState,
+    AccountsLayoutContextDispatch,
+} from '@/layouts/uiLayouts/AccountsLayout/context/accountsLayoutContext';
+import { 
+    setEmailToSigninPage,
+    setPasswordToSigninPage,
+} from '@/layouts/uiLayouts/AccountsLayout/context/reducers/signinPageReducer';
 // types
 import { 
     accountPageFooterTypeMapper
@@ -84,21 +94,40 @@ const StyledSigninPageRoot = styled.div`
 `;
 
 function SigninPage() {
+    //
+    // context
+    //
+    const dispatchContext = useContext(AccountsLayoutContextDispatch);
+    const state = useContext(AccountsLayoutContextState);
+
+    const email = useMemo(() => {
+        return state?.signinPage.email || '';
+    }, [state?.signinPage.email]);
+
+    const password = useMemo(() => {
+        return state?.signinPage.password || '';
+    }, [state?.signinPage.password]);
+
+    //
     // state
-    const email = useAppSelector(({ signinPage }) => signinPage.email);
-    const password = useAppSelector(({ signinPage }) => signinPage.password);
+    //
+    const signinApiState = useAppSelector(({ accountsApi }) => accountsApi.signin);
 
     const [validationState, setValidationState] = useState({
         isValidEmail: false,
         isValidPassword: false,
     });
 
+    //
     // hook
+    //
     const dispatch = useAppDispatch();
     const router = useRouter();
     const i18next = useTranslation();
 
+    //
     // cache
+    //
     const routePathForFindPassword = useMemo(() => {
         return RoutePathFactory.account['/find-password']();
     }, []);
@@ -113,14 +142,16 @@ function SigninPage() {
             .every(isValid => isValid);
     }, [validationState]);
 
+    //
     // callback
+    //
     const onChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setEmail(e.currentTarget.value));
-    }, [dispatch]);
+        dispatchContext?.(setEmailToSigninPage(e.currentTarget.value));
+    }, [dispatchContext]);
 
     const onChangePassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setPassword(e.currentTarget.value));
-    }, [dispatch]);
+        dispatchContext?.(setPasswordToSigninPage(e.currentTarget.value));
+    }, [dispatchContext]);
 
     const onIsValidEmail = useCallback((isValidEmail: boolean) => {
         setValidationState(state => ({
@@ -137,8 +168,11 @@ function SigninPage() {
     }, []);
 
     const onClickSignin = useCallback(() => {
-        router.push(RoutePathFactory.console['/']());
-    }, [router]);
+        dispatch(actionSigninRequested({
+            email,
+            password,
+        }));
+    }, [dispatch, email, password]);
 
     const onClickGoogleSignin = useCallback(() => {
         console.log('Google Social 로그인 버튼 클릭');
@@ -147,6 +181,36 @@ function SigninPage() {
     const onClickAppleSignin = useCallback(() => {
         console.log('Apple Social 로그인 버튼 클릭');
     }, []);
+
+    //
+    // effect
+    // 
+    useEffect(function onSigninApiResponse() {
+        const {
+            isLoading,
+            data,
+            error,
+        } = signinApiState;
+
+        if (isLoading || !router.isReady) {
+            return;
+        }
+
+        if (data) {
+            router.push(RoutePathFactory.console['/ewf']());
+            return;
+        }
+
+        if (error) {
+            console.log('error: ', error);
+        }
+    }, [signinApiState, router]);
+
+    useEffect(function onBeforeUnmounted() {
+        return () => {
+            dispatch(actionSigninReset());
+        };
+    }, [dispatch]);
 
     return (
         <StyledSigninPageRoot>
@@ -162,7 +226,8 @@ function SigninPage() {
             <div className="signin-body">
                 <div className="inputWrapper">
                     <LabelrInputEmail
-                        value={email}
+                        // value={email}
+                        value={state?.signinPage.email || ''}
                         onChange={onChangeEmail}
                         onIsValid={onIsValidEmail}
                         placeholder={i18next.t('/account/signin/BODY__INPUT_EMAIL__PLACEHOLDER')}
@@ -170,7 +235,8 @@ function SigninPage() {
                         fluid />
 
                     <LabelrInputPassword
-                        value={password}
+                        // value={password}
+                        value={state?.signinPage.password || ''}
                         onChange={onChangePassword}
                         onIsValid={onIsValidPassword}
                         placeholder={i18next.t('/account/signin/BODY__INPUT_PASSWORD__PLACEHOLDER')}

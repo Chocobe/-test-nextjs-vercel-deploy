@@ -3,6 +3,7 @@ import {
     useState,
     useMemo,
     useCallback,
+    useContext,
     ChangeEvent,
 } from 'react';
 // nextjs
@@ -10,14 +11,18 @@ import {
     useRouter,
 } from 'next/router';
 // redux
+// import {
+//     useAppSelector,
+//     useAppDispatch,
+// } from '@/redux/hooks';
 import {
-    useAppSelector,
-    useAppDispatch,
-} from '@/redux/hooks';
+    AccountsLayoutContextDispatch,
+    AccountsLayoutContextState,
+} from '@/layouts/uiLayouts/AccountsLayout/context/accountsLayoutContext';
 import {
-    setPassword,
-    setPasswordConfirm,
-} from '@/redux/slices/pageSlices/accountPageSlices/resetPasswordPageSlice/resetPasswordPageSlice';
+    setPasswordToResetPasswordPage,
+    setPasswordConfirmToResetPasswordPage,
+} from '@/layouts/uiLayouts/AccountsLayout/context/reducers/resetPasswordPageReducer';
 // styled-components
 import styled from 'styled-components';
 // UI components
@@ -60,23 +65,40 @@ const StyledResetPasswordPageRoot = styled.div`
 `;
 
 function ResetPasswordPage() {
-    const password = useAppSelector(({ resetPasswordPage }) => resetPasswordPage.password);
-    const passwordConfirm = useAppSelector(({ resetPasswordPage }) => resetPasswordPage.passwordConfirm);
+    //
+    // context
+    //
+    const dispatchContext = useContext(AccountsLayoutContextDispatch)!;
+    const state = useContext(AccountsLayoutContextState)!;
 
+    const password = useMemo(() => {
+        return state.resetPassword.password;
+    }, [state.resetPassword.password]);
+
+    const passwordConfirm = useMemo(() => {
+        return state.resetPassword.passwordConfirm;
+    }, [state.resetPassword.passwordConfirm]);
+
+    //
+    // state
+    //
     const [validationState, setValidationState] = useState({
         isValidPassword: false,
         isValidPasswordConfirm: false,
     });
 
+    //
     // cache
+    //
     const isValidInputValues = useMemo(() => {
         return Object
             .values(validationState)
             .every(isValid => isValid);
     }, [validationState]);
 
+    //
     // hook
-    const dispatch = useAppDispatch();
+    //
     const router = useRouter();
     const {
         openLabelrSnackbar,
@@ -85,14 +107,16 @@ function ResetPasswordPage() {
         t,
     } = useTranslation();
 
+    //
     // callback
+    //
     const onChangePassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setPassword(e.currentTarget.value));
-    }, [dispatch]);
+        dispatchContext(setPasswordToResetPasswordPage(e.currentTarget.value));
+    }, [dispatchContext]);
 
     const onChangePasswordConfirm = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setPasswordConfirm(e.currentTarget.value));
-    }, [dispatch]);
+        dispatchContext(setPasswordConfirmToResetPasswordPage(e.currentTarget.value));
+    }, [dispatchContext]);
 
     const onIsValidPassword = useCallback((isValidPassword: boolean) => {
         setValidationState(state => ({

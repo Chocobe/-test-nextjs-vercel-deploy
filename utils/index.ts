@@ -10,3 +10,7 @@ export {
     AlphabetNumberSpecialCharactorRegExp,
     UrlRegExp,
 } from './regExp';
+export {
+    combineLabelrReducers,
+    type TLabelrReducer,
+} from './labelrReducer/labelrReducer';

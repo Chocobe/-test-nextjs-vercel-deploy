@@ -1,5 +1,6 @@
 import axios, {
-    AxiosRequestConfig,
+    AxiosRequestConfig, 
+    AxiosResponse,
 } from 'axios';
 import { ELocalStorageItemKey } from './CONSTANTS/ELocalStorageItemKey';
 
@@ -39,6 +40,7 @@ const axiosInstance = (function() {
             
             return config;
         },
+
         function (error) {
             return Promise.reject(error);
         }
@@ -48,15 +50,23 @@ const axiosInstance = (function() {
         function (response) {
             return response;
         },
+
         function (error) {
-            return Promise.reject(error.response);
+            const response = error?.response ?? error;
+            const status = response.status;
+            const statusText = response.statusText;
+
+            return Promise.reject({ 
+                status, 
+                statusText
+            });
         }
     );
 
     return axiosInstance;
 }());
 
-const sendRequest = async ({
+const sendRequest = async <T = any>({
     method,
     url,
     payload = {},
@@ -69,29 +79,32 @@ const sendRequest = async ({
         //     throw new Error('empty url is invalid');
         // }
 
-        const response = await method(url, payload, { ...config, params });
+        const response = await method(
+            url, 
+            payload, 
+            { ...config, params }
+        ) as AxiosResponse<T>;
 
         callback?.(response);
         return response;
     } catch (error) {
-        console.error(error);
         throw error;
     }
 };
 
 const RestClient = {
-    get: async (
+    async get<T>(
         url: string,
         params?: any,
         config?: any,
         callback?: () => any
-    ) => {
+    ) {
         const payload = {
             ...config,
             params,
         };
-        
-        return sendRequest({
+
+        return sendRequest<T>({
             method: axiosInstance.get,
             url,
             payload,
@@ -99,13 +112,13 @@ const RestClient = {
         });
     },
 
-    post: async (
+    async post<T>(
         url: string,
         payload?: any,
         config?: any,
         callback?: () => any
-    ) => {
-        return sendRequest({
+    ) {
+        return sendRequest<T>({
             method: axiosInstance.post,
             url,
             payload,
@@ -114,13 +127,13 @@ const RestClient = {
         });
     },
 
-    put: async (
+    async put<T>(
         url: string,
         payload?: any,
         config?: any,
         callback?: () => any
-    ) => {
-        return sendRequest({
+    ) {
+        return sendRequest<T>({
             method: axiosInstance.put,
             url,
             payload,
@@ -129,13 +142,13 @@ const RestClient = {
         });
     },
 
-    patch: async (
+    async patch<T>(
         url: string,
         payload?: any,
         config?: any,
         callback?: () => any
-    ) => {
-        return sendRequest({
+    ) {
+        return sendRequest<T>({
             method: axiosInstance.patch,
             url,
             payload,
@@ -144,25 +157,24 @@ const RestClient = {
         });
     },
 
-    delete: async (
+    async delete<T>(
         url: string,
         params?: any,
         config?: any,
         callback?: () => any
-    ) => {
+    ) {
         const payload = {
             ...config,
             params,
         };
-        
-        return sendRequest({
+
+        return sendRequest<T>({
             method: axiosInstance.delete,
             url,
             payload,
             callback,
         });
     },
-};
-Object.freeze(RestClient);
+} as const;
 
 export default RestClient;

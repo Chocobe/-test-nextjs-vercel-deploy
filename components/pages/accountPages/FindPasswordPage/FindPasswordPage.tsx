@@ -2,20 +2,26 @@
 import {
     useState,
     useCallback,
+    useContext,
     ChangeEvent,
+    useMemo,
 } from 'react';
 // nextjs
 import {
     useRouter,
 } from 'next/router';
 // redux
+// import {
+//     useAppSelector,
+//     useAppDispatch,
+// } from '@/redux/hooks';
+import { 
+    AccountsLayoutContextDispatch,
+    AccountsLayoutContextState,
+} from '@/layouts/uiLayouts/AccountsLayout/context/accountsLayoutContext';
 import {
-    useAppSelector,
-    useAppDispatch,
-} from '@/redux/hooks';
-import {
-    setEmail,
-} from '@/redux/slices/pageSlices/accountPageSlices/findPasswordPageSlice/findPasswordPageSlice';
+    setEmailToFindPasswordPage,
+} from '@/layouts/uiLayouts/AccountsLayout/context/reducers/findPasswordPageReducer';
 // styled-components
 import styled from 'styled-components';
 // UI components
@@ -57,23 +63,36 @@ const StyledFindPasswordPageRoot = styled.div`
 `;
 
 function FindPasswordPage() {
-    const [isValidEmail, setIsValidEmail] = useState(false);
-    const email = useAppSelector(({ findPasswordPage }) => findPasswordPage.email);
+    //
+    // context
+    //
+    // const email = useAppSelector(({ findPasswordPage }) => findPasswordPage.email);
+    const dispatchContext = useContext(AccountsLayoutContextDispatch)!;
+    const state = useContext(AccountsLayoutContextState)!;
 
+    const email = useMemo(() => {
+        return state.findPassword.email || '';
+    }, [state.findPassword.email]);
+
+    const [isValidEmail, setIsValidEmail] = useState(false);
+
+    //
     // hooks
+    //
     const { 
         t,
     } = useTranslation();
     const {
         openLabelrSnackbar,
     } = useLabelrSnackbar();
-    const dispatch = useAppDispatch();
     const router = useRouter();
 
+    //
     // callback
+    //
     const onChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setEmail(e.currentTarget.value));
-    }, [dispatch]);
+        dispatchContext(setEmailToFindPasswordPage(e.currentTarget.value));
+    }, [dispatchContext]);
 
     const onIsValidEmail = useCallback((isValidEmail: boolean) => {
         setIsValidEmail(isValidEmail);

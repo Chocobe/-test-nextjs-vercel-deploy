@@ -6,7 +6,7 @@ import {
 import SigninPage from '@/components/pages/accountPages/SigninPage/SigninPage';
 // layouts
 import NoneAuthRouteGuard from '@/layouts/routeGuardLayouts/NoneAuthRouteGuard';
-import AccountLayout from '@/layouts/uiLayouts/AccountLayout/AccountLayout';
+import AccountsLayout from '@/layouts/uiLayouts/AccountsLayout/AccountsLayout';
 
 function Signin() {
     return <SigninPage />;
@@ -14,11 +14,11 @@ function Signin() {
 
 Signin.getLayout = (page: ReactElement) => {
     return (
-        <AccountLayout>
+        <AccountsLayout>
             <NoneAuthRouteGuard>
                 {page}
             </NoneAuthRouteGuard>
-        </AccountLayout>
+        </AccountsLayout>
     );
 };
 

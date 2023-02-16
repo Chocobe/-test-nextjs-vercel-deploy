@@ -4,17 +4,21 @@ import {
     useMemo,
     useCallback,
     useEffect,
+    useContext,
     ChangeEvent,
 } from 'react';
 // redux
+// import {
+//     useAppSelector,
+//     useAppDispatch,
+// } from '@/redux/hooks';
 import {
-    useAppSelector,
-    useAppDispatch,
-} from '@/redux/hooks';
-import {
-    setEmail,
-    setHasExpired,
-} from '@/redux/slices/pageSlices/accountPageSlices/resultVerifyEmailPageSlice/resultVerifyEmailPageSlice';
+    AccountsLayoutContextDispatch,
+    AccountsLayoutContextState,
+} from '@/layouts/uiLayouts/AccountsLayout/context/accountsLayoutContext';
+import { 
+    setEmailToResultVerifyEmailPage, setHasExpiredToResultVerifyEmailPage
+} from '@/layouts/uiLayouts/AccountsLayout/context/reducers/resultVerifyEmailPageReducer';
 // styled-components
 import styled from 'styled-components';
 // UI components
@@ -51,29 +55,50 @@ const StyledResultVerifyEmailPageRoot = styled.div`
 `;
 
 function ResultVerifyEmailPage() {
-    // state
-    const email = useAppSelector(({ resultVerifyEmailPage }) => resultVerifyEmailPage.email);
-    const hasExpired = useAppSelector(({ resultVerifyEmailPage }) => resultVerifyEmailPage.hasExpired);
-    const expirationTime = useAppSelector(({ resultVerifyEmailPage }) => resultVerifyEmailPage.expirationTime);
+    //
+    // context
+    //
+    const dispatchContext = useContext(AccountsLayoutContextDispatch)!;
+    const state = useContext(AccountsLayoutContextState)!;
 
+    const email = useMemo(() => {
+        return state.resultVerifyEmail.email;
+    }, [state.resultVerifyEmail.email]);
+
+    const expirationTime = useMemo(() => {
+        return state.resultVerifyEmail.expirationTime;
+    }, [state.resultVerifyEmail.expirationTime]);
+
+    const hasExpired = useMemo(() => {
+        return state.resultVerifyEmail.hasExpired;
+    }, [state.resultVerifyEmail.hasExpired]);
+
+    //
+    // state
+    //
     const [isValidEmail, setIsValidEmail] = useState(false);
     const [timeoutId, setTimeoutId] = useState<ReturnType<typeof setTimeout> | undefined>();
 
+    //
     // hook
-    const dispatch = useAppDispatch();
+    //
     const i18next = useTranslation();
 
+    //
     // cache
+    //
     const title = useMemo(() => {
         return hasExpired
             ? i18next.t('/account/result-verify-email/HEADER__TITLE__EXPIRED')
             : i18next.t('/account/result-verify-email/HEADER__TITLE__RESULT');
     }, [hasExpired, i18next]);
 
+    //
     // callback
+    //
     const onChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setEmail(e.currentTarget.value));
-    }, [dispatch]);
+        dispatchContext(setEmailToResultVerifyEmailPage(e.currentTarget.value));
+    }, [dispatchContext]);
 
     const onIsValidEmail = useCallback((isValidEmail: boolean) => {
         setIsValidEmail(isValidEmail);
@@ -81,13 +106,15 @@ function ResultVerifyEmailPage() {
 
     const onClickSubmit = useCallback(() => {
         const newTimeoutId = setTimeout(() => {
-            dispatch(setHasExpired(true));
+            dispatchContext(setHasExpiredToResultVerifyEmailPage(true));
         }, expirationTime);
 
         setTimeoutId(newTimeoutId);
-    }, [expirationTime, dispatch]);
+    }, [expirationTime, dispatchContext]);
 
+    //
     // effect
+    //
     useEffect(() => {
         return () => {
             if (timeoutId) {

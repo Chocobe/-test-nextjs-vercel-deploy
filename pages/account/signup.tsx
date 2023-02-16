@@ -3,7 +3,7 @@ import {
     ReactElement,
 } from 'react';
 // UI components
-import AccountLayout from '@/layouts/uiLayouts/AccountLayout/AccountLayout';
+import AccountsLayout from '@/layouts/uiLayouts/AccountsLayout/AccountsLayout';
 import NoneAuthRouteGuard from '@/layouts/routeGuardLayouts/NoneAuthRouteGuard';
 import SignupPage from '@/components/pages/accountPages/SignupPage/SignupPage';
 
@@ -15,11 +15,11 @@ function Signup() {
 
 Signup.getLayout = (page: ReactElement) => {
     return (
-        <AccountLayout>
+        <AccountsLayout>
             <NoneAuthRouteGuard>
                 {page}
             </NoneAuthRouteGuard>
-        </AccountLayout>
+        </AccountsLayout>
     );
 };
 

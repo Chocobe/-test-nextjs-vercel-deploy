@@ -1,8 +1,12 @@
+import accountsApi from './api/accountsApi/accountsApi';
+// FIXME: accountsApi 구현 후, 지우기
 import mockUsersApi from './api/mockUsersApi/mockUsersApi';
 
 const ApiManager = {
+    accountsApi,
+
+    // FIXME: accountsApi 구현 후, 지우기
     mockUsersApi,
-};
-Object.freeze(ApiManager);
+} as const;
 
 export default ApiManager;

@@ -3,6 +3,7 @@ import {
     useState,
     useMemo,
     useCallback,
+    useContext,
     ChangeEvent,
 } from 'react';
 // nextjs
@@ -12,14 +13,14 @@ import {
 } from 'next/router';
 // redux
 import {
-    useAppSelector,
-    useAppDispatch,
-} from '@/redux/hooks';
-import {
-    setEmail,
-    setPassword,
-    setPasswordConfirm,
-} from '@/redux/slices/pageSlices/accountPageSlices/signupPageSlice/signupPageSlice';
+    AccountsLayoutContextState,
+    AccountsLayoutContextDispatch,
+} from '@/layouts/uiLayouts/AccountsLayout/context/accountsLayoutContext';
+import { 
+    setEmailToSignupPage,
+    setPasswordToSignupPage,
+    setPasswordConfirmToSignupPage,
+} from '@/layouts/uiLayouts/AccountsLayout/context/reducers/signupPageReducer';
 import {
     RoutePathFactory,
 } from '@/router/RoutePathFactory';
@@ -87,24 +88,43 @@ const StyledSignupPageRoot = styled.div`
 `;
 
 function SignupPage() {
-    // state
-    const email = useAppSelector(({ signupPage }) => signupPage.email);
-    const password = useAppSelector(({ signupPage }) => signupPage.password);
-    const passwordConfirm = useAppSelector(({ signupPage }) => signupPage.passwordConfirm);
+    //
+    // context
+    //
+    const dispatchContext = useContext(AccountsLayoutContextDispatch)!;
+    const state = useContext(AccountsLayoutContextState);
 
+    const email = useMemo(() => {
+        return state?.signupPage.email || '';
+    }, [state?.signupPage.email]);
+
+    const password = useMemo(() => {
+        return state?.signupPage.password || '';
+    }, [state?.signupPage.password]);
+
+    const passwordConfirm = useMemo(() => {
+        return state?.signupPage.passwordConfirm || '';
+    }, [state?.signupPage.passwordConfirm]);
+
+    //
+    // state
+    //
     const [validationState, setValidationState] = useState({
         isValidEmail: false,
         isValidPassword: false,
         isValidPasswordConfirm: false,
     });
 
+    //
     // hook
-    const dispatch = useAppDispatch();
+    //
     const router = useRouter();
     const theme = useTheme();
     const i18next = useTranslation();
 
+    //
     // cache
+    //
     const routePathForSignin = useMemo(() => {
         return RoutePathFactory.account['/signin']();
     }, []);
@@ -115,18 +135,20 @@ function SignupPage() {
             .every(isValid => isValid);
     }, [validationState]);
 
+    //
     // callback
+    //
     const onChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setEmail(e.currentTarget.value));
-    }, [dispatch]);
+        dispatchContext(setEmailToSignupPage(e.currentTarget.value));
+    }, [dispatchContext]);
 
     const onChangePassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setPassword(e.currentTarget.value));
-    }, [dispatch]);
+        dispatchContext(setPasswordToSignupPage(e.currentTarget.value));
+    }, [dispatchContext]);
 
     const onChangePasswordConfirm = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setPasswordConfirm(e.currentTarget.value));
-    }, [dispatch]);
+        dispatchContext(setPasswordConfirmToSignupPage(e.currentTarget.value));
+    }, [dispatchContext]);
 
     const onIsValidEmail = useCallback((isValidEmail: boolean) => {
         setValidationState(state => ({

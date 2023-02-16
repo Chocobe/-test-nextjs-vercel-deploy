@@ -7,7 +7,15 @@ const nextConfig = {
     images: {
         unoptimized: true,
     },
-    trailingSlash: true
+    trailingSlash: true,
+    async rewrites() {
+        return [
+            {
+                source: '/:path*',
+                destination: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/:path*`,
+            },
+        ];
+    },
 };
 
 module.exports = nextConfig;

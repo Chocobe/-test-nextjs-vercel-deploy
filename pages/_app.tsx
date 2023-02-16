@@ -40,6 +40,10 @@ import ReactIconsProvider from '@/libs/reactIcons/ReactIconsProvider';
 // i18n
 import '@/i18n';
 import LabelrLanguageDropdown from '@/components/ui/LabelrLanguageDropdown/LabelrLanguageDropdown';
+// google oauth
+import {
+    GoogleOAuthProvider,
+} from '@react-oauth/google';
 
 export type TPageComponent = NextComponentType<NextPageContext, any, any> & {
     getLayout?: (page: ReactElement) => ReactElement;
@@ -99,7 +103,9 @@ function App({ Component, pageProps }: TAppPropsWithLayout) {
                                         <LabelrLanguageDropdown />
                                     </StyledLanguageDropdownWrapper>
 
-                                    {getLayout(<Component {...pageProps} />, router)}
+                                    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}>
+                                        {getLayout(<Component {...pageProps} />, router)}
+                                    </GoogleOAuthProvider>
                                 </ChakraProvider>
                             </ThemeModeContextState.Provider>
                         </ThemeModeContextDispatch.Provider>
