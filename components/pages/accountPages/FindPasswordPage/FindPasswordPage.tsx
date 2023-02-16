@@ -18,10 +18,10 @@ import {
 import { 
     AccountsLayoutContextDispatch,
     AccountsLayoutContextState,
-} from '@/layouts/uiLayouts/AccountsLayout/context/accountsLayoutContext';
+} from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import {
     setEmailToFindPasswordPage,
-} from '@/layouts/uiLayouts/AccountsLayout/context/reducers/findPasswordPageReducer';
+} from '@/contexts/accountsLayoutContext/reducers/findPasswordPageReducer';
 // styled-components
 import styled from 'styled-components';
 // UI components

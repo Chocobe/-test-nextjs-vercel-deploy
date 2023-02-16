@@ -8,3 +8,5 @@ export { default as LabelrInputConfirmDemoSection } from './LabelrInputConfirmDe
 
 export { default as UseLabelrSnackbarDemoSection } from './UseLabelrSnackbarDemoSection';
 export { default as LabelrPopoverDemoSection } from './LabelrPopoverDemoSection';
+
+export { default as LabelrBreadcrumbDemoSection } from './LabelrBreadcrumbDemoSection';

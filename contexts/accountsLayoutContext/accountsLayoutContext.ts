@@ -14,8 +14,8 @@ import {
     signinPageReducer,
 } from './reducers/signinPageReducer';
 import {
-    signupPageReducer,
     signupPageInitialState,
+    signupPageReducer,
 } from './reducers/signupPageReducer';
 import {
     findPasswordPageInitialState,

@@ -7,7 +7,7 @@ import {
     accountsLayoutReducer,
     AccountsLayoutContextDispatch,
     AccountsLayoutContextState,
-} from './context/accountsLayoutContext';
+} from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 // styled-components
 import styled from 'styled-components';
 

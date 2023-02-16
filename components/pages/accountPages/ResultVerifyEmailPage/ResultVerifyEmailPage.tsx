@@ -15,10 +15,11 @@ import {
 import {
     AccountsLayoutContextDispatch,
     AccountsLayoutContextState,
-} from '@/layouts/uiLayouts/AccountsLayout/context/accountsLayoutContext';
+} from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import { 
-    setEmailToResultVerifyEmailPage, setHasExpiredToResultVerifyEmailPage
-} from '@/layouts/uiLayouts/AccountsLayout/context/reducers/resultVerifyEmailPageReducer';
+    setEmailToResultVerifyEmailPage, 
+    setHasExpiredToResultVerifyEmailPage,
+} from '@/contexts/accountsLayoutContext/reducers/resultVerifyEmailPageReducer';
 // styled-components
 import styled from 'styled-components';
 // UI components
