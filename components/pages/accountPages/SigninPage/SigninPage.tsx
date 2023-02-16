@@ -28,14 +28,14 @@ import {
 import { 
     AccountsLayoutContextState,
     AccountsLayoutContextDispatch,
-} from '@/layouts/uiLayouts/AccountsLayout/context/accountsLayoutContext';
+} from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import { 
     setEmailToSigninPage,
     setPasswordToSigninPage,
-} from '@/layouts/uiLayouts/AccountsLayout/context/reducers/signinPageReducer';
+} from '@/contexts/accountsLayoutContext/reducers/signinPageReducer';
 // types
 import { 
-    accountPageFooterTypeMapper
+    accountPageFooterTypeMapper,
 } from '../AccountPageFooter/accountPageFooterTypes';
 // styled-components
 import styled from 'styled-components';

@@ -15,12 +15,12 @@ import {
 import {
     AccountsLayoutContextState,
     AccountsLayoutContextDispatch,
-} from '@/layouts/uiLayouts/AccountsLayout/context/accountsLayoutContext';
+} from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import { 
     setEmailToSignupPage,
     setPasswordToSignupPage,
     setPasswordConfirmToSignupPage,
-} from '@/layouts/uiLayouts/AccountsLayout/context/reducers/signupPageReducer';
+} from '@/contexts/accountsLayoutContext/reducers/signupPageReducer';
 import {
     RoutePathFactory,
 } from '@/router/RoutePathFactory';

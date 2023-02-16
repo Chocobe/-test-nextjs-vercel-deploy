@@ -18,11 +18,11 @@ import {
 import {
     AccountsLayoutContextDispatch,
     AccountsLayoutContextState,
-} from '@/layouts/uiLayouts/AccountsLayout/context/accountsLayoutContext';
+} from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import {
     setPasswordToResetPasswordPage,
     setPasswordConfirmToResetPasswordPage,
-} from '@/layouts/uiLayouts/AccountsLayout/context/reducers/resetPasswordPageReducer';
+} from '@/contexts/accountsLayoutContext/reducers/resetPasswordPageReducer';
 // styled-components
 import styled from 'styled-components';
 // UI components

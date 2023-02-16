@@ -14,10 +14,10 @@ import Link from 'next/link';
 import {
     AccountsLayoutContextDispatch,
     AccountsLayoutContextState,
-} from '@/layouts/uiLayouts/AccountsLayout/context/accountsLayoutContext';
+} from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import { 
     setHasExpiredToResultVerifyEmailPage
-} from '@/layouts/uiLayouts/AccountsLayout/context/reducers/resultVerifyEmailPageReducer';
+} from '@/contexts/accountsLayoutContext/reducers/resultVerifyEmailPageReducer';
 // UI components
 import AccountPageHeader from '../AccountPageHeader/AccountPageHeader';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
