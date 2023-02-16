@@ -10,6 +10,7 @@ export { FiMonitor } from '@react-icons/all-files/fi/FiMonitor';
 export { FiDatabase } from '@react-icons/all-files/fi/FiDatabase';
 export { FiUsers } from '@react-icons/all-files/fi/FiUsers';
 export { FiSettings } from '@react-icons/all-files/fi/FiSettings';
+export { FiChevronUp } from '@react-icons/all-files/fi/FiChevronUp';
 
 // 개발 테스트용 아이콘
 export { FiActivity } from '@react-icons/all-files/fi/FiActivity';

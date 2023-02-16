@@ -5,6 +5,7 @@ export { default as LabelrInputDemoSection } from './LabelrInputDemoSection';
 export { default as LabelrInputEmailDemoSection } from './LabelrInputEmailDemoSection';
 export { default as LabelrInputPasswordDemoSection } from './LabelrInputPasswordDemoSection';
 export { default as LabelrInputConfirmDemoSection } from './LabelrInputConfirmDemoSection';
+export { default as LabelrDropdownDemoSection } from './LabelrDropdownDemoSection';
 
 export { default as UseLabelrSnackbarDemoSection } from './UseLabelrSnackbarDemoSection';
 export { default as LabelrPopoverDemoSection } from './LabelrPopoverDemoSection';
