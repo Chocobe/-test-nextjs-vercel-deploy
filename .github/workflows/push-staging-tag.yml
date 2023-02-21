@@ -7,7 +7,7 @@ on:
     tags: [staging-*]
 
 jobs:
-  run-push-branch-ci:
+  staging-cicd:
     name: ${{ github.ref_name }} CI/CD
     runs-on: ubuntu-latest
     env:

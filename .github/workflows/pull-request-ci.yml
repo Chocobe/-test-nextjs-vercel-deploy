@@ -1,13 +1,11 @@
-name: push branch ci
+name: pull request
 
-run-name: running push branch
+run-name: running pull_request CI
 
-on: 
-  push:
-    branches: ['*']
+on: [pull_request]
 
 jobs:
-  push-branch-ci:
+  pull-request-ci:
     name: ${{ github.ref_name }} CI
     runs-on: ubuntu-latest
     steps:
