@@ -105,14 +105,14 @@ function FindPasswordPage() {
 
         // FIXME: result-verify-email 페이지로 이동 
         // => 인증 완료 callback 호출 시, reset-password 페이지로 이동
-        router.push(RoutePathFactory.account['/reset-password']());
+        router.push(RoutePathFactory.accounts['/reset-password']());
     };
 
     return (
         <StyledFindPasswordPageRoot>
             <AccountPageHeader
                 linkText={t('/account/find-password/HEADER__LINK')}
-                linkHref={RoutePathFactory.account['/signin']()}>
+                linkHref={RoutePathFactory.accounts['/signin']()}>
                 {t('/account/find-password/HEADER__TITLE')}
             </AccountPageHeader>
 

@@ -129,11 +129,11 @@ function SigninPage() {
     // cache
     //
     const routePathForFindPassword = useMemo(() => {
-        return RoutePathFactory.account['/find-password']();
+        return RoutePathFactory.accounts['/find-password']();
     }, []);
 
     const routePathForSignup = useMemo(() => {
-        return RoutePathFactory.account['/signup']();
+        return RoutePathFactory.accounts['/signup']();
     }, []);
 
     const isValidInputValues = useMemo(() => {

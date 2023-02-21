@@ -140,14 +140,14 @@ function ResetPasswordPage() {
         // TODO: API 응답 결과 => 성공 시
         // TODO: => Snackbar 보여주기
         // TODO: signin 페이지로 이동
-        router.push(RoutePathFactory.account['/signin']());
+        router.push(RoutePathFactory.accounts['/signin']());
     }, [router, openLabelrSnackbar, t]);
 
     return (
         <StyledResetPasswordPageRoot>
             <AccountPageHeader
                 linkText={t('/account/reset-password/HEADER__LINK')}
-                linkHref={RoutePathFactory.account['/signin']()}>
+                linkHref={RoutePathFactory.accounts['/signin']()}>
                 {t('/account/reset-password/HEADER__TITLE')}
             </AccountPageHeader>
 

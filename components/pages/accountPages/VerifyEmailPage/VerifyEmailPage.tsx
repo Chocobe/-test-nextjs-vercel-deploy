@@ -71,11 +71,11 @@ function VerifyEmailPage() {
     // cache
     //
     const routePathOfSignin = useMemo(() => {
-        return RoutePathFactory.account['/signin']();
+        return RoutePathFactory.accounts['/signin']();
     }, []);
 
     const routePathOfSendVerificationEmail = useMemo(() => {
-        return RoutePathFactory.account['/result-verify-email']();
+        return RoutePathFactory.accounts['/result-verify-email']();
     }, []);
 
     //
@@ -97,7 +97,7 @@ function VerifyEmailPage() {
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             dispatchContext(setHasExpiredToResultVerifyEmailPage(true));
-            router.replace(RoutePathFactory.account['/result-verify-email']());
+            router.replace(RoutePathFactory.accounts['/result-verify-email']());
         }, expirationTime);
 
         return () => {

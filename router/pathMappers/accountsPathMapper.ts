@@ -1,4 +1,4 @@
-const accountPathMapper = (function() {
+const accountsPathMapper = (function() {
     const BASE_PATH = '/account';
 
     return {
@@ -17,4 +17,4 @@ const accountPathMapper = (function() {
     };
 }());
 
-export default accountPathMapper;
+export default accountsPathMapper;

@@ -128,7 +128,7 @@ function ResultVerifyEmailPage() {
         <StyledResultVerifyEmailPageRoot>
             <AccountPageHeader
                 linkText={i18next.t('/account/result-verify-email/HEADER__LINK')}
-                linkHref={RoutePathFactory.account['/signin']()}>
+                linkHref={RoutePathFactory.accounts['/signin']()}>
                 {title}
             </AccountPageHeader>
 
