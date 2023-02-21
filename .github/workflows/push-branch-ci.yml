@@ -17,11 +17,11 @@ jobs:
           node-version: '16'
       - name: install dependencies
         run: yarn install
-      - name: run LINT
+      - name: LINT
         run: |-
           yarn lint
           echo "🌈 STAGING LINT SUCCESSFULLY"
-      - name: run TEST
+      - name: TEST
         run: |-
           yarn test
           echo "🧪 STAGING TEST SUCCESSFULLY"

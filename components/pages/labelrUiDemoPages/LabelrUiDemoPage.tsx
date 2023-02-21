@@ -41,7 +41,7 @@ function LabelrUiDemoPage() {
                 {demoSection}
             </article>
         </StyledLabelrUiDemoPageRoot>
-    )
+    );
 }
 
 export default LabelrUiDemoPage;

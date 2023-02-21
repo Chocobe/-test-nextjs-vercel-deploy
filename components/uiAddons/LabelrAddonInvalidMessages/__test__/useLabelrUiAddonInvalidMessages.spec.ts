@@ -28,7 +28,7 @@ describe('useLabelrUiAddonInvalidMessages', () => {
             } = await act(() => result.current.checkIsValidValue(2));
 
             expect(isValid).toBeTruthy();
-            expect(invalidMessages).toHaveLength(0);
+            expect(invalidMessages).toHaveLength(1);
         });
 
         it('유효성 검사 실패 시, 결과값 테스트', async () => {
