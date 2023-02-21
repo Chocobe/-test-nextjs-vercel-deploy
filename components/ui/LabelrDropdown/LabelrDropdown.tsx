@@ -118,7 +118,7 @@ const StyledLabelrDropdownRoot = styled.div<{
                 width: 100%;
                 height: 0;
                 display: ${isOpen ? 'block' : 'none'};
-                overflow: hidden;
+                overflow: auto;
 
                 position: absolute;
                 top: 100%;
@@ -369,16 +369,19 @@ function LabelrDropdown<T = any>(props: TLabelrDropdownProps<T>) {
 
             setTimeout(() => {
                 const windowHeight = window.innerHeight;
-                const { height, top } = optionsWrapper.getBoundingClientRect();
+                const maxHeight = windowHeight / 3;
 
-                const overflowHeight = (height + top) - windowHeight;
+                const { height, top } = optionsWrapper.getBoundingClientRect();
+                const dropdownHeight = Math.min(height, maxHeight);
+
+                const overflowHeight = (dropdownHeight + top) - windowHeight;
 
                 if (overflowHeight > 0) {
                     optionsWrapper.style.top = 'auto';
                     optionsWrapper.style.bottom = '0';
                 }
 
-                optionsWrapper.style.height = `${height}px`;
+                optionsWrapper.style.height = `min(${height}px, ${maxHeight}px)`;
                 optionsWrapper.style.opacity = '1';
             });
         } else {
