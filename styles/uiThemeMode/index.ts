@@ -1,5 +1,6 @@
 import input from './labelrInputThemeMode/labelrInputThemeMode';
 import button from './labelrButtonThemeMode/labelrButtonThemeMode';
+import dropdown from './labelrDropdownThemeMode/labelrDropdownThemeMode';
 import {
     themeModeNameMapper,
     TThemeModeName,
@@ -10,6 +11,7 @@ const uiThemeMode = (
 ) => ({
     input: input[themeMode],
     button: button[themeMode],
+    dropdown: dropdown[themeMode],
 });
 
 export default uiThemeMode;

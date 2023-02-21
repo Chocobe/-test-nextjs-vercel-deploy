@@ -7,6 +7,7 @@ import {
     LabelrInputEmailDemoSection,
     LabelrInputPasswordDemoSection,
     LabelrInputConfirmDemoSection,
+    LabelrDropdownDemoSection,
 
     UseLabelrSnackbarDemoSection,
     LabelrPopoverDemoSection,
@@ -47,6 +48,11 @@ export const labelrUiDemoRouteMapper = {
         name: 'LabelrInputConfirm',
         path: RoutePathFactory.labelrUiDemo['/[demoName]']('inputConfirm'),
         DemoSectionComponent: LabelrInputConfirmDemoSection,
+    },
+    dropdown: {
+        name: 'LabelrDropdown',
+        path: RoutePathFactory.labelrUiDemo['/[demoName]']('dropdown'),
+        DemoSectionComponent: LabelrDropdownDemoSection,
     },
 
     /** Overlay */
