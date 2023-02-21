@@ -12,7 +12,7 @@ import {
     actionSigninRequested,
     actionSigninSucceeded,
     actionSigninFailed,
-} from '@/redux/slices/apiSlices/accountsApiSlice/accountApiSlice';
+} from '@/redux/slices/apiSlices/accountsApiSlice/accountsApiSlice';
 // type
 import { 
     TSigninApiPayload, 
