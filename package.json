@@ -10,8 +10,8 @@
     "start": "next start",
     "lint": "next lint --dir .",
     "lint:fix": "next lint --fix",
-    "test": "jest --watch",
-    "test:coverage": "jest --coverage",
+    "test": "jest --all --coverage",
+    "test:watch": "jest -all --watch --coverage",
     "i18n:scan": "i18next-scanner --config i18next-scanner.config.js",
     "i18n:upload": "yarn i18n:scan && node i18n/translate/upload.js",
     "i18n:download": "node i18n/translate/download.js"

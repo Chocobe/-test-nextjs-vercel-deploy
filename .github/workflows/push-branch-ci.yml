@@ -1,0 +1,27 @@
+name: push branch ci
+
+run-name: running push branch
+
+on: [push]
+
+jobs:
+  run-push-branch-ci:
+    name: ${{ github.ref_name }} CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout to ${{ github.ref_name }}
+        uses: actions/checkout@v3
+      - name: setup Nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: install dependencies
+        run: yarn install
+      - name: run LINT
+        run: |-
+          yarn lint
+          echo "🌈 STAGING LINT SUCCESSFULLY"
+      - name: run TEST
+        run: |-
+          yarn test
+          echo "🧪 STAGING TEST SUCCESSFULLY"
