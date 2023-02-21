@@ -1,0 +1,47 @@
+name: push branch ci
+
+run-name: running staging CI/CD
+
+on: 
+  push:
+    tags: [staging-*]
+
+jobs:
+  staging-cicd:
+    name: ${{ github.ref_name }} CI/CD
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ vars.AWS_SECRET_ACCESS_KEY }}
+    steps:
+      - name: checkout to ${{ github.ref_name }}
+        uses: actions/checkout@v3
+      - name: setup Nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: install dependencies
+        run: yarn install
+      - name: LINT
+        run: |-
+          yarn lint
+          echo "🌈 STAGING LINT SUCCESSFULLY"
+      - name: TEST
+        run: |-
+          yarn test
+          echo "🧪 STAGING TEST SUCCESSFULLY"
+      - name: BUILD
+        run: |-
+          yarn build:staging
+          echo "🚀 STAGING BUILD SUCCESSFULLY"
+      - name: DEPLOY
+        uses: reggionick/s3-deploy@v3
+        with:
+          folder: out
+          bucket: ${{ vars.STAGING_S3_BUCKET }}
+          bucket-region: ${{ vars.STAGING_S3_BUCKET_REGION }}
+          dist-id: ${{ vars.STAGING_CLOUDFRONT_DISTRIBUTION_ID }}
+          invalidation: /*
+          delete-removed: true
+          no-cache: true
+          private: true
