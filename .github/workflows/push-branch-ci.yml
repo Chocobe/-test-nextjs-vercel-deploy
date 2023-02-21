@@ -2,7 +2,9 @@ name: push branch ci
 
 run-name: running push branch
 
-on: [push]
+on: 
+  push:
+    branches: ['*']
 
 jobs:
   run-push-branch-ci:
