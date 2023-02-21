@@ -80,7 +80,7 @@ const sendRequest = async <T = any>({
         // }
 
         const response = await method(
-            `/api${url}`, 
+            `/labelr-console-v2/api${url}`,
             payload, 
             { ...config, params }
         ) as AxiosResponse<T>;
