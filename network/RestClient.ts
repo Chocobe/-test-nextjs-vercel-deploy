@@ -19,6 +19,8 @@ export type TSendRequestParams = {
     callback?: (response: any) => any
 };
 
+const PROXY_URL = '/labelr-console-v2/api';
+
 const axiosInstance = (function() {
     const axiosInstance = axios.create({
         headers: {
@@ -55,10 +57,12 @@ const axiosInstance = (function() {
             const response = error?.response ?? error;
             const status = response.status;
             const statusText = response.statusText;
+            const errorData = response.data;
 
             return Promise.reject({ 
                 status, 
-                statusText
+                statusText,
+                errorData,
             });
         }
     );
@@ -80,7 +84,7 @@ const sendRequest = async <T = any>({
         // }
 
         const response = await method(
-            `/labelr-console-v2/api${url}`,
+            `${PROXY_URL}${url}`,
             payload, 
             { ...config, params }
         ) as AxiosResponse<T>;

@@ -1,17 +1,9 @@
 const accountsApiUrlFactory = (function() {
-    // FIXME: Staging 서버 배포 후, 주석 해제
-    // const BASE_URL = '/accounts';
-
-    // FIXME: Staging 서버 배포 후, 삭제
-    const BASE_URL = '';
+    const BASE_URL = '/accounts';
 
     return {
         signinUrl() {
-            // FIXME: Staging 서버 배포 후, 주석 해제
-            // return `${BASE_URL}/signin/`;
-
-            // FIXME: Staging 서버 배포 후, 삭제
-            return `${BASE_URL}/posts/`;
+            return `${BASE_URL}/signin/`;
         },
 
         signupUrl() {

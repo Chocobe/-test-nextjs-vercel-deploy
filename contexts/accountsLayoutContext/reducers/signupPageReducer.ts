@@ -14,6 +14,9 @@ export type TSignupPageState = {
     };
 };
 
+//
+// initialState
+//
 export const signupPageInitialState: TSignupPageState = {
     signupPage: {
         email: '',
@@ -22,12 +25,26 @@ export const signupPageInitialState: TSignupPageState = {
     },
 };
 
+//
+// actions
+//
+export const resetSignupPage = createAction(`${NAMESPACE}/reset`);
 export const setEmailToSignupPage = createAction<string>(`${NAMESPACE}/setEmail`);
 export const setPasswordToSignupPage = createAction<string>(`${NAMESPACE}/setPassword`);
 export const setPasswordConfirmToSignupPage = createAction<string>(`${NAMESPACE}/setConfirmPassword`);
 
+//
+// reducer
+//
 export const signupPageReducer = createReducer(signupPageInitialState, builder => {
     builder
+        .addCase(resetSignupPage, (state, _action: PayloadAction<void>) => {
+            state.signupPage = {
+                email: '',
+                password: '',
+                passwordConfirm: '',
+            };
+        })
         .addCase(setEmailToSignupPage, (state, action: PayloadAction<string>) => {
             state.signupPage.email = action.payload;
         })

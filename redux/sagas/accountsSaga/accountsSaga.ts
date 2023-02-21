@@ -12,11 +12,18 @@ import {
     actionSigninRequested,
     actionSigninSucceeded,
     actionSigninFailed,
+
+    actionSignupRequested,
+    actionSignupSucceeded,
+    actionSignupFailed,
 } from '@/redux/slices/apiSlices/accountsApiSlice/accountsApiSlice';
 // type
 import { 
     TSigninApiPayload, 
     TSigninApiResponse,
+
+    TSignupApiPayload,
+    TSignupApiResponse,
 } from '@/network/api/accountsApi/accountsApiTypes';
 import {
     TSagaGenerator,
@@ -41,8 +48,26 @@ function* signinSaga(
     }
 }
 
+function* signupSaga(
+    action: PayloadAction<TSignupApiPayload>
+): TSagaGenerator<TSignupApiResponse> {
+    try {
+        const response = yield call(
+            ApiManager.accountsApi.signup,
+            action.payload
+        );
+
+        const data = response?.data;
+
+        yield put(actionSignupSucceeded(data));
+    } catch(error: any) {
+        yield put(actionSignupFailed(error));
+    }
+}
+
 function* accountsSaga() {
     yield takeLatest(actionSigninRequested, signinSaga);
+    yield takeLatest(actionSignupRequested, signupSaga);
 }
 
 export default accountsSaga;

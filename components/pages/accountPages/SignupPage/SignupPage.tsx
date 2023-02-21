@@ -5,6 +5,7 @@ import {
     useCallback,
     useContext,
     ChangeEvent,
+    useEffect,
 } from 'react';
 // nextjs
 import Link from 'next/link';
@@ -13,10 +14,19 @@ import {
 } from 'next/router';
 // redux
 import {
+    useAppSelector,
+    useAppDispatch,
+} from 'redux/hooks';
+import { 
+    actionSignupReset,
+    actionSignupRequested,
+} from '@/redux/slices/apiSlices/accountsApiSlice/accountsApiSlice';
+import {
     AccountsLayoutContextState,
     AccountsLayoutContextDispatch,
 } from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import { 
+    resetSignupPage,
     setEmailToSignupPage,
     setPasswordToSignupPage,
     setPasswordConfirmToSignupPage,
@@ -39,6 +49,9 @@ import LabelrInputEmail from '@/components/ui/LabelrInputEmail/LabelrInputEmail'
 import LabelrInputPassword from '@/components/ui/LabelrInputPassword/LabelrInputPassword';
 import LabelrInputConfirm from '@/components/ui/LabelrInputConfirm/LabelrInputConfirm';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
+import { 
+    useLabelrSnackbar,
+} from '@/components/ui/LabelrSnackbar/hooks/useLabelrSnackbar';
 // i18n
 import {
     useTranslation,
@@ -115,18 +128,32 @@ function SignupPage() {
         isValidPasswordConfirm: false,
     });
 
+    const signupApiState = useAppSelector(({ accountsApi }) => accountsApi.signup);
+
+    const signupApiData = useMemo(() => {
+        return signupApiState.data;
+    }, [signupApiState]);
+
+    const signupApiError = useMemo(() => {
+        return signupApiState.error;
+    }, [signupApiState]);
+
     //
     // hook
     //
+    const dispatch = useAppDispatch();
     const router = useRouter();
     const theme = useTheme();
     const i18next = useTranslation();
+    const {
+        openLabelrSnackbar,
+    } = useLabelrSnackbar();
 
     //
     // cache
     //
     const routePathForSignin = useMemo(() => {
-        return RoutePathFactory.account['/signin']();
+        return RoutePathFactory.accounts['/signin']();
     }, []);
 
     const isValidInputValues = useMemo(() => {
@@ -174,8 +201,14 @@ function SignupPage() {
     const onClickSignup = useCallback(() => {
         // TODO: API 응답 결과 => 성공 시
         // TODO: => (임시) verifyEmail 페이지로 이동
-        router.push(RoutePathFactory.account['/verify-email']());
-    }, [router]);
+        // router.push(RoutePathFactory.accounts['/verify-email']());
+
+        dispatch(actionSignupRequested({
+            email,
+            password,
+            password2: passwordConfirm,
+        }));
+    }, [email, password, passwordConfirm, dispatch]);
 
     const onClickGoogleSignup = useCallback(() => {
         console.log('Google Signup 버튼 클릭');
@@ -184,6 +217,36 @@ function SignupPage() {
     const onClickAppleSignup = useCallback(() => {
         console.log('Apple Signup 버튼 클릭');
     }, []);
+
+    //
+    // effect
+    //
+    useEffect(function onSucceededSignup() {
+        if (signupApiData) {
+            router.replace(RoutePathFactory.accounts['/verify-email']());
+        }
+    }, [signupApiData, router, dispatch, openLabelrSnackbar]);
+
+    useEffect(function onFailedSignup() {
+        if (signupApiError) {
+            const { errorData } = signupApiError;
+            const errorMessage = errorData.detail ?? errorData.statusText;
+
+            openLabelrSnackbar({
+                type: 'danger',
+                content: errorMessage,
+            });
+
+            dispatch(actionSignupReset());
+        }
+    }, [signupApiError, openLabelrSnackbar, dispatch]);
+
+    useEffect(function resetSlices() {
+        return () => {
+            dispatch(actionSignupReset());
+            dispatchContext(resetSignupPage());
+        };
+    }, [dispatch, dispatchContext]);
 
     return (
         <StyledSignupPageRoot>
