@@ -9,5 +9,6 @@ export { default as LabelrDropdownDemoSection } from './LabelrDropdownDemoSectio
 
 export { default as UseLabelrSnackbarDemoSection } from './UseLabelrSnackbarDemoSection';
 export { default as LabelrPopoverDemoSection } from './LabelrPopoverDemoSection';
+export { default as LabelrModalDemoSection } from './LabelrModalDemoSection';
 
 export { default as LabelrBreadcrumbDemoSection } from './LabelrBreadcrumbDemoSection';

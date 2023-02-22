@@ -11,6 +11,7 @@ import {
 
     UseLabelrSnackbarDemoSection,
     LabelrPopoverDemoSection,
+    LabelrModalDemoSection,
 
     LabelrBreadcrumbDemoSection,
 } from '@/components/pages/labelrUiDemoPages/demoSections';
@@ -65,6 +66,11 @@ export const labelrUiDemoRouteMapper = {
         name: 'LabelrPopover',
         path: RoutePathFactory.labelrUiDemo['/[demoName]']('popover'),
         DemoSectionComponent: LabelrPopoverDemoSection,
+    },
+    modal: {
+        name: 'LabelrModal',
+        path: RoutePathFactory.labelrUiDemo['/[demoName]']('modal'),
+        DemoSectionComponent: LabelrModalDemoSection,
     },
 
     /** Navigation */
