@@ -17,7 +17,7 @@ module.exports = {
         defaultLng: 'ko',
         lngs: languages,
         func: {
-            list: ['i18next.t', 'i18n.t', 't'],
+            list: ['i18next.t'],
             extensions: ['.js', '.jsx', '.ts', '.tsx'],
         },
         resource: {
