@@ -2,6 +2,7 @@ import axios, {
     AxiosRequestConfig, 
     AxiosResponse,
 } from 'axios';
+import applyCaseMiddleware from 'axios-case-converter';
 import { ELocalStorageItemKey } from './CONSTANTS/ELocalStorageItemKey';
 
 export type TSendRequestParams = {
@@ -22,14 +23,14 @@ export type TSendRequestParams = {
 const PROXY_URL = '/labelr-console-v2/api';
 
 const axiosInstance = (function() {
-    const axiosInstance = axios.create({
+    const axiosInstance = applyCaseMiddleware(axios.create({
         headers: {
             post: {
                 ['Content-type']: 'application/x-www-form-urlencoded',
             }
         },
         timeout: 10000,
-    });
+    }));
 
     axiosInstance.interceptors.request.use(
         function (config) {
