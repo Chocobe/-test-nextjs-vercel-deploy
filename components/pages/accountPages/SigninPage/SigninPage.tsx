@@ -45,6 +45,9 @@ import AccountPageFooter from '../AccountPageFooter/AccountPageFooter';
 import LabelrInputEmail from '@/components/ui/LabelrInputEmail/LabelrInputEmail';
 import LabelrInputPassword from '@/components/ui/LabelrInputPassword/LabelrInputPassword';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
+import { 
+    useLabelrSnackbar
+} from '@/components/ui/LabelrSnackbar/hooks/useLabelrSnackbar';
 // i18next
 import {
     useTranslation,
@@ -113,6 +116,14 @@ function SigninPage() {
     //
     const signinApiState = useAppSelector(({ accountsApi }) => accountsApi.signin);
 
+    const signinApiData = useMemo(() => {
+        return signinApiState.data;
+    }, [signinApiState]);
+
+    const signinApiError = useMemo(() => {
+        return signinApiState.error;
+    }, [signinApiState]);
+
     const [validationState, setValidationState] = useState({
         isValidEmail: false,
         isValidPassword: false,
@@ -124,6 +135,9 @@ function SigninPage() {
     const dispatch = useAppDispatch();
     const router = useRouter();
     const i18next = useTranslation();
+    const {
+        openLabelrSnackbar,
+    } = useLabelrSnackbar();
 
     //
     // cache
@@ -185,28 +199,30 @@ function SigninPage() {
     //
     // effect
     // 
-    useEffect(function onSigninApiResponse() {
-        const {
-            isLoading,
-            data,
-            error,
-        } = signinApiState;
-
-        if (isLoading || !router.isReady) {
-            return;
+    useEffect(function onSigninSucceeded() {
+        if (router.isReady && signinApiData) {
+            router.replace(RoutePathFactory.console['/']());
         }
+    }, [signinApiData, router]);
 
-        if (data) {
-            router.push(RoutePathFactory.console['/ewf']());
-            return;
+    useEffect(function onSigninFailed() {
+        if (signinApiError) {
+            // FIXME: 존재하지 않는 Email 일 경우, 회원가입 유도 Modal 띄우기
+
+            // FIXME: 분기문 추가하기
+            openLabelrSnackbar({
+                type: 'danger',
+                content: i18next.t('/account/signin/MODAL__INVALID_PASSWORD'),
+            });
+
+            dispatch(actionSigninReset());
         }
+    }, [
+        signinApiError, i18next, 
+        openLabelrSnackbar, dispatch,
+    ]);
 
-        if (error) {
-            console.log('error: ', error);
-        }
-    }, [signinApiState, router]);
-
-    useEffect(function onBeforeUnmounted() {
+    useEffect(function resetSlices() {
         return () => {
             dispatch(actionSigninReset());
         };
