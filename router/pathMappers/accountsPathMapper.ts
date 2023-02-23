@@ -1,5 +1,5 @@
 const accountsPathMapper = (function() {
-    const BASE_PATH = '/account';
+    const BASE_PATH = '/accounts';
 
     return {
         // 로그인
