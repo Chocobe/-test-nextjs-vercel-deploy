@@ -26,16 +26,16 @@ import {
     resetPasswordPageReducer,
 } from './reducers/resetPasswordPageReducer';
 import {
-    resultVerifyEmailPageInitialState,
-    resultVerifyEmailPageReducer,
-} from './reducers/resultVerifyEmailPageReducer';
+    requestVerifyEmailPageInitialState,
+    requestVerifyEmailPageReducer,
+} from './reducers/requestVerifyEmailPageReducer';
 
 const initialState = {
     ...signinPageInitialState,
     ...signupPageInitialState,
     ...findPasswordPageInitialState,
     ...resetPasswordPageInitialState,
-    ...resultVerifyEmailPageInitialState,
+    ...requestVerifyEmailPageInitialState,
 };
 
 export const accountsLayoutReducer = combineLabelrReducers([
@@ -43,7 +43,7 @@ export const accountsLayoutReducer = combineLabelrReducers([
     signupPageReducer,
     findPasswordPageReducer,
     resetPasswordPageReducer,
-    resultVerifyEmailPageReducer,
+    requestVerifyEmailPageReducer,
 ], initialState);
 
 export const AccountsLayoutContextState = createContext<typeof initialState | null>(null);

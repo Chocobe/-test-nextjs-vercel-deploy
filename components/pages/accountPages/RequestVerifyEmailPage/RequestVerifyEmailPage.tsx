@@ -3,7 +3,7 @@ import {
     useState,
     useMemo,
     useCallback,
-    useEffect,
+    // useEffect,
     useContext,
     ChangeEvent,
 } from 'react';
@@ -17,9 +17,10 @@ import {
     AccountsLayoutContextState,
 } from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import { 
-    setEmailToResultVerifyEmailPage, 
-    setHasExpiredToResultVerifyEmailPage,
-} from '@/contexts/accountsLayoutContext/reducers/resultVerifyEmailPageReducer';
+    setEmailToRequestVerifyEmailPage, 
+    // FIXME: 지우기
+    // setHasExpiredToResultVerifyEmailPage,
+} from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailPageReducer';
 // styled-components
 import styled from 'styled-components';
 // UI components
@@ -35,7 +36,7 @@ import {
     RoutePathFactory
 } from '@/router/RoutePathFactory';
 
-const StyledResultVerifyEmailPageRoot = styled.div`
+const StyledRequestVerifyEmailPageRoot = styled.div`
     .message {
         margin-top: 12px;
 
@@ -55,7 +56,7 @@ const StyledResultVerifyEmailPageRoot = styled.div`
     }
 `;
 
-function ResultVerifyEmailPage() {
+function RequestVerifyEmailPage() {
     //
     // context
     //
@@ -63,22 +64,13 @@ function ResultVerifyEmailPage() {
     const state = useContext(AccountsLayoutContextState)!;
 
     const email = useMemo(() => {
-        return state.resultVerifyEmail.email;
-    }, [state.resultVerifyEmail.email]);
-
-    const expirationTime = useMemo(() => {
-        return state.resultVerifyEmail.expirationTime;
-    }, [state.resultVerifyEmail.expirationTime]);
-
-    const hasExpired = useMemo(() => {
-        return state.resultVerifyEmail.hasExpired;
-    }, [state.resultVerifyEmail.hasExpired]);
+        return state.requestVerifyEmail.email;
+    }, [state.requestVerifyEmail.email]);
 
     //
     // state
     //
     const [isValidEmail, setIsValidEmail] = useState(false);
-    const [timeoutId, setTimeoutId] = useState<ReturnType<typeof setTimeout> | undefined>();
 
     //
     // hook
@@ -89,16 +81,19 @@ function ResultVerifyEmailPage() {
     // cache
     //
     const title = useMemo(() => {
-        return hasExpired
-            ? i18next.t('/account/result-verify-email/HEADER__TITLE__EXPIRED')
-            : i18next.t('/account/result-verify-email/HEADER__TITLE__RESULT');
-    }, [hasExpired, i18next]);
+        return i18next.t('/account/request-verify-email/HEADER__TITLE__RESULT');
+
+        // return hasExpired
+        //     ? i18next.t('/account/request-verify-email/HEADER__TITLE__EXPIRED')
+        //     : i18next.t('/account/request-verify-email/HEADER__TITLE__RESULT');
+    // }, [hasExpired, i18next]);
+    }, [i18next]);
 
     //
     // callback
     //
     const onChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setEmailToResultVerifyEmailPage(e.currentTarget.value));
+        dispatchContext(setEmailToRequestVerifyEmailPage(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onIsValidEmail = useCallback((isValidEmail: boolean) => {
@@ -106,34 +101,19 @@ function ResultVerifyEmailPage() {
     }, []);
 
     const onClickSubmit = useCallback(() => {
-        const newTimeoutId = setTimeout(() => {
-            dispatchContext(setHasExpiredToResultVerifyEmailPage(true));
-        }, expirationTime);
-
-        setTimeoutId(newTimeoutId);
-    }, [expirationTime, dispatchContext]);
-
-    //
-    // effect
-    //
-    useEffect(() => {
-        return () => {
-            if (timeoutId) {
-                clearTimeout(timeoutId);
-            }
-        };
-    }, [timeoutId]);
+        console.log('인증 메일 재전송 API 요청');
+    }, []);
 
     return (
-        <StyledResultVerifyEmailPageRoot>
+        <StyledRequestVerifyEmailPageRoot>
             <AccountPageHeader
-                linkText={i18next.t('/account/result-verify-email/HEADER__LINK')}
+                linkText={i18next.t('/account/request-verify-email/HEADER__LINK')}
                 linkHref={RoutePathFactory.accounts['/signin']()}>
                 {title}
             </AccountPageHeader>
 
             <div className="message">
-                {i18next.t('/account/result-verify-email/HEADER__MESSAGE')}
+                {i18next.t('/account/request-verify-email/HEADER__MESSAGE')}
             </div>
 
             <div className="formWrapper">
@@ -141,7 +121,7 @@ function ResultVerifyEmailPage() {
                     value={email}
                     onChange={onChangeEmail}
                     onIsValid={onIsValidEmail}
-                    placeholder={i18next.t('/account/result-verify-email/HEADER__INPUT_EMAIL__PLACEHOLDER')}
+                    placeholder={i18next.t('/account/request-verify-email/HEADER__INPUT_EMAIL__PLACEHOLDER')}
                     autofocus
                     fluid />
 
@@ -149,11 +129,11 @@ function ResultVerifyEmailPage() {
                     onClick={onClickSubmit}
                     isDisabled={!isValidEmail}
                     fluid>
-                    {i18next.t('/account/result-verify-email/BODY__BUTTON_OK')}
+                    {i18next.t('/account/request-verify-email/BODY__BUTTON_OK')}
                 </LabelrButton>
             </div>
-        </StyledResultVerifyEmailPageRoot>
+        </StyledRequestVerifyEmailPageRoot>
     );
 }
 
-export default ResultVerifyEmailPage;
+export default RequestVerifyEmailPage;

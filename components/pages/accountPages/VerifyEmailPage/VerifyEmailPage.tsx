@@ -2,22 +2,12 @@
 import {
     useMemo,
     useCallback,
-    useContext,
-    useEffect,
 } from 'react';
 // nextjs
 import {
     useRouter,
 } from 'next/router';
 import Link from 'next/link';
-// context
-import {
-    AccountsLayoutContextDispatch,
-    AccountsLayoutContextState,
-} from '@/contexts/accountsLayoutContext/accountsLayoutContext';
-import { 
-    setHasExpiredToResultVerifyEmailPage
-} from '@/contexts/accountsLayoutContext/reducers/resultVerifyEmailPageReducer';
 // UI components
 import AccountPageHeader from '../AccountPageHeader/AccountPageHeader';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
@@ -58,16 +48,6 @@ const StyledVerifyEmailPageRoot = styled.div`
 
 function VerifyEmailPage() {
     //
-    // context
-    //
-    const dispatchContext = useContext(AccountsLayoutContextDispatch)!;
-    const state = useContext(AccountsLayoutContextState)!;
-
-    const expirationTime = useMemo(() => {
-        return state.resultVerifyEmail.expirationTime;
-    }, [state]);
-
-    //
     // cache
     //
     const routePathOfSignin = useMemo(() => {
@@ -75,7 +55,7 @@ function VerifyEmailPage() {
     }, []);
 
     const routePathOfSendVerificationEmail = useMemo(() => {
-        return RoutePathFactory.accounts['/result-verify-email']();
+        return RoutePathFactory.accounts['/request-verify-email']();
     }, []);
 
     //
@@ -90,20 +70,6 @@ function VerifyEmailPage() {
     const onClickSignin = useCallback(() => {
         router.push(routePathOfSignin);
     }, [router, routePathOfSignin]);
-
-    //
-    // effect
-    //
-    useEffect(() => {
-        const timeoutId = setTimeout(() => {
-            dispatchContext(setHasExpiredToResultVerifyEmailPage(true));
-            router.replace(RoutePathFactory.accounts['/result-verify-email']());
-        }, expirationTime);
-
-        return () => {
-            clearTimeout(timeoutId);
-        };
-    }, [expirationTime, dispatchContext, router]);
 
     return (
         <StyledVerifyEmailPageRoot>

@@ -103,7 +103,7 @@ function FindPasswordPage() {
             content: t('/account/find-password/SEND_EMAIL__SNACKBAR_MESSAGE'),
         });
 
-        // FIXME: result-verify-email 페이지로 이동 
+        // FIXME: request-verify-email 페이지로 이동 
         // => 인증 완료 callback 호출 시, reset-password 페이지로 이동
         router.push(RoutePathFactory.accounts['/reset-password']());
     };
