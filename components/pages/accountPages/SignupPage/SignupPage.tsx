@@ -21,6 +21,7 @@ import {
     actionSignupReset,
     actionSignupRequested,
 } from '@/redux/slices/apiSlices/accountsApiSlice/accountsApiSlice';
+// context
 import {
     AccountsLayoutContextState,
     AccountsLayoutContextDispatch,
@@ -120,14 +121,8 @@ function SignupPage() {
     }, [state?.signupPage.passwordConfirm]);
 
     //
-    // state
+    // api state
     //
-    const [validationState, setValidationState] = useState({
-        isValidEmail: false,
-        isValidPassword: false,
-        isValidPasswordConfirm: false,
-    });
-
     const signupApiState = useAppSelector(({ accountsApi }) => accountsApi.signup);
 
     const signupApiData = useMemo(() => {
@@ -137,6 +132,16 @@ function SignupPage() {
     const signupApiError = useMemo(() => {
         return signupApiState.error;
     }, [signupApiState]);
+
+    //
+    // state
+    //
+    const [validationState, setValidationState] = useState({
+        isValidEmail: false,
+        isValidPassword: false,
+        isValidPasswordConfirm: false,
+    });
+
 
     //
     // hook
@@ -222,15 +227,19 @@ function SignupPage() {
     // effect
     //
     useEffect(function onSucceededSignup() {
-        if (signupApiData) {
+        if (router.isReady && signupApiData) {
             router.replace(RoutePathFactory.accounts['/verify-email']());
         }
     }, [signupApiData, router, dispatch, openLabelrSnackbar]);
 
     useEffect(function onFailedSignup() {
         if (signupApiError) {
-            const { errorData } = signupApiError;
-            const errorMessage = errorData.detail ?? errorData.statusText;
+            const { 
+                errorData, 
+                statusText
+            } = signupApiError;
+
+            const errorMessage = errorData.email ?? statusText;
 
             openLabelrSnackbar({
                 type: 'danger',
@@ -252,10 +261,10 @@ function SignupPage() {
         <StyledSignupPageRoot>
             {/* Header */}
             <AccountPageHeader
-                message={i18next.t('/account/signup/HEADER__MESSAGE')}
-                linkText={i18next.t('/account/signup/HEADER__LINK')}
+                message={i18next.t('/accounts/signup/HEADER__MESSAGE')}
+                linkText={i18next.t('/accounts/signup/HEADER__LINK')}
                 linkHref={routePathForSignin}>
-                {i18next.t('/account/signup/HEADER__TITLE')}
+                {i18next.t('/accounts/signup/HEADER__TITLE')}
             </AccountPageHeader>
 
             {/* Body */}
@@ -265,7 +274,7 @@ function SignupPage() {
                         value={email}
                         onChange={onChangeEmail}
                         onIsValid={onIsValidEmail}
-                        placeholder={i18next.t('/account/signup/BODY__INPUT_EMAIL__PLACEHOLDER')}
+                        placeholder={i18next.t('/accounts/signup/BODY__INPUT_EMAIL__PLACEHOLDER')}
                         fluid
                         autofocus />
 
@@ -273,7 +282,7 @@ function SignupPage() {
                         value={password}
                         onChange={onChangePassword}
                         onIsValid={onIsValidPassword}
-                        placeholder={i18next.t('/account/signup/BODY__INPUT_PASSWORD__PLACEHOLDER')}
+                        placeholder={i18next.t('/accounts/signup/BODY__INPUT_PASSWORD__PLACEHOLDER')}
                         fluid />
 
                     <LabelrInputConfirm
@@ -281,8 +290,8 @@ function SignupPage() {
                         targetValue={password}
                         onChange={onChangePasswordConfirm}
                         onIsValid={onIsValidPasswordConfirm}
-                        invalidMessage={i18next.t('/account/signup/BODY__INPUT_PASSWORD_CONFIRM__INVALID_MESSAGE')}
-                        placeholder={i18next.t('/account/signup/BODY__INPUT_PASSWORD_CONFIRM__PLACEHOLDER')}
+                        invalidMessage={i18next.t('/accounts/signup/BODY__INPUT_PASSWORD_CONFIRM__INVALID_MESSAGE')}
+                        placeholder={i18next.t('/accounts/signup/BODY__INPUT_PASSWORD_CONFIRM__PLACEHOLDER')}
                         fluid
                         isEnableMasking />
 
@@ -290,25 +299,25 @@ function SignupPage() {
                         fluid
                         isDisabled={!isValidInputValues}
                         onClick={onClickSignup}>
-                        {i18next.t('/account/signup/BODY__SIGNUP_BUTTON')}
+                        {i18next.t('/accounts/signup/BODY__SIGNUP_BUTTON')}
                     </LabelrButton>
                 </div>
 
                 <div className="noticeMessage">
-                    <span dangerouslySetInnerHTML={{ __html: i18next.t('/account/signup/BODY__NOTICE_MESSAGE', {
+                    <span dangerouslySetInnerHTML={{ __html: i18next.t('/accounts/signup/BODY__NOTICE_MESSAGE', {
                         accentTagStart: `<span style="color: ${theme.colors.indigo[500]}">`,
                         accentTagEnd: '</span>',
                     })}} />
                 </div>
 
                 <div className="questionMessage">
-                    {i18next.t('/account/signup/BODY__SIGNIN_LEADING_MESSAGE')}
+                    {i18next.t('/accounts/signup/BODY__SIGNIN_LEADING_MESSAGE')}
                     <Link
                         passHref
                         legacyBehavior
                         href={routePathForSignin}>
                         <a className="questionMessage-link">
-                            {i18next.t('/account/signup/BODY__BUTTON')}
+                            {i18next.t('/accounts/signup/BODY__BUTTON')}
                         </a>
                     </Link>
                 </div>

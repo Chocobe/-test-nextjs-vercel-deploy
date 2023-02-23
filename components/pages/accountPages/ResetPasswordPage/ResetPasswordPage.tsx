@@ -134,7 +134,7 @@ function ResetPasswordPage() {
 
     const onClickSubmit = useCallback(() => {
         openLabelrSnackbar({
-            content: t('/account/reset-password/SUBMIT__SNACKBAR_MESSAGE'),
+            content: t('/accounts/reset-password/SUBMIT__SNACKBAR_MESSAGE'),
         });
 
         // TODO: API 응답 결과 => 성공 시
@@ -146,13 +146,13 @@ function ResetPasswordPage() {
     return (
         <StyledResetPasswordPageRoot>
             <AccountPageHeader
-                linkText={t('/account/reset-password/HEADER__LINK')}
+                linkText={t('/accounts/reset-password/HEADER__LINK')}
                 linkHref={RoutePathFactory.accounts['/signin']()}>
-                {t('/account/reset-password/HEADER__TITLE')}
+                {t('/accounts/reset-password/HEADER__TITLE')}
             </AccountPageHeader>
 
             <div className="message">
-                {t('/account/reset-password/BODY__MESSAGE')}
+                {t('/accounts/reset-password/BODY__MESSAGE')}
             </div>
 
             <div className="formWrapper">
@@ -160,7 +160,7 @@ function ResetPasswordPage() {
                     value={password}
                     onChange={onChangePassword}
                     onIsValid={onIsValidPassword}
-                    placeholder={t('/account/reset-password/BODY__INPUT_EMAIL__PLACEHOLDER')}
+                    placeholder={t('/accounts/reset-password/BODY__INPUT_EMAIL__PLACEHOLDER')}
                     autofocus
                     fluid />
 
@@ -169,8 +169,8 @@ function ResetPasswordPage() {
                     targetValue={password}
                     onChange={onChangePasswordConfirm}
                     onIsValid={onIsValidPasswordConfirm}
-                    invalidMessage={t('/account/reset-password/BODY__INPUT_CONFIRM__INVALID_MESSAGE')}
-                    placeholder={t('/account/reset-password/BODY__INPUT_CONFIRM__PLACEHOLDER')}
+                    invalidMessage={t('/accounts/reset-password/BODY__INPUT_CONFIRM__INVALID_MESSAGE')}
+                    placeholder={t('/accounts/reset-password/BODY__INPUT_CONFIRM__PLACEHOLDER')}
                     isEnableMasking
                     fluid />
 
@@ -178,7 +178,7 @@ function ResetPasswordPage() {
                     onClick={onClickSubmit}
                     isDisabled={!isValidInputValues}
                     fluid>
-                    {t('/account/reset-password/BODY__SUBMIT_BUTTON')}
+                    {t('/accounts/reset-password/BODY__SUBMIT_BUTTON')}
                 </LabelrButton>
             </div>
         </StyledResetPasswordPageRoot>

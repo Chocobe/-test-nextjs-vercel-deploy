@@ -100,7 +100,7 @@ function FindPasswordPage() {
 
     const onClickSendEmail = () => {
         openLabelrSnackbar({
-            content: t('/account/find-password/SEND_EMAIL__SNACKBAR_MESSAGE'),
+            content: t('/accounts/find-password/SEND_EMAIL__SNACKBAR_MESSAGE'),
         });
 
         // FIXME: request-verify-email 페이지로 이동 
@@ -111,13 +111,13 @@ function FindPasswordPage() {
     return (
         <StyledFindPasswordPageRoot>
             <AccountPageHeader
-                linkText={t('/account/find-password/HEADER__LINK')}
+                linkText={t('/accounts/find-password/HEADER__LINK')}
                 linkHref={RoutePathFactory.accounts['/signin']()}>
-                {t('/account/find-password/HEADER__TITLE')}
+                {t('/accounts/find-password/HEADER__TITLE')}
             </AccountPageHeader>
 
             <div className="message">
-                {t('/account/find-password/BODY__MESSAGE')}
+                {t('/accounts/find-password/BODY__MESSAGE')}
             </div>
 
             <div className="formWrapper">
@@ -125,7 +125,7 @@ function FindPasswordPage() {
                     value={email}
                     onChange={onChangeEmail}
                     onIsValid={onIsValidEmail}
-                    placeholder={t('/account/find-password/BODY__INPUT_EMAIL__PLACEHOLDER')}
+                    placeholder={t('/accounts/find-password/BODY__INPUT_EMAIL__PLACEHOLDER')}
                     fluid
                     autofocus />
 
@@ -133,7 +133,7 @@ function FindPasswordPage() {
                     onClick={onClickSendEmail}
                     isDisabled={!isValidEmail}
                     fluid>
-                    {t('/account/find-password/BODY__SEND_BUTTON')}
+                    {t('/accounts/find-password/BODY__SEND_BUTTON')}
                 </LabelrButton>
             </div>
         </StyledFindPasswordPageRoot>

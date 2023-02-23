@@ -212,7 +212,7 @@ function SigninPage() {
             // FIXME: 분기문 추가하기
             openLabelrSnackbar({
                 type: 'danger',
-                content: i18next.t('/account/signin/MODAL__INVALID_PASSWORD'),
+                content: i18next.t('/accounts/signin/MODAL__INVALID_PASSWORD'),
             });
 
             dispatch(actionSigninReset());
@@ -232,10 +232,10 @@ function SigninPage() {
         <StyledSigninPageRoot>
             {/* Header */}
             <AccountPageHeader 
-                message={i18next.t('/account/signin/HEADER__MESSAGE')}
-                linkText={i18next.t('/account/signin/HEADER__LINK')}
+                message={i18next.t('/accounts/signin/HEADER__MESSAGE')}
+                linkText={i18next.t('/accounts/signin/HEADER__LINK')}
                 linkHref={routePathForSignup}>
-                {i18next.t('/account/signin/HEADER__TITLE')}
+                {i18next.t('/accounts/signin/HEADER__TITLE')}
             </AccountPageHeader>
 
             {/* Body */}
@@ -246,7 +246,7 @@ function SigninPage() {
                         value={state?.signinPage.email || ''}
                         onChange={onChangeEmail}
                         onIsValid={onIsValidEmail}
-                        placeholder={i18next.t('/account/signin/BODY__INPUT_EMAIL__PLACEHOLDER')}
+                        placeholder={i18next.t('/accounts/signin/BODY__INPUT_EMAIL__PLACEHOLDER')}
                         autofocus
                         fluid />
 
@@ -255,7 +255,7 @@ function SigninPage() {
                         value={state?.signinPage.password || ''}
                         onChange={onChangePassword}
                         onIsValid={onIsValidPassword}
-                        placeholder={i18next.t('/account/signin/BODY__INPUT_PASSWORD__PLACEHOLDER')}
+                        placeholder={i18next.t('/accounts/signin/BODY__INPUT_PASSWORD__PLACEHOLDER')}
                         fluid />
                 </div>
 
@@ -265,7 +265,7 @@ function SigninPage() {
                         legacyBehavior
                         href={routePathForFindPassword}>
                         <a className="linkWrapper-link">
-                            {i18next.t('/account/signin/BODY__FORGOT_PASSWORD')}
+                            {i18next.t('/accounts/signin/BODY__FORGOT_PASSWORD')}
                         </a>
                     </Link>
                 </div>
@@ -274,17 +274,17 @@ function SigninPage() {
                     fluid
                     isDisabled={!isValidInputValues}
                     onClick={onClickSignin} >
-                    {i18next.t('/account/signin/BODY__SIGNIN_BUTTON')}
+                    {i18next.t('/accounts/signin/BODY__SIGNIN_BUTTON')}
                 </LabelrButton>
 
                 <div className="questionMessage">
-                    {i18next.t('/account/signin/BODY__SIGNUP_LEADING_MESSAGE')}
+                    {i18next.t('/accounts/signin/BODY__SIGNUP_LEADING_MESSAGE')}
                     <Link
                         passHref
                         legacyBehavior
                         href={routePathForSignup}>
                         <a className="questionMessage-link">
-                            {i18next.t('/account/signin/BODY__SIGNUP_BUTTON')}
+                            {i18next.t('/accounts/signin/BODY__SIGNUP_BUTTON')}
                         </a>
                     </Link>
                 </div>

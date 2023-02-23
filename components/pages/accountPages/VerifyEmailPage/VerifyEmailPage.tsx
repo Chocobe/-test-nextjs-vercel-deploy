@@ -74,29 +74,29 @@ function VerifyEmailPage() {
     return (
         <StyledVerifyEmailPageRoot>
             <AccountPageHeader
-                linkText={i18next.t('/account/verify-email/HEADER__LINK')}
+                linkText={i18next.t('/accounts/verify-email/HEADER__LINK')}
                 linkHref={routePathOfSignin}>
-                {i18next.t('/account/verify-email/HEADER__TITLE')}
+                {i18next.t('/accounts/verify-email/HEADER__TITLE')}
             </AccountPageHeader>
 
             <div className="messageWrapper">
                 <div className="message">
-                    {i18next.t('/account/verify-email/BODY__NOTICE_MESSAGE')}
+                    {i18next.t('/accounts/verify-email/BODY__NOTICE_MESSAGE')}
                 </div>
 
                 <br />
 
                 <div className="message">
-                    {i18next.t('/account/verify-email/BODY__HELP_MESSAGE__PREFIX')}
+                    {i18next.t('/accounts/verify-email/BODY__HELP_MESSAGE__PREFIX')}
                     <Link
                         href={routePathOfSendVerificationEmail}
                         passHref
                         legacyBehavior>
                         <a className="linkMessage">
-                            &nbsp;{i18next.t('/account/verify-email/BODY__HELP_MESSAGE__LINK')}
+                            &nbsp;{i18next.t('/accounts/verify-email/BODY__HELP_MESSAGE__LINK')}
                         </a>
                     </Link>
-                    {i18next.t('/account/verify-email/BODY__HELP_MESSAGE__POSTFIX')}
+                    {i18next.t('/accounts/verify-email/BODY__HELP_MESSAGE__POSTFIX')}
                 </div>
             </div>
 
@@ -104,7 +104,7 @@ function VerifyEmailPage() {
                 <LabelrButton
                     onClick={onClickSignin}
                     fluid>
-                    {i18next.t('/account/verify-email/BODY__SIGNIN_BUTTON')}
+                    {i18next.t('/accounts/verify-email/BODY__SIGNIN_BUTTON')}
                 </LabelrButton>
             </div>
         </StyledVerifyEmailPageRoot>

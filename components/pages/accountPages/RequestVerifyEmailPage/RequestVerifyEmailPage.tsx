@@ -17,9 +17,7 @@ import {
     AccountsLayoutContextState,
 } from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import { 
-    setEmailToRequestVerifyEmailPage, 
-    // FIXME: 지우기
-    // setHasExpiredToResultVerifyEmailPage,
+    setEmailToRequestVerifyEmailPage,
 } from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailPageReducer';
 // styled-components
 import styled from 'styled-components';
@@ -81,11 +79,11 @@ function RequestVerifyEmailPage() {
     // cache
     //
     const title = useMemo(() => {
-        return i18next.t('/account/request-verify-email/HEADER__TITLE__RESULT');
+        return i18next.t('/accounts/request-verify-email/HEADER__TITLE__RESULT');
 
         // return hasExpired
-        //     ? i18next.t('/account/request-verify-email/HEADER__TITLE__EXPIRED')
-        //     : i18next.t('/account/request-verify-email/HEADER__TITLE__RESULT');
+        //     ? i18next.t('/accounts/request-verify-email/HEADER__TITLE__EXPIRED')
+        //     : i18next.t('/accounts/request-verify-email/HEADER__TITLE__RESULT');
     // }, [hasExpired, i18next]);
     }, [i18next]);
 
@@ -107,13 +105,13 @@ function RequestVerifyEmailPage() {
     return (
         <StyledRequestVerifyEmailPageRoot>
             <AccountPageHeader
-                linkText={i18next.t('/account/request-verify-email/HEADER__LINK')}
+                linkText={i18next.t('/accounts/request-verify-email/HEADER__LINK')}
                 linkHref={RoutePathFactory.accounts['/signin']()}>
                 {title}
             </AccountPageHeader>
 
             <div className="message">
-                {i18next.t('/account/request-verify-email/HEADER__MESSAGE')}
+                {i18next.t('/accounts/request-verify-email/HEADER__MESSAGE')}
             </div>
 
             <div className="formWrapper">
@@ -121,7 +119,7 @@ function RequestVerifyEmailPage() {
                     value={email}
                     onChange={onChangeEmail}
                     onIsValid={onIsValidEmail}
-                    placeholder={i18next.t('/account/request-verify-email/HEADER__INPUT_EMAIL__PLACEHOLDER')}
+                    placeholder={i18next.t('/accounts/request-verify-email/HEADER__INPUT_EMAIL__PLACEHOLDER')}
                     autofocus
                     fluid />
 
@@ -129,7 +127,7 @@ function RequestVerifyEmailPage() {
                     onClick={onClickSubmit}
                     isDisabled={!isValidEmail}
                     fluid>
-                    {i18next.t('/account/request-verify-email/BODY__BUTTON_OK')}
+                    {i18next.t('/accounts/request-verify-email/BODY__BUTTON_OK')}
                 </LabelrButton>
             </div>
         </StyledRequestVerifyEmailPageRoot>
