@@ -1,7 +1,8 @@
 // react
 import {
-    ReactNode,
+    useMemo,
     useCallback,
+    ReactNode,
 } from 'react';
 // type
 import {
@@ -20,19 +21,40 @@ import { useTheme } from 'styled-components';
 
 export const useLabelrSnackbar = (initialOptions: TUseLabelrSnackbarOptions = {}) => {
     const {
-        type: initialType = 'sky',
-        position: initialPosition = 'top',
-        content: initialContent = '',
-        duration: initialDuration = 3000,
+        type = 'sky',
+        position = 'top',
+        content = '',
+        duration = 3000,
     } = initialOptions;
 
-    // hook
-    const theme = useTheme();
-    const toast = useToast({
-        duration: 1000 * 3,
-    });
+    //
+    // cache
+    //
+    const initialType = useMemo(() => {
+        return type;
+    }, [type]);
 
+    const initialPosition = useMemo(() => {
+        return position;
+    }, [position]);
+
+    const initialContent = useMemo(() => {
+        return content;
+    }, [content]);
+
+    const initialDuration = useMemo(() => {
+        return duration;
+    }, [duration]);
+
+    //
+    // hook
+    //
+    const theme = useTheme();
+    const toast = useToast();
+
+    //
     // renderer
+    //
     const renderSnackbar = useCallback((params: TRenderLabelrSnackbarParams) => {
         const {
             type,
@@ -49,7 +71,9 @@ export const useLabelrSnackbar = (initialOptions: TUseLabelrSnackbarOptions = {}
         );
     }, []);
 
+    //
     // method
+    //
     const getContainerStyle = useCallback((
         type: TUseLabelrSnackbarType
     ) => {
