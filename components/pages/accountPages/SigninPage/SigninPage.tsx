@@ -3,9 +3,9 @@ import {
     useState,
     useMemo,
     useCallback,
-    ChangeEvent,
-    useEffect,
     useContext,
+    useEffect,
+    ChangeEvent,
 } from 'react';
 // nextjs
 import Link from 'next/link';
@@ -21,22 +21,33 @@ import {
     useAppDispatch,
 } from '@/redux/hooks';
 import { 
-    actionSigninRequested,
     actionSigninReset,
+    actionSigninRequested,
+
+    actionConfirmSignupReset,
+    actionConfirmSignupRequested,
+    actionConfirmResetPasswordReset,
 } from '@/redux/slices/apiSlices/accountsApiSlice/accountsApiSlice';
+import {
+    useApiResponseHandler,
+} from '@/redux/hooks';
 // context
 import { 
     AccountsLayoutContextState,
     AccountsLayoutContextDispatch,
 } from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import { 
-    setEmailToSigninPage,
-    setPasswordToSigninPage,
+    resetSigninContext,
+    setEmailToSigninContext,
+    setPasswordToSigninContext,
 } from '@/contexts/accountsLayoutContext/reducers/signinPageReducer';
 // types
 import { 
     accountPageFooterTypeMapper,
 } from '../AccountPageFooter/accountPageFooterTypes';
+import { 
+    TConfirmSignupPayload,
+} from '@/network/api/accountsApi/accountsApiTypes';
 // styled-components
 import styled from 'styled-components';
 // ui components
@@ -100,7 +111,7 @@ function SigninPage() {
     //
     // context
     //
-    const dispatchContext = useContext(AccountsLayoutContextDispatch);
+    const dispatchContext = useContext(AccountsLayoutContextDispatch)!;
     const state = useContext(AccountsLayoutContextState);
 
     const email = useMemo(() => {
@@ -114,20 +125,16 @@ function SigninPage() {
     //
     // state
     //
-    const signinApiState = useAppSelector(({ accountsApi }) => accountsApi.signin);
-
-    const signinApiData = useMemo(() => {
-        return signinApiState.data;
-    }, [signinApiState]);
-
-    const signinApiError = useMemo(() => {
-        return signinApiState.error;
-    }, [signinApiState]);
-
     const [validationState, setValidationState] = useState({
         isValidEmail: false,
         isValidPassword: false,
     });
+
+    //
+    // api state
+    //
+    const signinApiState = useAppSelector(({ accountsApi }) => accountsApi.signin);
+    const confirmSignupApiState = useAppSelector(({ accountsApi }) => accountsApi.confirmSignup);
 
     //
     // hook
@@ -156,15 +163,35 @@ function SigninPage() {
             .every(isValid => isValid);
     }, [validationState]);
 
+    const isDisableSigninButton = useMemo(() => {
+        return !isValidInputValues ||
+            signinApiState.isLoading ||
+            confirmSignupApiState.isLoading;
+    }, [isValidInputValues, signinApiState, confirmSignupApiState]);
+
+    const confirmSignupPayload = useMemo<TConfirmSignupPayload | null>(() => {
+        const email = router.query?.email as string;
+        const code = router.query?.code as string;
+
+        if (!email || !code) {
+            return null;
+        }
+
+        return {
+            email,
+            code,
+        };
+    }, [router]);
+
     //
     // callback
     //
     const onChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext?.(setEmailToSigninPage(e.currentTarget.value));
+        dispatchContext(setEmailToSigninContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onChangePassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext?.(setPasswordToSigninPage(e.currentTarget.value));
+        dispatchContext(setPasswordToSigninContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onIsValidEmail = useCallback((isValidEmail: boolean) => {
@@ -197,36 +224,70 @@ function SigninPage() {
     }, []);
 
     //
-    // effect
-    // 
-    useEffect(function onSigninSucceeded() {
-        if (router.isReady && signinApiData) {
-            router.replace(RoutePathFactory.console['/']());
-        }
-    }, [signinApiData, router]);
+    // api handler
+    //
+    useApiResponseHandler({
+        apiState: signinApiState,
+        onSucceeded: {
+            callback() {
+                if (router.isReady) {
+                    router.replace(RoutePathFactory.console['/']());
+                }
+            },
+            deps: [router],
+        },
+        onFailed(error) {
+            const {
+                errorData,
+            } = error;
 
-    useEffect(function onSigninFailed() {
-        if (signinApiError) {
-            // FIXME: 존재하지 않는 Email 일 경우, 회원가입 유도 Modal 띄우기
-
-            // FIXME: 분기문 추가하기
             openLabelrSnackbar({
                 type: 'danger',
-                content: i18next.t('/accounts/signin/MODAL__INVALID_PASSWORD'),
+                content: errorData.detail || '/signin 요청 에러 (errorData.detail 없음)',
             });
 
             dispatch(actionSigninReset());
-        }
-    }, [
-        signinApiError, i18next, 
-        openLabelrSnackbar, dispatch,
-    ]);
 
-    useEffect(function resetSlices() {
+            // TODO: 회원가입 유도 Modal 띄우기
+            // TODO: 회원가입 유도 Modal 띄우기
+            // TODO: 회원가입 유도 Modal 띄우기
+        },
+    });
+
+    useApiResponseHandler({
+        apiState: confirmSignupApiState,
+        onSucceeded() {
+            openLabelrSnackbar({
+                type: 'safe',
+                content: i18next.t('/accounts/signin/SNACKBAR__CONFIRM_SIGNUP__MESSAGE'),
+            });
+
+            dispatch(actionConfirmSignupReset());
+        },
+        onFailed(error) {
+            openLabelrSnackbar({
+                type: 'danger',
+                content: error.errorData.detail,
+            });
+
+            dispatch(actionConfirmResetPasswordReset());
+        },
+    });
+
+    //
+    // effect
+    //
+    useEffect(function requestConfirmSignup() {
+        if (confirmSignupPayload) {
+            dispatch(actionConfirmSignupRequested(confirmSignupPayload));
+        }
+    }, [confirmSignupPayload, dispatch]);
+
+    useEffect(function resetState() {
         return () => {
-            dispatch(actionSigninReset());
+            dispatchContext(resetSigninContext());
         };
-    }, [dispatch]);
+    }, [dispatchContext, dispatch]);
 
     return (
         <StyledSigninPageRoot>
@@ -272,7 +333,7 @@ function SigninPage() {
 
                 <LabelrButton
                     fluid
-                    isDisabled={!isValidInputValues}
+                    isDisabled={isDisableSigninButton}
                     onClick={onClickSignin} >
                     {i18next.t('/accounts/signin/BODY__SIGNIN_BUTTON')}
                 </LabelrButton>

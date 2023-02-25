@@ -1,5 +1,7 @@
 import {
-    createAction, createReducer, PayloadAction,
+    createAction, 
+    createReducer, 
+    PayloadAction,
 } from '@reduxjs/toolkit';
 
 const NAMESPACE = 'signinPage';
@@ -11,6 +13,9 @@ export type TSigninPageState = {
     };
 };
 
+//
+// initialState
+//
 export const signinPageInitialState: TSigninPageState = {
     signinPage: {
         email: '',
@@ -18,15 +23,28 @@ export const signinPageInitialState: TSigninPageState = {
     },
 };
 
-export const setEmailToSigninPage = createAction<string>(`${NAMESPACE}/setEmail`);
-export const setPasswordToSigninPage = createAction<string>(`${NAMESPACE}/setPassword`);
+//
+// action
+//
+export const resetSigninContext = createAction(`${NAMESPACE}/reset`);
+export const setEmailToSigninContext = createAction<string>(`${NAMESPACE}/setEmail`);
+export const setPasswordToSigninContext = createAction<string>(`${NAMESPACE}/setPassword`);
 
+//
+// reducer
+//
 export const signinPageReducer = createReducer(signinPageInitialState, builder => {
     builder
-        .addCase(setEmailToSigninPage, (state, action: PayloadAction<string>) => {
+        .addCase(resetSigninContext, state => {
+            state.signinPage = {
+                email: '',
+                password: '',
+            };
+        })
+        .addCase(setEmailToSigninContext, (state, action: PayloadAction<string>) => {
             state.signinPage.email = action.payload;
         })
-        .addCase(setPasswordToSigninPage, (state, action: PayloadAction<string>) => {
+        .addCase(setPasswordToSigninContext, (state, action: PayloadAction<string>) => {
             state.signinPage.password = action.payload;
         });
 });
