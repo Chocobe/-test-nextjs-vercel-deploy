@@ -21,17 +21,26 @@ import {
     actionSignupReset,
     actionSignupRequested,
 } from '@/redux/slices/apiSlices/accountsApiSlice/accountsApiSlice';
+import {
+    useApiResponseHandler,
+} from 'redux/hooks';
 // context
 import {
     AccountsLayoutContextState,
     AccountsLayoutContextDispatch,
 } from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import { 
-    resetSignupPage,
-    setEmailToSignupPage,
-    setPasswordToSignupPage,
-    setPasswordConfirmToSignupPage,
+    resetSignupContext,
+    setEmailToSignupContext,
+    setPasswordToSignupContext,
+    setPasswordConfirmToSignupContext,
 } from '@/contexts/accountsLayoutContext/reducers/signupPageReducer';
+import { 
+    setTypeToRequestVerifyEmailContext,
+} from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailPageReducer';
+import { 
+    requestVerifyEmailType,
+} from '../RequestVerifyEmailPage/requestVerifyEmailPageTypes';
 import {
     RoutePathFactory,
 } from '@/router/RoutePathFactory';
@@ -125,14 +134,6 @@ function SignupPage() {
     //
     const signupApiState = useAppSelector(({ accountsApi }) => accountsApi.signup);
 
-    const signupApiData = useMemo(() => {
-        return signupApiState.data;
-    }, [signupApiState]);
-
-    const signupApiError = useMemo(() => {
-        return signupApiState.error;
-    }, [signupApiState]);
-
     //
     // state
     //
@@ -141,7 +142,6 @@ function SignupPage() {
         isValidPassword: false,
         isValidPasswordConfirm: false,
     });
-
 
     //
     // hook
@@ -171,15 +171,15 @@ function SignupPage() {
     // callback
     //
     const onChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setEmailToSignupPage(e.currentTarget.value));
+        dispatchContext(setEmailToSignupContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onChangePassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setPasswordToSignupPage(e.currentTarget.value));
+        dispatchContext(setPasswordToSignupContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onChangePasswordConfirm = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setPasswordConfirmToSignupPage(e.currentTarget.value));
+        dispatchContext(setPasswordConfirmToSignupContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onIsValidEmail = useCallback((isValidEmail: boolean) => {
@@ -204,10 +204,6 @@ function SignupPage() {
     }, []);
 
     const onClickSignup = useCallback(() => {
-        // TODO: API 응답 결과 => 성공 시
-        // TODO: => (임시) verifyEmail 페이지로 이동
-        // router.push(RoutePathFactory.accounts['/verify-email']());
-
         dispatch(actionSignupRequested({
             email,
             password,
@@ -224,36 +220,41 @@ function SignupPage() {
     }, []);
 
     //
-    // effect
+    // api handler
     //
-    useEffect(function onSucceededSignup() {
-        if (router.isReady && signupApiData) {
-            router.replace(RoutePathFactory.accounts['/verify-email']());
-        }
-    }, [signupApiData, router, dispatch, openLabelrSnackbar]);
-
-    useEffect(function onFailedSignup() {
-        if (signupApiError) {
-            const { 
-                errorData, 
-                statusText
-            } = signupApiError;
-
-            const errorMessage = errorData.email ?? statusText;
+    useApiResponseHandler({
+        apiState: signupApiState,
+        onSucceeded: {
+            callback() {
+                if (router.isReady) {
+                    dispatchContext(setTypeToRequestVerifyEmailContext(
+                        requestVerifyEmailType.SIGNUP
+                    ));
+    
+                    router.replace(RoutePathFactory.accounts['/verify-email']());
+                }
+            },
+            deps: [router],
+        },
+        onFailed(error) {
+            const errorData = error?.errorData;
 
             openLabelrSnackbar({
                 type: 'danger',
-                content: errorMessage,
+                content: errorData?.detail,
             });
 
             dispatch(actionSignupReset());
-        }
-    }, [signupApiError, openLabelrSnackbar, dispatch]);
+        },
+    });
 
-    useEffect(function resetSlices() {
+    //
+    // effect
+    //
+    useEffect(function resetState() {
         return () => {
             dispatch(actionSignupReset());
-            dispatchContext(resetSignupPage());
+            dispatchContext(resetSignupContext());
         };
     }, [dispatch, dispatchContext]);
 
