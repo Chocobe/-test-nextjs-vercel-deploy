@@ -1,3 +1,10 @@
+// react
+import {
+    useReducer,
+    useCallback,
+    useEffect,
+    ReactElement,
+} from 'react';
 // nextjs
 import Head from 'next/head';
 import { 
@@ -8,11 +15,9 @@ import {
     useRouter,
     NextRouter,
 } from 'next/router';
-// react
-import {
-    useReducer,
-    ReactElement,
-} from 'react';
+import { 
+    RoutePathFactory
+} from '@/router/RoutePathFactory';
 // styled-components
 import styled, {
     ThemeProvider,
@@ -35,6 +40,14 @@ import chakraUiTheme from '@/styles/chakraUiTheme/chakraUiTheme';
 // Redux
 import { Provider } from 'react-redux';
 import store from '@/redux/store';
+import { 
+    actionSigninReset, 
+    actionSigninSucceeded,
+} from '@/redux/slices/apiSlices/accountsApiSlice/accountsApiSlice';
+// axios
+import { 
+    setupAxiosInstance,
+} from '@/network/RestClient';
 // icon
 import ReactIconsProvider from '@/libs/reactIcons/ReactIconsProvider';
 // i18n
@@ -44,6 +57,11 @@ import LabelrLanguageDropdown from '@/components/ui/LabelrLanguageDropdown/Label
 import {
     GoogleOAuthProvider,
 } from '@react-oauth/google';
+// localStorage
+import { 
+    getAuthTokensFromLocalStorage, 
+    setAuthTokensToLocalStorage,
+} from '@/network/localStorageApi/localStorageApi';
 
 export type TPageComponent = NextComponentType<NextPageContext, any, any> & {
     getLayout?: (page: ReactElement) => ReactElement;
@@ -66,6 +84,10 @@ const StyledLanguageDropdownWrapper = styled.div`
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
 `;
 
 function App({ Component, pageProps }: TAppPropsWithLayout) {
@@ -77,6 +99,33 @@ function App({ Component, pageProps }: TAppPropsWithLayout) {
     ) => ReactElement = Component.getLayout ?? ((page: ReactElement) => page);
 
     const [themeModeState, dispatchThemeMode] = useReducer(reducer, initialState);
+
+    //
+    // callback
+    //
+    // FIXME: 테스트 후, 삭제하기
+    const signout = useCallback(() => {
+        store.dispatch(actionSigninReset());
+        setAuthTokensToLocalStorage();
+        router.replace(RoutePathFactory.accounts['/signin']());
+    }, [router]);
+
+    //
+    // effect
+    //
+    useEffect(function initNetwork() {
+        setupAxiosInstance(store);
+
+        const tokenData = getAuthTokensFromLocalStorage();
+        const {
+            accessToken,
+            refreshToken,
+        } = tokenData;
+
+        if (accessToken && refreshToken) {
+            store.dispatch(actionSigninSucceeded(tokenData));
+        }
+    }, []);
 
     return (
         <StyledAppRoot>
@@ -101,6 +150,9 @@ function App({ Component, pageProps }: TAppPropsWithLayout) {
                                     {/* FIXME: i18n 테스트 후 삭제하기} */}
                                     <StyledLanguageDropdownWrapper>
                                         <LabelrLanguageDropdown />
+                                        <button onClick={signout}>
+                                            로그아웃
+                                        </button>
                                     </StyledLanguageDropdownWrapper>
 
                                     <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}>

@@ -63,6 +63,10 @@ import {
 import {
     useTranslation,
 } from 'react-i18next';
+// localStorage
+import { 
+    setAuthTokensToLocalStorage,
+} from '@/network/localStorageApi/localStorageApi';
 
 const StyledSigninPageRoot = styled.div`
     //
@@ -229,21 +233,18 @@ function SigninPage() {
     useApiResponseHandler({
         apiState: signinApiState,
         onSucceeded: {
-            callback() {
+            callback(data) {
                 if (router.isReady) {
+                    setAuthTokensToLocalStorage(data);
                     router.replace(RoutePathFactory.console['/']());
                 }
             },
             deps: [router],
         },
         onFailed(error) {
-            const {
-                errorData,
-            } = error;
-
             openLabelrSnackbar({
                 type: 'danger',
-                content: errorData.detail || '/signin 요청 에러 (errorData.detail 없음)',
+                content: error.errorData?.detail || '/signin 요청 에러 (errorData.detail 없음)',
             });
 
             dispatch(actionSigninReset());

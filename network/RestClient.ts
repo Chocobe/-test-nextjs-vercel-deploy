@@ -1,9 +1,13 @@
+// axios
 import axios, {
     AxiosRequestConfig, 
     AxiosResponse,
 } from 'axios';
 import applyCaseMiddleware from 'axios-case-converter';
-import { ELocalStorageItemKey } from './CONSTANTS/ELocalStorageItemKey';
+// rtk
+import { 
+    ToolkitStore,
+} from '@reduxjs/toolkit/dist/configureStore';
 
 export type TSendRequestParams = {
     method: (
@@ -22,29 +26,32 @@ export type TSendRequestParams = {
 
 const PROXY_URL = '/labelr-console-v2/api';
 
-const axiosInstance = (function() {
-    const axiosInstance = applyCaseMiddleware(axios.create({
-        headers: {
-            post: {
-                ['Content-type']: 'application/x-www-form-urlencoded',
-            }
-        },
-        timeout: 10000,
-    }));
+const axiosInstance = applyCaseMiddleware(axios.create({
+    headers: {
+        post: {
+            ['Content-type']: 'application/x-www-form-urlencoded',
+        }
+    },
+    timeout: 10000,
+}));
 
+export const setupAxiosInstance = (store: ToolkitStore) => {
     axiosInstance.interceptors.request.use(
         function (config) {
-            // TODO: authToken 처리
-            const accessKey = localStorage.getItem(ELocalStorageItemKey.LABELR_ACCESS_KEY);
+            const accessToken = store.getState().accountsApi.signin.data?.accessToken;
 
-            if (accessKey && config.headers) {
-                (config.headers as any)!['Authorization'] = `Token ${accessKey}`;
+            if (accessToken && config.headers) {
+                (config.headers as any)!['Authorization'] = `Token ${accessToken}`;
             }
-            
+
             return config;
         },
 
         function (error) {
+            // FIXME: refreshToken 요청 및 accessToken 갱신 기능 추가하기
+            // FIXME: refreshToken 요청 및 accessToken 갱신 기능 추가하기
+            // FIXME: refreshToken 요청 및 accessToken 갱신 기능 추가하기
+
             return Promise.reject(error);
         }
     );
@@ -69,7 +76,7 @@ const axiosInstance = (function() {
     );
 
     return axiosInstance;
-}());
+};
 
 const sendRequest = async <T = any>({
     method,
