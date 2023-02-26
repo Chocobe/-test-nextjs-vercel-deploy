@@ -1,27 +1,42 @@
 // react
 import {
-    useState,
-    useCallback,
     useContext,
-    ChangeEvent,
+    useState,
     useMemo,
+    useCallback,
+    useEffect,
+    ChangeEvent,
 } from 'react';
 // nextjs
 import {
     useRouter,
 } from 'next/router';
+import {
+    RoutePathFactory
+} from '@/router/RoutePathFactory';
 // redux
-// import {
-//     useAppSelector,
-//     useAppDispatch,
-// } from '@/redux/hooks';
+import {
+    useAppSelector,
+    useAppDispatch,
+} from '@/redux/hooks';
 import { 
-    AccountsLayoutContextDispatch,
+    actionResetPasswordReset,
+    actionResetPasswordRequested, 
+} from '@/redux/slices/apiSlices/accountsApiSlice/accountsApiSlice';
+import { 
     AccountsLayoutContextState,
+    AccountsLayoutContextDispatch,
 } from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import {
-    setEmailToFindPasswordPage,
+    resetFindPasswordContext,
+    setEmailToFindPasswordContext,
 } from '@/contexts/accountsLayoutContext/reducers/findPasswordPageReducer';
+import { 
+    setTypeToRequestVerifyEmailContext,
+} from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailPageReducer';
+import {
+    useApiResponseHandler,
+} from '@/redux/hooks';
 // styled-components
 import styled from 'styled-components';
 // UI components
@@ -35,10 +50,10 @@ import {
 import {
     useTranslation,
 } from 'react-i18next';
-
-import {
-    RoutePathFactory
-} from '@/router/RoutePathFactory';
+// type
+import { 
+    requestVerifyEmailType,
+} from '../RequestVerifyEmailPage/requestVerifyEmailPageTypes';
 
 const StyledFindPasswordPageRoot = styled.div`
     //
@@ -66,7 +81,6 @@ function FindPasswordPage() {
     //
     // context
     //
-    // const email = useAppSelector(({ findPasswordPage }) => findPasswordPage.email);
     const dispatchContext = useContext(AccountsLayoutContextDispatch)!;
     const state = useContext(AccountsLayoutContextState)!;
 
@@ -74,24 +88,33 @@ function FindPasswordPage() {
         return state.findPassword.email || '';
     }, [state.findPassword.email]);
 
+    //
+    // state
+    //
     const [isValidEmail, setIsValidEmail] = useState(false);
+
+    //
+    // api state
+    //
+    const resetPasswordApiState = useAppSelector(({ accountsApi }) => {
+        return accountsApi.resetPassword;
+    });
 
     //
     // hooks
     //
-    const { 
-        t,
-    } = useTranslation();
+    const i18next = useTranslation();
     const {
         openLabelrSnackbar,
     } = useLabelrSnackbar();
+    const dispatch = useAppDispatch();
     const router = useRouter();
 
     //
     // callback
     //
     const onChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setEmailToFindPasswordPage(e.currentTarget.value));
+        dispatchContext(setEmailToFindPasswordContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onIsValidEmail = useCallback((isValidEmail: boolean) => {
@@ -99,25 +122,54 @@ function FindPasswordPage() {
     }, []);
 
     const onClickSendEmail = () => {
-        openLabelrSnackbar({
-            content: t('/accounts/find-password/SEND_EMAIL__SNACKBAR_MESSAGE'),
-        });
-
-        // FIXME: request-verify-email 페이지로 이동 
-        // => 인증 완료 callback 호출 시, reset-password 페이지로 이동
-        router.push(RoutePathFactory.accounts['/reset-password']());
+        dispatch(actionResetPasswordRequested({
+            email,
+        }));
     };
+
+    //
+    // api handler
+    //
+    useApiResponseHandler({
+        apiState: resetPasswordApiState,
+        onSucceeded: {
+            callback() {
+                if (router.isReady){
+                    dispatchContext(setTypeToRequestVerifyEmailContext(requestVerifyEmailType.RESET_PASSWORD));
+
+                    router.replace(RoutePathFactory.accounts['/verify-email']());
+                }
+            },
+            deps: [router],
+        },
+        onFailed(error) {
+            openLabelrSnackbar({
+                type: 'danger',
+                content: error.errorData.detail,
+            });
+        },
+    });
+
+    //
+    // effect
+    //
+    useEffect(function onResetSlices() {
+        return () => {
+            dispatchContext(resetFindPasswordContext());
+            dispatch(actionResetPasswordReset());
+        };
+    }, [dispatch, dispatchContext]);
 
     return (
         <StyledFindPasswordPageRoot>
             <AccountPageHeader
-                linkText={t('/accounts/find-password/HEADER__LINK')}
+                linkText={i18next.t('/accounts/find-password/HEADER__LINK')}
                 linkHref={RoutePathFactory.accounts['/signin']()}>
-                {t('/accounts/find-password/HEADER__TITLE')}
+                {i18next.t('/accounts/find-password/HEADER__TITLE')}
             </AccountPageHeader>
 
             <div className="message">
-                {t('/accounts/find-password/BODY__MESSAGE')}
+                {i18next.t('/accounts/find-password/BODY__MESSAGE')}
             </div>
 
             <div className="formWrapper">
@@ -125,7 +177,7 @@ function FindPasswordPage() {
                     value={email}
                     onChange={onChangeEmail}
                     onIsValid={onIsValidEmail}
-                    placeholder={t('/accounts/find-password/BODY__INPUT_EMAIL__PLACEHOLDER')}
+                    placeholder={i18next.t('/accounts/find-password/BODY__INPUT_EMAIL__PLACEHOLDER')}
                     fluid
                     autofocus />
 
@@ -133,7 +185,7 @@ function FindPasswordPage() {
                     onClick={onClickSendEmail}
                     isDisabled={!isValidEmail}
                     fluid>
-                    {t('/accounts/find-password/BODY__SEND_BUTTON')}
+                    {i18next.t('/accounts/find-password/BODY__SEND_BUTTON')}
                 </LabelrButton>
             </div>
         </StyledFindPasswordPageRoot>

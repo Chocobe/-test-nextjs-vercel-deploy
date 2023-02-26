@@ -12,17 +12,35 @@ export type TFindPasswordPageState = {
     };
 };
 
+//
+// initialState
+//
 export const findPasswordPageInitialState: TFindPasswordPageState = {
     findPassword: {
         email: '',
     },
 };
 
-export const setEmailToFindPasswordPage = createAction<string>(`${NAMESPACE}/setEmail`);
+//
+// actions
+//
+export const resetFindPasswordContext = createAction<void>(`${NAMESPACE}/resetFindPassword`);
+export const setEmailToFindPasswordContext = createAction<string>(`${NAMESPACE}/setEmail`);
 
+//
+// reducer
+//
 export const findPasswordPageReducer = createReducer(findPasswordPageInitialState, builder => {
     builder
-        .addCase(setEmailToFindPasswordPage, (state, action: PayloadAction<string>) => {
+        .addCase(resetFindPasswordContext, state => {
+            state.findPassword = {
+                email: '',
+            };
+        })
+        .addCase(setEmailToFindPasswordContext, (
+            state, 
+            action: PayloadAction<string>
+        ) => {
             state.findPassword.email = action.payload;
         });
 });
