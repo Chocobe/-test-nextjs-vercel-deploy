@@ -16,14 +16,33 @@ import {
     actionSignupRequested,
     actionSignupSucceeded,
     actionSignupFailed,
+
+    actionConfirmSignupRequested,
+    actionConfirmSignupSucceeded,
+    actionConfirmSignupFailed,
+
+    actionResetPasswordRequested,
+    actionResetPasswordFailed,
+    actionResetPasswordSucceeded,
+
+    actionConfirmResetPasswordFailed,
+    actionConfirmResetPasswordSucceeded,
+    actionConfirmResetPasswordRequested,
 } from '@/redux/slices/apiSlices/accountsApiSlice/accountsApiSlice';
 // type
 import { 
     TSigninApiPayload, 
     TSigninApiResponse,
-
+    
     TSignupApiPayload,
     TSignupApiResponse,
+
+    TResetPasswordApiPayload,
+    TResetPasswordApiResponse,
+    TConfirmResetPasswordApiPayload,
+    TConfirmResetPasswordApiResponse,
+    TConfirmSignupPayload,
+    TConfirmSignupResponse,
 } from '@/network/api/accountsApi/accountsApiTypes';
 import {
     TSagaGenerator,
@@ -65,9 +84,63 @@ function* signupSaga(
     }
 }
 
+function* confirmSignupSaga(
+    action: PayloadAction<TConfirmSignupPayload>
+): TSagaGenerator<TConfirmSignupResponse> {
+    try {
+        const response = yield call(
+            ApiManager.accountsApi.confirmSignup,
+            action.payload
+        );
+
+        const data = response?.data;
+
+        yield put(actionConfirmSignupSucceeded(data));
+    } catch(error) {
+        yield put(actionConfirmSignupFailed(error));
+    }
+}
+
+function* resetPassword(
+    action: PayloadAction<TResetPasswordApiPayload>
+): TSagaGenerator<TResetPasswordApiResponse> {
+    try {
+        const response = yield call(
+            ApiManager.accountsApi.resetPassword,
+            action.payload
+        );
+
+        const data = response?.data;
+
+        yield put(actionResetPasswordSucceeded(data));
+    } catch(error) {
+        yield put(actionResetPasswordFailed(error));
+    }
+}
+
+function* confirmResetPassword(
+    action: PayloadAction<TConfirmResetPasswordApiPayload>
+): TSagaGenerator<TConfirmResetPasswordApiResponse> {
+    try {
+        const response = yield call(
+            ApiManager.accountsApi.confirmResetPassword,
+            action.payload
+        );
+
+        const data = response?.data;
+
+        yield put(actionConfirmResetPasswordSucceeded(data));
+    } catch(error) {
+        yield put(actionConfirmResetPasswordFailed(error));
+    }
+}
+
 function* accountsSaga() {
     yield takeLatest(actionSigninRequested, signinSaga);
     yield takeLatest(actionSignupRequested, signupSaga);
+    yield takeLatest(actionConfirmSignupRequested, confirmSignupSaga);
+    yield takeLatest(actionResetPasswordRequested, resetPassword);
+    yield takeLatest(actionConfirmResetPasswordRequested, confirmResetPassword);
 }
 
 export default accountsSaga;

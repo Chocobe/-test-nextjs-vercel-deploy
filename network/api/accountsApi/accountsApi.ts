@@ -7,6 +7,8 @@ import {
     TResetPasswordApiResponse,
     TConfirmResetPasswordApiPayload,
     TConfirmResetPasswordApiResponse,
+    TConfirmSignupPayload,
+    TConfirmSignupResponse,
 } from './accountsApiTypes';
 import RestClient from '@/network/RestClient';
 import accountsApiUrlFactory from './accountsApiUrlFactory';
@@ -22,6 +24,13 @@ const accountsApi = {
     signup(payload: TSignupApiPayload) {
         return RestClient.post<TSignupApiResponse>(
             accountsApiUrlFactory.signupUrl(),
+            payload
+        );
+    },
+
+    confirmSignup(payload: TConfirmSignupPayload) {
+        return RestClient.post<TConfirmSignupResponse>(
+            accountsApiUrlFactory.confirmSignupUrl(),
             payload
         );
     },

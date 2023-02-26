@@ -10,10 +10,16 @@ import {
 import { 
     TSigninApiPayload, 
     TSigninApiResponse,
+
     TSignupApiPayload,
     TSignupApiResponse,
+
+    TConfirmSignupPayload,
+    TConfirmSignupResponse,
+
     TResetPasswordApiPayload,
     TResetPasswordApiResponse,
+
     TConfirmResetPasswordApiPayload,
     TConfirmResetPasswordApiResponse,
 } from '@/network/api/accountsApi/accountsApiTypes';
@@ -27,6 +33,11 @@ const initialState: TAccountsApiSliceState = {
         error: undefined,
     },
     signup: {
+        isLoading: false,
+        data: undefined,
+        error: undefined,
+    },
+    confirmSignup: {
         isLoading: false,
         data: undefined,
         error: undefined,
@@ -50,7 +61,7 @@ const accountsApiSlice = createSlice({
         // 
         // signin
         //
-        actionSigninReset(state: TAccountsApiSliceState) {
+        actionSigninReset(state) {
             state.signin = {
                 isLoading: false,
                 data: undefined,
@@ -58,7 +69,7 @@ const accountsApiSlice = createSlice({
             };
         },
         actionSigninRequested(
-            state: TAccountsApiSliceState, 
+            state, 
             _action: PayloadAction<TSigninApiPayload>
         ) {
             state.signin = {
@@ -68,7 +79,7 @@ const accountsApiSlice = createSlice({
             };
         },
         actionSigninSucceeded(
-            state: TAccountsApiSliceState,
+            state,
             action: PayloadAction<TSigninApiResponse>
         ) {
             state.signin = {
@@ -78,7 +89,7 @@ const accountsApiSlice = createSlice({
             };
         },
         actionSigninFailed(
-            state: TAccountsApiSliceState,
+            state,
             action: PayloadAction<any>
         ) {
             state.signin = {
@@ -91,7 +102,7 @@ const accountsApiSlice = createSlice({
         // 
         // signup
         // 
-        actionSignupReset(state: TAccountsApiSliceState) {
+        actionSignupReset(state) {
             state.signup = {
                 isLoading: false,
                 data: undefined,
@@ -99,7 +110,7 @@ const accountsApiSlice = createSlice({
             };
         },
         actionSignupRequested(
-            state: TAccountsApiSliceState,
+            state,
             _action: PayloadAction<TSignupApiPayload>
         ) {
             state.signup = {
@@ -109,7 +120,7 @@ const accountsApiSlice = createSlice({
             };
         },
         actionSignupSucceeded(
-            state: TAccountsApiSliceState,
+            state,
             action: PayloadAction<TSignupApiResponse>
         ) {
             state.signup = {
@@ -119,7 +130,7 @@ const accountsApiSlice = createSlice({
             };
         },
         actionSignupFailed(
-            state: TAccountsApiSliceState,
+            state,
             action: PayloadAction<any>
         ) {
             state.signup = {
@@ -130,9 +141,50 @@ const accountsApiSlice = createSlice({
         },
 
         //
+        // confirmSignup
+        //
+        actionConfirmSignupReset(state) {
+            state.confirmSignup = {
+                isLoading: false,
+                data: undefined,
+                error: undefined,
+            };
+        },
+        actionConfirmSignupRequested(
+            state,
+            _action: PayloadAction<TConfirmSignupPayload>
+        ) {
+            state.confirmSignup = {
+                isLoading: true,
+                data: null,
+                error: null,
+            };
+        },
+        actionConfirmSignupSucceeded(
+            state,
+            action: PayloadAction<TConfirmSignupResponse>
+        ) {
+            state.confirmSignup = {
+                isLoading: false,
+                data: action.payload,
+                error: null,
+            };
+        },
+        actionConfirmSignupFailed(
+            state,
+            action: PayloadAction<any>
+        ) {
+            state.confirmSignup = {
+                isLoading: false,
+                data: null,
+                error: action.payload,
+            };
+        },
+
+        //
         // resetPassword
         //
-        actionResetPasswordReset(state: TAccountsApiSliceState) {
+        actionResetPasswordReset(state) {
             state.resetPassword = {
                 isLoading: false,
                 data: undefined,
@@ -140,7 +192,7 @@ const accountsApiSlice = createSlice({
             };
         },
         actionResetPasswordRequested(
-            state: TAccountsApiSliceState,
+            state,
             _action: PayloadAction<TResetPasswordApiPayload>
         ) {
             state.resetPassword = {
@@ -150,7 +202,7 @@ const accountsApiSlice = createSlice({
             };
         },
         actionResetPasswordSucceeded(
-            state: TAccountsApiSliceState,
+            state,
             action: PayloadAction<TResetPasswordApiResponse>
         ) {
             state.resetPassword = {
@@ -160,7 +212,7 @@ const accountsApiSlice = createSlice({
             };
         },
         actionResetPasswordFailed(
-            state: TAccountsApiSliceState,
+            state,
             action: PayloadAction<any>
         ) {
             state.resetPassword = {
@@ -173,7 +225,7 @@ const accountsApiSlice = createSlice({
         //
         // confirmResetPassword
         //
-        actionConfirmResetPasswordReset(state: TAccountsApiSliceState) {
+        actionConfirmResetPasswordReset(state) {
             state.confirmResetPassword = {
                 isLoading: false,
                 data: undefined,
@@ -181,7 +233,7 @@ const accountsApiSlice = createSlice({
             };
         },
         actionConfirmResetPasswordRequested(
-            state: TAccountsApiSliceState,
+            state,
             _actions: PayloadAction<TConfirmResetPasswordApiPayload>
         ) {
             state.confirmResetPassword = {
@@ -191,7 +243,7 @@ const accountsApiSlice = createSlice({
             };
         },
         actionConfirmResetPasswordSucceeded(
-            state: TAccountsApiSliceState,
+            state,
             action: PayloadAction<TConfirmResetPasswordApiResponse>
         ) {
             state.confirmResetPassword = {
@@ -201,7 +253,7 @@ const accountsApiSlice = createSlice({
             };
         },
         actionConfirmResetPasswordFailed(
-            state: TAccountsApiSliceState,
+            state,
             action: PayloadAction<any>
         ) {
             state.confirmResetPassword = {
@@ -224,6 +276,11 @@ export const {
     actionSignupRequested,
     actionSignupSucceeded,
     actionSignupFailed,
+
+    actionConfirmSignupReset,
+    actionConfirmSignupRequested,
+    actionConfirmSignupSucceeded,
+    actionConfirmSignupFailed,
 
     actionResetPasswordReset,
     actionResetPasswordRequested,

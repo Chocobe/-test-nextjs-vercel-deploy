@@ -10,6 +10,10 @@ const accountsApiUrlFactory = (function() {
             return `${BASE_URL}/signup/`;
         },
 
+        confirmSignupUrl() {
+            return `${BASE_URL}/confirm-signup/`;
+        },
+
         resetPasswordUrl() {
             return `${BASE_URL}/reset-password/`;
         },

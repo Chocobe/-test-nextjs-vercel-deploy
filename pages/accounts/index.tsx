@@ -12,7 +12,9 @@ function AccountIndex() {
     const router = useRouter();
 
     useEffect(() => {
-        router.push(RoutePathFactory.accounts['/signin']());
+        if (router.isReady) {
+            router.push(RoutePathFactory.accounts['/signin']());
+        }
     }, [router]);
 }
 
