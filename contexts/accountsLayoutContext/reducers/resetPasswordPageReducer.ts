@@ -13,6 +13,9 @@ export type TResetPasswordPageState = {
     };
 };
 
+//
+// initialState
+//
 export const resetPasswordPageInitialState: TResetPasswordPageState = {
     resetPassword: {
         password: '',
@@ -20,15 +23,28 @@ export const resetPasswordPageInitialState: TResetPasswordPageState = {
     },
 };
 
-export const setPasswordToResetPasswordPage = createAction<string>(`${NAMESPACE}/setPassword`);
-export const setPasswordConfirmToResetPasswordPage = createAction<string>(`${NAMESPACE}/setPasswordConfirm`);
+//
+// action
+//
+export const resetResetPasswordContext = createAction(`${NAMESPACE}/reset`);
+export const setPasswordToResetPasswordContext = createAction<string>(`${NAMESPACE}/setPassword`);
+export const setPasswordConfirmToResetPasswordContext = createAction<string>(`${NAMESPACE}/setPasswordConfirm`);
 
+//
+// reducer
+//
 export const resetPasswordPageReducer = createReducer(resetPasswordPageInitialState, builder => {
     builder
-        .addCase(setPasswordToResetPasswordPage, (state, action: PayloadAction<string>) => {
+        .addCase(resetResetPasswordContext, state => {
+            state.resetPassword = {
+                password: '',
+                passwordConfirm: '',
+            };
+        })
+        .addCase(setPasswordToResetPasswordContext, (state, action: PayloadAction<string>) => {
             state.resetPassword.password = action.payload;
         })
-        .addCase(setPasswordConfirmToResetPasswordPage, (state, action: PayloadAction<string>) => {
+        .addCase(setPasswordConfirmToResetPasswordContext, (state, action: PayloadAction<string>) => {
             state.resetPassword.passwordConfirm = action.payload;
         });
 });
