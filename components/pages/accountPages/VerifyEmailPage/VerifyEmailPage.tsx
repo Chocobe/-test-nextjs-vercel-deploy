@@ -8,6 +8,9 @@ import {
     useRouter,
 } from 'next/router';
 import Link from 'next/link';
+import { 
+    RoutePathFactory
+} from '@/router/RoutePathFactory';
 // UI components
 import AccountPageHeader from '../AccountPageHeader/AccountPageHeader';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
@@ -17,10 +20,6 @@ import styled from 'styled-components';
 import {
     useTranslation,
 } from 'react-i18next';
-
-import { 
-    RoutePathFactory
-} from '@/router/RoutePathFactory';
 
 const StyledVerifyEmailPageRoot = styled.div`
     //
@@ -50,11 +49,11 @@ function VerifyEmailPage() {
     //
     // cache
     //
-    const routePathOfSignin = useMemo(() => {
+    const pathOfSigninPage = useMemo(() => {
         return RoutePathFactory.accounts['/signin']();
     }, []);
 
-    const routePathOfSendVerificationEmail = useMemo(() => {
+    const pathOfRequestVerifyEmailPage = useMemo(() => {
         return RoutePathFactory.accounts['/request-verify-email']();
     }, []);
 
@@ -67,15 +66,15 @@ function VerifyEmailPage() {
     //
     // callback
     //
-    const onClickSignin = useCallback(() => {
-        router.push(routePathOfSignin);
-    }, [router, routePathOfSignin]);
+    const moveToSigninPage = useCallback(() => {
+        router.replace(pathOfRequestVerifyEmailPage);
+    }, [router, pathOfRequestVerifyEmailPage]);
 
     return (
         <StyledVerifyEmailPageRoot>
             <AccountPageHeader
                 linkText={i18next.t('/accounts/verify-email/HEADER__LINK')}
-                linkHref={routePathOfSignin}>
+                linkHref={pathOfSigninPage}>
                 {i18next.t('/accounts/verify-email/HEADER__TITLE')}
             </AccountPageHeader>
 
@@ -89,7 +88,7 @@ function VerifyEmailPage() {
                 <div className="message">
                     {i18next.t('/accounts/verify-email/BODY__HELP_MESSAGE__PREFIX')}
                     <Link
-                        href={routePathOfSendVerificationEmail}
+                        href={pathOfRequestVerifyEmailPage}
                         passHref
                         legacyBehavior>
                         <a className="linkMessage">
@@ -102,7 +101,7 @@ function VerifyEmailPage() {
 
             <div className="actionWrapper">
                 <LabelrButton
-                    onClick={onClickSignin}
+                    onClick={moveToSigninPage}
                     fluid>
                     {i18next.t('/accounts/verify-email/BODY__SIGNIN_BUTTON')}
                 </LabelrButton>
