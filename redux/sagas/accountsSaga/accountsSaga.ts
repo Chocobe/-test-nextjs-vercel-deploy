@@ -101,7 +101,7 @@ function* confirmSignupSaga(
     }
 }
 
-function* resetPassword(
+function* resetPasswordSaga(
     action: PayloadAction<TResetPasswordApiPayload>
 ): TSagaGenerator<TResetPasswordApiResponse> {
     try {
@@ -118,7 +118,7 @@ function* resetPassword(
     }
 }
 
-function* confirmResetPassword(
+function* confirmResetPasswordSaga(
     action: PayloadAction<TConfirmResetPasswordApiPayload>
 ): TSagaGenerator<TConfirmResetPasswordApiResponse> {
     try {
@@ -139,8 +139,8 @@ function* accountsSaga() {
     yield takeLatest(actionSigninRequested, signinSaga);
     yield takeLatest(actionSignupRequested, signupSaga);
     yield takeLatest(actionConfirmSignupRequested, confirmSignupSaga);
-    yield takeLatest(actionResetPasswordRequested, resetPassword);
-    yield takeLatest(actionConfirmResetPasswordRequested, confirmResetPassword);
+    yield takeLatest(actionResetPasswordRequested, resetPasswordSaga);
+    yield takeLatest(actionConfirmResetPasswordRequested, confirmResetPasswordSaga);
 }
 
 export default accountsSaga;
