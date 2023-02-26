@@ -3,22 +3,27 @@ import {
     useState,
     useMemo,
     useCallback,
-    // useEffect,
+    useEffect,
     useContext,
     ChangeEvent,
 } from 'react';
-// redux
-// import {
-//     useAppSelector,
-//     useAppDispatch,
-// } from '@/redux/hooks';
+// nextjs
+import {
+    useRouter,
+} from 'next/router';
+// context
 import {
     AccountsLayoutContextDispatch,
     AccountsLayoutContextState,
 } from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import { 
-    setEmailToRequestVerifyEmailPage,
+    setEmailToRequestVerifyEmailContext,
+    resetRequestVerifyEmailContext,
 } from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailPageReducer';
+// type
+import { 
+    requestVerifyEmailTypeMapper,
+} from './requestVerifyEmailPageTypes';
 // styled-components
 import styled from 'styled-components';
 // UI components
@@ -33,6 +38,9 @@ import {
 import {
     RoutePathFactory
 } from '@/router/RoutePathFactory';
+import { useLabelrSnackbar } from '@/components/ui/LabelrSnackbar/hooks/useLabelrSnackbar';
+// import useAppSelector from '@/redux/hooks/useAppSelector';
+import useAppDispatch from '@/redux/hooks/useAppDispatch';
 
 const StyledRequestVerifyEmailPageRoot = styled.div`
     .message {
@@ -65,6 +73,25 @@ function RequestVerifyEmailPage() {
         return state.requestVerifyEmail.email;
     }, [state.requestVerifyEmail.email]);
 
+    const requestVerifyEmailType = useMemo(() => {
+        return state.requestVerifyEmail.type!;
+    }, [state]);
+
+    //
+    // api state
+    //
+    // const resetPasswordApiState = useAppSelector(({ accountsApi }) => {
+    //     return accountsApi.resetPassword;
+    // });
+
+    // const resetPasswordApiData = useMemo(() => {
+    //     return resetPasswordApiState.data;
+    // }, [resetPasswordApiState]);
+
+    // const resetPasswordApiError = useMemo(() => {
+    //     return resetPasswordApiState.error;
+    // }, [resetPasswordApiState]);
+
     //
     // state
     //
@@ -73,7 +100,12 @@ function RequestVerifyEmailPage() {
     //
     // hook
     //
+    const dispatch = useAppDispatch();
     const i18next = useTranslation();
+    const router = useRouter();
+    const {
+        openLabelrSnackbar,
+    } = useLabelrSnackbar();
 
     //
     // cache
@@ -81,6 +113,7 @@ function RequestVerifyEmailPage() {
     const title = useMemo(() => {
         return i18next.t('/accounts/request-verify-email/HEADER__TITLE__RESULT');
 
+        // TODO: ExpiredVerifyEmailPage 만들기
         // return hasExpired
         //     ? i18next.t('/accounts/request-verify-email/HEADER__TITLE__EXPIRED')
         //     : i18next.t('/accounts/request-verify-email/HEADER__TITLE__RESULT');
@@ -91,7 +124,7 @@ function RequestVerifyEmailPage() {
     // callback
     //
     const onChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setEmailToRequestVerifyEmailPage(e.currentTarget.value));
+        dispatchContext(setEmailToRequestVerifyEmailContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onIsValidEmail = useCallback((isValidEmail: boolean) => {
@@ -99,8 +132,42 @@ function RequestVerifyEmailPage() {
     }, []);
 
     const onClickSubmit = useCallback(() => {
-        console.log('인증 메일 재전송 API 요청');
-    }, []);
+        console.log('인증 메일 재전송 API 요청 - Signup 에 대한 메일 재전송 API 없음');
+        const typeInfo = requestVerifyEmailTypeMapper[requestVerifyEmailType];
+
+        // FIXME: Signup 에 대한 인증 메일 재전송 API 추가 시, 분기문 삭제하기
+        if (!typeInfo?.action) {
+            openLabelrSnackbar({
+                content: 'Signup 에 대한 인증 메일 재전송 API 미구현 상태'
+            });
+
+            router.replace(RoutePathFactory.accounts['/signin']());
+        }
+
+        dispatch(typeInfo.action({} as any));
+    }, [
+        requestVerifyEmailType, router, 
+        openLabelrSnackbar, dispatch, 
+    ]);
+
+    //
+    // effect
+    //
+    useEffect(function checkInvalidAccess() {
+        if (router.isReady && !requestVerifyEmailType) {
+            router.replace(RoutePathFactory.accounts['/signin']());
+        }
+    }, [router, requestVerifyEmailType]);
+
+    useEffect(function resetSlices() {
+        return () => {
+            dispatchContext(resetRequestVerifyEmailContext());
+        };
+    }, [dispatchContext]);
+
+    if (!requestVerifyEmailType) {
+        return null;
+    }
 
     return (
         <StyledRequestVerifyEmailPageRoot>

@@ -3,12 +3,16 @@ import {
     createReducer,
     PayloadAction,
 } from '@reduxjs/toolkit';
+import { 
+    TRequestVerifyEmailType,
+} from '@/components/pages/accountPages/RequestVerifyEmailPage/requestVerifyEmailPageTypes';
 
 const NAMESPACE = 'requestVerifyEmailPage';
 
 export type TRequestVerifyEmailPageState = {
     requestVerifyEmail: {
         email: string;
+        type?: TRequestVerifyEmailType;
     };
 };
 
@@ -18,22 +22,32 @@ export type TRequestVerifyEmailPageState = {
 export const requestVerifyEmailPageInitialState: TRequestVerifyEmailPageState = {
     requestVerifyEmail: {
         email: '',
+        type: undefined,
     },
 };
 
 //
 // actions
 //
-export const setEmailToRequestVerifyEmailPage = createAction<string>(`${NAMESPACE}/setEmail`);
-// FIXME: 지우기
-export const setHasExpiredToResultVerifyEmailPage = createAction<boolean>(`${NAMESPACE}/sethasExpired`);
+export const resetRequestVerifyEmailContext = createAction<void>(`${NAMESPACE}/reset`);
+export const setEmailToRequestVerifyEmailContext = createAction<string>(`${NAMESPACE}/setEmail`);
+export const setTypeToRequestVerifyEmailContext = createAction<TRequestVerifyEmailType>(`${NAMESPACE}/setType`);
 
 //
 // reducer
 //
 export const requestVerifyEmailPageReducer = createReducer(requestVerifyEmailPageInitialState, builder => {
     builder
-        .addCase(setEmailToRequestVerifyEmailPage, (state, action: PayloadAction<string>) => {
+        .addCase(resetRequestVerifyEmailContext, state => {
+            state.requestVerifyEmail = {
+                email: '',
+                type: undefined,
+            };
+        })
+        .addCase(setEmailToRequestVerifyEmailContext, (state, action: PayloadAction<string>) => {
             state.requestVerifyEmail.email = action.payload;
+        })
+        .addCase(setTypeToRequestVerifyEmailContext, (state, action: PayloadAction<TRequestVerifyEmailType>) => {
+            state.requestVerifyEmail.type = action.payload;
         });
 });
