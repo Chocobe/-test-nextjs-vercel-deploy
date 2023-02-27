@@ -5,6 +5,7 @@ import {
     useCallback,
     useContext,
     ChangeEvent,
+    useEffect,
 } from 'react';
 // nextjs
 import Link from 'next/link';
@@ -13,14 +14,33 @@ import {
 } from 'next/router';
 // redux
 import {
+    useAppSelector,
+    useAppDispatch,
+} from 'redux/hooks';
+import { 
+    actionReset_Signup,
+    actionRequested_Signup,
+} from '@/redux/slices/apiSlices/accountsApiSlice/accountsApiSlice';
+import {
+    useApiResponseHandler,
+} from 'redux/hooks';
+// context
+import {
     AccountsLayoutContextState,
     AccountsLayoutContextDispatch,
 } from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import { 
-    setEmailToSignupPage,
-    setPasswordToSignupPage,
-    setPasswordConfirmToSignupPage,
-} from '@/contexts/accountsLayoutContext/reducers/signupPageReducer';
+    reset_SignupContext,
+    setEmail_SignupContext,
+    setPassword_SignupContext,
+    setPasswordConfirm_SignupContext,
+} from '@/contexts/accountsLayoutContext/reducers/signupContextReducer';
+import { 
+    setType_RequestVerifyEmailContext,
+} from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailContextReducer';
+import { 
+    requestVerifyEmailType,
+} from '../RequestVerifyEmailPage/requestVerifyEmailPageTypes';
 import {
     RoutePathFactory,
 } from '@/router/RoutePathFactory';
@@ -39,6 +59,9 @@ import LabelrInputEmail from '@/components/ui/LabelrInputEmail/LabelrInputEmail'
 import LabelrInputPassword from '@/components/ui/LabelrInputPassword/LabelrInputPassword';
 import LabelrInputConfirm from '@/components/ui/LabelrInputConfirm/LabelrInputConfirm';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
+import { 
+    useLabelrSnackbar,
+} from '@/components/ui/LabelrSnackbar/hooks/useLabelrSnackbar';
 // i18n
 import {
     useTranslation,
@@ -91,20 +114,25 @@ function SignupPage() {
     //
     // context
     //
-    const dispatchContext = useContext(AccountsLayoutContextDispatch)!;
+    const dispatchContext = useContext(AccountsLayoutContextDispatch);
     const state = useContext(AccountsLayoutContextState);
 
     const email = useMemo(() => {
-        return state?.signupPage.email || '';
-    }, [state?.signupPage.email]);
+        return state.signup.email;
+    }, [state.signup.email]);
 
     const password = useMemo(() => {
-        return state?.signupPage.password || '';
-    }, [state?.signupPage.password]);
+        return state.signup.password;
+    }, [state.signup.password]);
 
     const passwordConfirm = useMemo(() => {
-        return state?.signupPage.passwordConfirm || '';
-    }, [state?.signupPage.passwordConfirm]);
+        return state.signup.passwordConfirm;
+    }, [state.signup.passwordConfirm]);
+
+    //
+    // api state
+    //
+    const signupApiState = useAppSelector(({ accountsApi }) => accountsApi.signup);
 
     //
     // state
@@ -118,15 +146,19 @@ function SignupPage() {
     //
     // hook
     //
+    const dispatch = useAppDispatch();
     const router = useRouter();
     const theme = useTheme();
     const i18next = useTranslation();
+    const {
+        openLabelrSnackbar,
+    } = useLabelrSnackbar();
 
     //
     // cache
     //
     const routePathForSignin = useMemo(() => {
-        return RoutePathFactory.account['/signin']();
+        return RoutePathFactory.accounts['/signin']();
     }, []);
 
     const isValidInputValues = useMemo(() => {
@@ -139,15 +171,15 @@ function SignupPage() {
     // callback
     //
     const onChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setEmailToSignupPage(e.currentTarget.value));
+        dispatchContext(setEmail_SignupContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onChangePassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setPasswordToSignupPage(e.currentTarget.value));
+        dispatchContext(setPassword_SignupContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onChangePasswordConfirm = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setPasswordConfirmToSignupPage(e.currentTarget.value));
+        dispatchContext(setPasswordConfirm_SignupContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onIsValidEmail = useCallback((isValidEmail: boolean) => {
@@ -172,10 +204,12 @@ function SignupPage() {
     }, []);
 
     const onClickSignup = useCallback(() => {
-        // TODO: API 응답 결과 => 성공 시
-        // TODO: => (임시) verifyEmail 페이지로 이동
-        router.push(RoutePathFactory.account['/verify-email']());
-    }, [router]);
+        dispatch(actionRequested_Signup({
+            email,
+            password,
+            password2: passwordConfirm,
+        }));
+    }, [email, password, passwordConfirm, dispatch]);
 
     const onClickGoogleSignup = useCallback(() => {
         console.log('Google Signup 버튼 클릭');
@@ -185,14 +219,53 @@ function SignupPage() {
         console.log('Apple Signup 버튼 클릭');
     }, []);
 
+    //
+    // api handler
+    //
+    useApiResponseHandler({
+        apiState: signupApiState,
+        onSucceeded: {
+            callback() {
+                if (router.isReady) {
+                    dispatchContext(setType_RequestVerifyEmailContext(
+                        requestVerifyEmailType.SIGNUP
+                    ));
+    
+                    router.replace(RoutePathFactory.accounts['/verify-email']());
+                }
+            },
+            deps: [router],
+        },
+        onFailed(error) {
+            const errorData = error?.errorData;
+
+            openLabelrSnackbar({
+                type: 'danger',
+                content: errorData?.detail,
+            });
+
+            dispatch(actionReset_Signup());
+        },
+    });
+
+    //
+    // effect
+    //
+    useEffect(function resetState() {
+        return () => {
+            dispatch(actionReset_Signup());
+            dispatchContext(reset_SignupContext());
+        };
+    }, [dispatch, dispatchContext]);
+
     return (
         <StyledSignupPageRoot>
             {/* Header */}
             <AccountPageHeader
-                message={i18next.t('/account/signup/HEADER__MESSAGE')}
-                linkText={i18next.t('/account/signup/HEADER__LINK')}
+                message={i18next.t('/accounts/signup/HEADER__MESSAGE')}
+                linkText={i18next.t('/accounts/signup/HEADER__LINK')}
                 linkHref={routePathForSignin}>
-                {i18next.t('/account/signup/HEADER__TITLE')}
+                {i18next.t('/accounts/signup/HEADER__TITLE')}
             </AccountPageHeader>
 
             {/* Body */}
@@ -202,7 +275,7 @@ function SignupPage() {
                         value={email}
                         onChange={onChangeEmail}
                         onIsValid={onIsValidEmail}
-                        placeholder={i18next.t('/account/signup/BODY__INPUT_EMAIL__PLACEHOLDER')}
+                        placeholder={i18next.t('/accounts/signup/BODY__INPUT_EMAIL__PLACEHOLDER')}
                         fluid
                         autofocus />
 
@@ -210,7 +283,7 @@ function SignupPage() {
                         value={password}
                         onChange={onChangePassword}
                         onIsValid={onIsValidPassword}
-                        placeholder={i18next.t('/account/signup/BODY__INPUT_PASSWORD__PLACEHOLDER')}
+                        placeholder={i18next.t('/accounts/signup/BODY__INPUT_PASSWORD__PLACEHOLDER')}
                         fluid />
 
                     <LabelrInputConfirm
@@ -218,8 +291,8 @@ function SignupPage() {
                         targetValue={password}
                         onChange={onChangePasswordConfirm}
                         onIsValid={onIsValidPasswordConfirm}
-                        invalidMessage={i18next.t('/account/signup/BODY__INPUT_PASSWORD_CONFIRM__INVALID_MESSAGE')}
-                        placeholder={i18next.t('/account/signup/BODY__INPUT_PASSWORD_CONFIRM__PLACEHOLDER')}
+                        invalidMessage={i18next.t('/accounts/signup/BODY__INPUT_PASSWORD_CONFIRM__INVALID_MESSAGE')}
+                        placeholder={i18next.t('/accounts/signup/BODY__INPUT_PASSWORD_CONFIRM__PLACEHOLDER')}
                         fluid
                         isEnableMasking />
 
@@ -227,25 +300,25 @@ function SignupPage() {
                         fluid
                         isDisabled={!isValidInputValues}
                         onClick={onClickSignup}>
-                        {i18next.t('/account/signup/BODY__SIGNUP_BUTTON')}
+                        {i18next.t('/accounts/signup/BODY__SIGNUP_BUTTON')}
                     </LabelrButton>
                 </div>
 
                 <div className="noticeMessage">
-                    <span dangerouslySetInnerHTML={{ __html: i18next.t('/account/signup/BODY__NOTICE_MESSAGE', {
+                    <span dangerouslySetInnerHTML={{ __html: i18next.t('/accounts/signup/BODY__NOTICE_MESSAGE', {
                         accentTagStart: `<span style="color: ${theme.colors.indigo[500]}">`,
                         accentTagEnd: '</span>',
                     })}} />
                 </div>
 
                 <div className="questionMessage">
-                    {i18next.t('/account/signup/BODY__SIGNIN_LEADING_MESSAGE')}
+                    {i18next.t('/accounts/signup/BODY__SIGNIN_LEADING_MESSAGE')}
                     <Link
                         passHref
                         legacyBehavior
                         href={routePathForSignin}>
                         <a className="questionMessage-link">
-                            {i18next.t('/account/signup/BODY__BUTTON')}
+                            {i18next.t('/accounts/signup/BODY__BUTTON')}
                         </a>
                     </Link>
                 </div>

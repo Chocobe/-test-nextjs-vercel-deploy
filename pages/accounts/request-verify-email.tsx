@@ -3,18 +3,18 @@ import {
     ReactElement,
 } from 'react';
 // page
-import ResultVerifyEmailPage from '@/components/pages/accountPages/ResultVerifyEmailPage/ResultVerifyEmailPage';
+import RequestVerifyEmailPage from '@/components/pages/accountPages/RequestVerifyEmailPage/RequestVerifyEmailPage';
 // layouts
 import AccountsLayout from '@/layouts/uiLayouts/AccountsLayout/AccountsLayout';
 import NoneAuthRouteGuard from '@/layouts/routeGuardLayouts/NoneAuthRouteGuard';
 
-function ResultVerifyEmail() {
+function RequestVerifyEmail() {
     return (
-        <ResultVerifyEmailPage />
+        <RequestVerifyEmailPage />
     );
 }
 
-ResultVerifyEmail.getLayout = (page: ReactElement) => {
+RequestVerifyEmail.getLayout = (page: ReactElement) => {
     return (
         <AccountsLayout>
             <NoneAuthRouteGuard>
@@ -24,4 +24,4 @@ ResultVerifyEmail.getLayout = (page: ReactElement) => {
     );
 };
 
-export default ResultVerifyEmail;
+export default RequestVerifyEmail;

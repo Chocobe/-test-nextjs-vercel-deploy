@@ -2,22 +2,15 @@
 import {
     useMemo,
     useCallback,
-    useContext,
-    useEffect,
 } from 'react';
 // nextjs
 import {
     useRouter,
 } from 'next/router';
 import Link from 'next/link';
-// context
-import {
-    AccountsLayoutContextDispatch,
-    AccountsLayoutContextState,
-} from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import { 
-    setHasExpiredToResultVerifyEmailPage
-} from '@/contexts/accountsLayoutContext/reducers/resultVerifyEmailPageReducer';
+    RoutePathFactory
+} from '@/router/RoutePathFactory';
 // UI components
 import AccountPageHeader from '../AccountPageHeader/AccountPageHeader';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
@@ -27,10 +20,6 @@ import styled from 'styled-components';
 import {
     useTranslation,
 } from 'react-i18next';
-
-import { 
-    RoutePathFactory
-} from '@/router/RoutePathFactory';
 
 const StyledVerifyEmailPageRoot = styled.div`
     //
@@ -58,24 +47,14 @@ const StyledVerifyEmailPageRoot = styled.div`
 
 function VerifyEmailPage() {
     //
-    // context
-    //
-    const dispatchContext = useContext(AccountsLayoutContextDispatch)!;
-    const state = useContext(AccountsLayoutContextState)!;
-
-    const expirationTime = useMemo(() => {
-        return state.resultVerifyEmail.expirationTime;
-    }, [state]);
-
-    //
     // cache
     //
-    const routePathOfSignin = useMemo(() => {
-        return RoutePathFactory.account['/signin']();
+    const pathOfSigninPage = useMemo(() => {
+        return RoutePathFactory.accounts['/signin']();
     }, []);
 
-    const routePathOfSendVerificationEmail = useMemo(() => {
-        return RoutePathFactory.account['/result-verify-email']();
+    const pathOfRequestVerifyEmailPage = useMemo(() => {
+        return RoutePathFactory.accounts['/request-verify-email']();
     }, []);
 
     //
@@ -87,58 +66,44 @@ function VerifyEmailPage() {
     //
     // callback
     //
-    const onClickSignin = useCallback(() => {
-        router.push(routePathOfSignin);
-    }, [router, routePathOfSignin]);
-
-    //
-    // effect
-    //
-    useEffect(() => {
-        const timeoutId = setTimeout(() => {
-            dispatchContext(setHasExpiredToResultVerifyEmailPage(true));
-            router.replace(RoutePathFactory.account['/result-verify-email']());
-        }, expirationTime);
-
-        return () => {
-            clearTimeout(timeoutId);
-        };
-    }, [expirationTime, dispatchContext, router]);
+    const moveToSigninPage = useCallback(() => {
+        router.replace(pathOfSigninPage);
+    }, [router, pathOfSigninPage]);
 
     return (
         <StyledVerifyEmailPageRoot>
             <AccountPageHeader
-                linkText={i18next.t('/account/verify-email/HEADER__LINK')}
-                linkHref={routePathOfSignin}>
-                {i18next.t('/account/verify-email/HEADER__TITLE')}
+                linkText={i18next.t('/accounts/verify-email/HEADER__LINK')}
+                linkHref={pathOfSigninPage}>
+                {i18next.t('/accounts/verify-email/HEADER__TITLE')}
             </AccountPageHeader>
 
             <div className="messageWrapper">
                 <div className="message">
-                    {i18next.t('/account/verify-email/BODY__NOTICE_MESSAGE')}
+                    {i18next.t('/accounts/verify-email/BODY__NOTICE_MESSAGE')}
                 </div>
 
                 <br />
 
                 <div className="message">
-                    {i18next.t('/account/verify-email/BODY__HELP_MESSAGE__PREFIX')}
+                    {i18next.t('/accounts/verify-email/BODY__HELP_MESSAGE__PREFIX')}
                     <Link
-                        href={routePathOfSendVerificationEmail}
+                        href={pathOfRequestVerifyEmailPage}
                         passHref
                         legacyBehavior>
                         <a className="linkMessage">
-                            &nbsp;{i18next.t('/account/verify-email/BODY__HELP_MESSAGE__LINK')}
+                            &nbsp;{i18next.t('/accounts/verify-email/BODY__HELP_MESSAGE__LINK')}
                         </a>
                     </Link>
-                    {i18next.t('/account/verify-email/BODY__HELP_MESSAGE__POSTFIX')}
+                    {i18next.t('/accounts/verify-email/BODY__HELP_MESSAGE__POSTFIX')}
                 </div>
             </div>
 
             <div className="actionWrapper">
                 <LabelrButton
-                    onClick={onClickSignin}
+                    onClick={moveToSigninPage}
                     fluid>
-                    {i18next.t('/account/verify-email/BODY__SIGNIN_BUTTON')}
+                    {i18next.t('/accounts/verify-email/BODY__SIGNIN_BUTTON')}
                 </LabelrButton>
             </div>
         </StyledVerifyEmailPageRoot>

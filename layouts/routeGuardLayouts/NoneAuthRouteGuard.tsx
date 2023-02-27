@@ -2,25 +2,40 @@
 import {
     useCallback,
 } from 'react';
+// redux
+import {
+    useAppSelector,
+} from '@/redux/hooks';
 // UI Components
 import RouteGuardTemplate, {
     TRouteGuardProps,
 } from './RouteGuardTemplate';
+import { 
+    RoutePathFactory,
+} from '@/router/RoutePathFactory';
 
 function NoneAuthRouteGuard(props: TRouteGuardProps) {
     const {
-        redirectUrlWhenInvalidRoute,
+        redirectUrlWhenInvalidRoute = RoutePathFactory.console['/'](),
         children,
     } = props;
 
-    // const [randomValue] = useState(Math.floor(Math.random() * 10));
+    //
+    // api state
+    //
+    const signinApiData = useAppSelector(({ accountsApi }) => accountsApi.signin.data!);
 
-    // FIXME: 로그인 기능 구현 후, slice 에서 로그인 정보로 검사하기
+    //
+    // callback
+    //
     const onCheckIsRouteValid = useCallback(() => {
-        // return randomValue > 4;
-        return true;
-    // }, [randomValue]);
-    }, []);
+        const {
+            accessToken,
+            refreshToken,
+        } = signinApiData ?? {};
+
+        return !accessToken && !refreshToken;
+    }, [signinApiData]);
 
     return (
         <RouteGuardTemplate 

@@ -14,7 +14,9 @@ function ConsoleIndex() {
     const router = useRouter();
 
     useEffect(() => {
-        router.push(RoutePathFactory.console['/ewf']());
+        if (router.isReady) {
+            router.replace(RoutePathFactory.console['/ewf']());
+        }
     }, [router]);
 }
 

@@ -4,25 +4,41 @@ import {
     useMemo,
     useCallback,
     useContext,
+    useEffect,
     ChangeEvent,
 } from 'react';
 // nextjs
 import {
     useRouter,
 } from 'next/router';
+import { 
+    RoutePathFactory
+} from '@/router/RoutePathFactory';
 // redux
-// import {
-//     useAppSelector,
-//     useAppDispatch,
-// } from '@/redux/hooks';
+import {
+    useAppSelector,
+    useAppDispatch,
+} from '@/redux/hooks';
+import { 
+    actionRequested_ConfirmResetPassword, 
+    actionReset_ConfirmResetPassword,
+} from '@/redux/slices/apiSlices/accountsApiSlice/accountsApiSlice';
+import {
+    useApiResponseHandler,
+} from '@/redux/hooks';
+// context
 import {
     AccountsLayoutContextDispatch,
     AccountsLayoutContextState,
 } from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import {
-    setPasswordToResetPasswordPage,
-    setPasswordConfirmToResetPasswordPage,
-} from '@/contexts/accountsLayoutContext/reducers/resetPasswordPageReducer';
+    reset_ResetPasswordContext,
+    setPassword_ResetPasswordContext,
+    setPasswordConfirm_ResetPasswordContext,
+} from '@/contexts/accountsLayoutContext/reducers/resetPasswordContextReducer';
+import { 
+    setHasExpired_RequestVerifyEmailContext, 
+} from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailContextReducer';
 // styled-components
 import styled from 'styled-components';
 // UI components
@@ -37,10 +53,10 @@ import {
 import {
     useTranslation,
 } from 'react-i18next';
-
+// type
 import { 
-    RoutePathFactory
-} from '@/router/RoutePathFactory';
+    TRequestVerifyEmailType
+} from '../RequestVerifyEmailPage/requestVerifyEmailPageTypes';
 
 const StyledResetPasswordPageRoot = styled.div`
     //
@@ -68,8 +84,8 @@ function ResetPasswordPage() {
     //
     // context
     //
-    const dispatchContext = useContext(AccountsLayoutContextDispatch)!;
-    const state = useContext(AccountsLayoutContextState)!;
+    const dispatchContext = useContext(AccountsLayoutContextDispatch);
+    const state = useContext(AccountsLayoutContextState);
 
     const password = useMemo(() => {
         return state.resetPassword.password;
@@ -80,12 +96,29 @@ function ResetPasswordPage() {
     }, [state.resetPassword.passwordConfirm]);
 
     //
+    // api state
+    //
+    const confirmResetPasswordApiState = useAppSelector(({ accountsApi }) => {
+        return accountsApi.confirmResetPassword;
+    });
+
+    //
     // state
     //
     const [validationState, setValidationState] = useState({
         isValidPassword: false,
         isValidPasswordConfirm: false,
     });
+
+    //
+    // hook
+    //
+    const dispatch = useAppDispatch();
+    const i18next = useTranslation();
+    const router = useRouter();
+    const {
+        openLabelrSnackbar,
+    } = useLabelrSnackbar();
 
     //
     // cache
@@ -96,26 +129,23 @@ function ResetPasswordPage() {
             .every(isValid => isValid);
     }, [validationState]);
 
-    //
-    // hook
-    //
-    const router = useRouter();
-    const {
-        openLabelrSnackbar,
-    } = useLabelrSnackbar();
-    const {
-        t,
-    } = useTranslation();
+    const email = useMemo(() => {
+        return router.query.email as string;
+    }, [router]);
+
+    const code = useMemo(() => {
+        return router.query.code as TRequestVerifyEmailType;
+    }, [router]);
 
     //
     // callback
     //
     const onChangePassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setPasswordToResetPasswordPage(e.currentTarget.value));
+        dispatchContext(setPassword_ResetPasswordContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onChangePasswordConfirm = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setPasswordConfirmToResetPasswordPage(e.currentTarget.value));
+        dispatchContext(setPasswordConfirm_ResetPasswordContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onIsValidPassword = useCallback((isValidPassword: boolean) => {
@@ -133,26 +163,69 @@ function ResetPasswordPage() {
     }, []);
 
     const onClickSubmit = useCallback(() => {
-        openLabelrSnackbar({
-            content: t('/account/reset-password/SUBMIT__SNACKBAR_MESSAGE'),
-        });
+        dispatch(actionRequested_ConfirmResetPassword({
+            code,
+            email,
+            password,
+            password2: passwordConfirm,
+        }));
+    }, [
+        code, email, password, 
+        passwordConfirm, dispatch,
+    ]);
 
-        // TODO: API 응답 결과 => 성공 시
-        // TODO: => Snackbar 보여주기
-        // TODO: signin 페이지로 이동
-        router.push(RoutePathFactory.account['/signin']());
-    }, [router, openLabelrSnackbar, t]);
+    //
+    // api handler
+    //
+    useApiResponseHandler({
+        apiState: confirmResetPasswordApiState,
+        onSucceeded: {
+            callback() {
+                if (router.isReady) {
+                    openLabelrSnackbar({
+                        type: 'safe',
+                        content: i18next.t('/accounts/reset-password/SNACKBAR__CONFIRM_RESET_PASSWORD__MESSAGE'),
+                    });
+
+                    router.replace(RoutePathFactory.accounts['/signin']());
+                }
+            },
+            deps: [router],
+        },
+        onFailed: {
+            callback(error) {
+                openLabelrSnackbar({
+                    type: 'danger',
+                    content: error.errorData.detail,
+                });
+
+                dispatchContext(setHasExpired_RequestVerifyEmailContext(true));
+                router.replace(RoutePathFactory.accounts['/request-verify-email']());
+            },
+            deps: [router],
+        },
+    });
+
+    //
+    // effect
+    //
+    useEffect(function resetSlices() {
+        return () => {
+            dispatch(actionReset_ConfirmResetPassword());
+            dispatchContext(reset_ResetPasswordContext());
+        };
+    }, [dispatch, dispatchContext]);
 
     return (
         <StyledResetPasswordPageRoot>
             <AccountPageHeader
-                linkText={t('/account/reset-password/HEADER__LINK')}
-                linkHref={RoutePathFactory.account['/signin']()}>
-                {t('/account/reset-password/HEADER__TITLE')}
+                linkText={i18next.t('/accounts/reset-password/HEADER__LINK')}
+                linkHref={RoutePathFactory.accounts['/signin']()}>
+                {i18next.t('/accounts/reset-password/HEADER__TITLE')}
             </AccountPageHeader>
 
             <div className="message">
-                {t('/account/reset-password/BODY__MESSAGE')}
+                {i18next.t('/accounts/reset-password/BODY__MESSAGE')}
             </div>
 
             <div className="formWrapper">
@@ -160,7 +233,7 @@ function ResetPasswordPage() {
                     value={password}
                     onChange={onChangePassword}
                     onIsValid={onIsValidPassword}
-                    placeholder={t('/account/reset-password/BODY__INPUT_EMAIL__PLACEHOLDER')}
+                    placeholder={i18next.t('/accounts/reset-password/BODY__INPUT_EMAIL__PLACEHOLDER')}
                     autofocus
                     fluid />
 
@@ -169,8 +242,8 @@ function ResetPasswordPage() {
                     targetValue={password}
                     onChange={onChangePasswordConfirm}
                     onIsValid={onIsValidPasswordConfirm}
-                    invalidMessage={t('/account/reset-password/BODY__INPUT_CONFIRM__INVALID_MESSAGE')}
-                    placeholder={t('/account/reset-password/BODY__INPUT_CONFIRM__PLACEHOLDER')}
+                    invalidMessage={i18next.t('/accounts/reset-password/BODY__INPUT_CONFIRM__INVALID_MESSAGE')}
+                    placeholder={i18next.t('/accounts/reset-password/BODY__INPUT_CONFIRM__PLACEHOLDER')}
                     isEnableMasking
                     fluid />
 
@@ -178,7 +251,7 @@ function ResetPasswordPage() {
                     onClick={onClickSubmit}
                     isDisabled={!isValidInputValues}
                     fluid>
-                    {t('/account/reset-password/BODY__SUBMIT_BUTTON')}
+                    {i18next.t('/accounts/reset-password/BODY__SUBMIT_BUTTON')}
                 </LabelrButton>
             </div>
         </StyledResetPasswordPageRoot>

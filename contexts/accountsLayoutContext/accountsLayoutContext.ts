@@ -1,50 +1,63 @@
+// react
 import { 
     createContext, 
-    Dispatch
+    Dispatch,
 } from 'react';
-import {
-    combineLabelrReducers,
-} from '@/utils';
+// reducer
 import { 
     PayloadAction
 } from '@reduxjs/toolkit';
+import {
+    combineLabelrReducers,
+} from '@/utils';
 // reducer
 import {
-    signinPageInitialState,
-    signinPageReducer,
-} from './reducers/signinPageReducer';
+    initialState_SigninContext,
+    reducer_SigninContext,
+} from './reducers/signinContextReducer';
 import {
-    signupPageInitialState,
-    signupPageReducer,
-} from './reducers/signupPageReducer';
+    initialState_SignupContext,
+    reducer_SignupContext,
+} from './reducers/signupContextReducer';
 import {
-    findPasswordPageInitialState,
-    findPasswordPageReducer,
-} from './reducers/findPasswordPageReducer';
+    initialState_FindPasswordContext,
+    reducer_FindPasswordContext,
+} from './reducers/findPasswordContextReducer';
 import {
-    resetPasswordPageInitialState,
-    resetPasswordPageReducer,
-} from './reducers/resetPasswordPageReducer';
+    initialState_ResetPasswordContext,
+    reducer_ResetPasswordContext,
+} from './reducers/resetPasswordContextReducer';
 import {
-    resultVerifyEmailPageInitialState,
-    resultVerifyEmailPageReducer,
-} from './reducers/resultVerifyEmailPageReducer';
+    initialState_RequestVerifyEmailContext,
+    reducer_requestVerifyEmailContext,
+} from './reducers/requestVerifyEmailContextReducer';
 
+//
+// initialState
+//
 const initialState = {
-    ...signinPageInitialState,
-    ...signupPageInitialState,
-    ...findPasswordPageInitialState,
-    ...resetPasswordPageInitialState,
-    ...resultVerifyEmailPageInitialState,
+    ...initialState_SigninContext,
+    ...initialState_SignupContext,
+    ...initialState_FindPasswordContext,
+    ...initialState_ResetPasswordContext,
+    ...initialState_RequestVerifyEmailContext,
 };
 
+//
+// reducer
+//
 export const accountsLayoutReducer = combineLabelrReducers([
-    signinPageReducer,
-    signupPageReducer,
-    findPasswordPageReducer,
-    resetPasswordPageReducer,
-    resultVerifyEmailPageReducer,
+    reducer_SigninContext,
+    reducer_SignupContext,
+    reducer_FindPasswordContext,
+    reducer_ResetPasswordContext,
+    reducer_requestVerifyEmailContext,
 ], initialState);
 
-export const AccountsLayoutContextState = createContext<typeof initialState | null>(null);
-export const AccountsLayoutContextDispatch = createContext<Dispatch<PayloadAction<any>> | null>(null);
+//
+// context
+//
+export const AccountsLayoutContextState = createContext<typeof initialState>(initialState);
+export const AccountsLayoutContextDispatch = createContext<
+    Dispatch<PayloadAction<any>>
+>(() => {/** */});

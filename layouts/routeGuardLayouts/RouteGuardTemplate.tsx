@@ -1,5 +1,6 @@
 import {
     useState,
+    useMemo,
     useEffect,
     PropsWithChildren,
     ReactElement,
@@ -18,26 +19,60 @@ export type TRouteGuardTemplateProps = TRouteGuardProps & {
 };
 
 function RouteGuardTemplate(props: TRouteGuardTemplateProps) {
+    const {
+        redirectUrlWhenInvalidRoute = '/',
+        onCheckIsRouteValid,
+    } = props;
+
+    //
+    // state
+    //
     const [isDoneCheckingRoute, setIsDoneCheckingRoute] = useState(false);
+
+    //
+    // hook
+    //
     const router = useRouter();
 
-    useEffect(() => {
-        const {
-            redirectUrlWhenInvalidRoute = '/',
-            onCheckIsRouteValid,
-        } = props;
+    //
+    // cache
+    //
+    const currentRoutePath = useMemo(() => {
+        return router.asPath;
+    }, [router]);
 
+    const isRouteValid = useMemo(() => {
         const isRouteValid = onCheckIsRouteValid();
 
-        if (!isRouteValid) {
-            router.push(redirectUrlWhenInvalidRoute);
+        return isRouteValid;
+
+        // eslint-disable-next-line
+    }, [onCheckIsRouteValid, currentRoutePath]);
+
+    //
+    // effect
+    //
+    useEffect(() => {
+        if (!isRouteValid && isDoneCheckingRoute) {
+            router.replace(redirectUrlWhenInvalidRoute);
         }
 
-        setIsDoneCheckingRoute(true);
-    }, [props, router]);
+        // eslint-disable-next-line
+    }, [
+        isRouteValid, redirectUrlWhenInvalidRoute, 
+        currentRoutePath, isDoneCheckingRoute,
+    ]);
 
-    if (!isDoneCheckingRoute) {
-        return props.fallback ?? null;
+    useEffect(() => {
+        setIsDoneCheckingRoute(true);
+
+        return () => {
+            setIsDoneCheckingRoute(false);
+        };
+    }, [currentRoutePath]);
+
+    if (!isDoneCheckingRoute || !isRouteValid) {
+        return null;
     }
 
     return <>{props.children}</>;

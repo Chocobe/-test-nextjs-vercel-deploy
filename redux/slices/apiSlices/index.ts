@@ -1,1 +1,1 @@
-export { default as accountsApiSlice } from './accountsApiSlice/accountApiSlice';
+export { default as accountsApiSlice } from './accountsApiSlice/accountsApiSlice';

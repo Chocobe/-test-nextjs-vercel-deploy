@@ -6,13 +6,13 @@ import {
 import {
     useRouter,
 } from 'next/router';
+import { 
+    RoutePathFactory
+} from '@/router/RoutePathFactory';
 
-import { RoutePathFactory } from '@/router/RoutePathFactory';
-
-function HomeIndex() {
+function AccountsIndex() {
     const router = useRouter();
 
-    // FIXME: 로그인 기능 생성 후, redirect 기능 구현 하기
     useEffect(() => {
         if (router.isReady) {
             router.replace(RoutePathFactory.accounts['/signin']());
@@ -20,4 +20,4 @@ function HomeIndex() {
     }, [router]);
 }
 
-export default HomeIndex;
+export default AccountsIndex;

@@ -1,5 +1,5 @@
-const accountPathMapper = (function() {
-    const BASE_PATH = '/account';
+const accountsPathMapper = (function() {
+    const BASE_PATH = '/accounts';
 
     return {
         // 로그인
@@ -12,9 +12,9 @@ const accountPathMapper = (function() {
         '/reset-password': () => `${BASE_PATH}/reset-password`,
         // 이메일 인증
         '/verify-email': () => `${BASE_PATH}/verify-email`,
-        // 이메일 인증 결과
-        '/result-verify-email': () => `${BASE_PATH}/result-verify-email`,
+        // 이메일 인증 재요청
+        '/request-verify-email': () => `${BASE_PATH}/request-verify-email`,
     };
 }());
 
-export default accountPathMapper;
+export default accountsPathMapper;

@@ -1,4 +1,6 @@
+//
 // signin
+//
 export type TSigninApiPayload = {
     email: string;
     password: string;
@@ -8,7 +10,9 @@ export type TSigninApiResponse = {
     refreshToken: string;
 };
 
+//
 // signup
+//
 export type TSignupApiPayload = {
     email: string;
     password: string;
@@ -18,7 +22,20 @@ export type TSignupApiResponse = {
     detail: string;
 };
 
+//
+// confirm-signup
+//
+export type TConfirmSignupPayload = {
+    email: string;
+    code: string;
+};
+export type TConfirmSignupResponse = {
+    detail: string;
+};
+
+//
 // reset-password
+//
 export type TResetPasswordApiPayload = {
     email: string;
 };
@@ -27,7 +44,9 @@ export type TResetPasswordApiResponse = {
     email: string;
 };
 
+//
 // confirm-reset-password
+//
 export type TConfirmResetPasswordApiPayload = {
     code: string;
     email: string;

@@ -2,7 +2,10 @@ import {
     createContext,
     Dispatch,
 } from 'react';
-import { themeModeNameMapper, TThemeModeName } from '../uiThemeMode/themeModeNameMapper';
+import { 
+    themeModeNameMapper, 
+    TThemeModeName 
+} from '../uiThemeMode/themeModeNameMapper';
 
 const NAMESPACE = 'ThemeModeProvider';
 
@@ -10,6 +13,16 @@ export type TThemeModeProviderState = {
     themeMode: TThemeModeName;
 };
 
+//
+// initialState
+//
+export const initialState: TThemeModeProviderState = {
+    themeMode: themeModeNameMapper.LIGHT,
+};
+
+//
+// action
+//
 export const actionToggleThemeMode = () => ({
     type: `${NAMESPACE}/toggleThemeMode`,
 }) as const;
@@ -19,15 +32,20 @@ export const actionSetThemeMode = (themeMode: TThemeModeName) => ({
     payload: themeMode,
 }) as const;
 
-export const initialState: TThemeModeProviderState = {
-    themeMode: themeModeNameMapper.LIGHT,
-};
+//
+// context
+//
+export const ThemeModeContextState = createContext<TThemeModeProviderState>(initialState);
+export const ThemeModeContextDispatch = createContext<
+    Dispatch<ReturnType<
+        typeof actionToggleThemeMode | 
+        typeof actionSetThemeMode
+    >>
+>(() => {/** */});
 
-export const ThemeModeContextState = createContext<TThemeModeProviderState | null>(null);
-export const ThemeModeContextDispatch = createContext<Dispatch<ReturnType<
-    typeof actionToggleThemeMode | typeof actionSetThemeMode
->> | null>(null);
-
+//
+// reducer
+//
 export const reducer = (
     state: TThemeModeProviderState, 
     action: ReturnType<typeof actionToggleThemeMode | typeof actionSetThemeMode>
