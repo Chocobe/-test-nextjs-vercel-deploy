@@ -41,8 +41,8 @@ import chakraUiTheme from '@/styles/chakraUiTheme/chakraUiTheme';
 import { Provider } from 'react-redux';
 import store from '@/redux/store';
 import { 
-    actionSigninReset, 
-    actionSigninSucceeded,
+    actionReset_Signin, 
+    actionSucceeded_Signin,
 } from '@/redux/slices/apiSlices/accountsApiSlice/accountsApiSlice';
 // axios
 import { 
@@ -105,7 +105,7 @@ function App({ Component, pageProps }: TAppPropsWithLayout) {
     //
     // FIXME: 테스트 후, 삭제하기
     const signout = useCallback(() => {
-        store.dispatch(actionSigninReset());
+        store.dispatch(actionReset_Signin());
         setAuthTokensToLocalStorage();
         router.replace(RoutePathFactory.accounts['/signin']());
     }, [router]);
@@ -123,7 +123,7 @@ function App({ Component, pageProps }: TAppPropsWithLayout) {
         } = tokenData;
 
         if (accessToken && refreshToken) {
-            store.dispatch(actionSigninSucceeded(tokenData));
+            store.dispatch(actionSucceeded_Signin(tokenData));
         }
     }, []);
 

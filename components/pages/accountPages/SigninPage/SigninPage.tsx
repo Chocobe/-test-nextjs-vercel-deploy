@@ -21,12 +21,10 @@ import {
     useAppDispatch,
 } from '@/redux/hooks';
 import { 
-    actionSigninReset,
-    actionSigninRequested,
-
-    actionConfirmSignupReset,
-    actionConfirmSignupRequested,
-    actionConfirmResetPasswordReset,
+    actionRequested_Signin,
+    actionReset_ConfirmSignup,
+    actionRequested_ConfirmSignup,
+    actionReset_ConfirmResetPassword,
 } from '@/redux/slices/apiSlices/accountsApiSlice/accountsApiSlice';
 import {
     useApiResponseHandler,
@@ -216,7 +214,7 @@ function SigninPage() {
     }, []);
 
     const onClickSignin = useCallback(() => {
-        dispatch(actionSigninRequested({
+        dispatch(actionRequested_Signin({
             email,
             password,
         }));
@@ -281,15 +279,15 @@ function SigninPage() {
     //
     useEffect(function requestConfirmSignup() {
         if (confirmSignupPayload) {
-            dispatch(actionConfirmSignupRequested(confirmSignupPayload));
+            dispatch(actionRequested_ConfirmSignup(confirmSignupPayload));
         }
     }, [confirmSignupPayload, dispatch]);
 
     useEffect(function resetState() {
         return () => {
             dispatchContext(resetSigninContext());
-            dispatch(actionConfirmSignupReset());
-            dispatch(actionConfirmResetPasswordReset());
+            dispatch(actionReset_ConfirmSignup());
+            dispatch(actionReset_ConfirmResetPassword());
         };
     }, [dispatchContext, dispatch]);
 

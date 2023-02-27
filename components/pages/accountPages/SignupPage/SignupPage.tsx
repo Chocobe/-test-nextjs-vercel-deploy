@@ -18,8 +18,8 @@ import {
     useAppDispatch,
 } from 'redux/hooks';
 import { 
-    actionSignupReset,
-    actionSignupRequested,
+    actionReset_Signup,
+    actionRequested_Signup,
 } from '@/redux/slices/apiSlices/accountsApiSlice/accountsApiSlice';
 import {
     useApiResponseHandler,
@@ -204,7 +204,7 @@ function SignupPage() {
     }, []);
 
     const onClickSignup = useCallback(() => {
-        dispatch(actionSignupRequested({
+        dispatch(actionRequested_Signup({
             email,
             password,
             password2: passwordConfirm,
@@ -244,7 +244,7 @@ function SignupPage() {
                 content: errorData?.detail,
             });
 
-            dispatch(actionSignupReset());
+            dispatch(actionReset_Signup());
         },
     });
 
@@ -253,7 +253,7 @@ function SignupPage() {
     //
     useEffect(function resetState() {
         return () => {
-            dispatch(actionSignupReset());
+            dispatch(actionReset_Signup());
             dispatchContext(resetSignupContext());
         };
     }, [dispatch, dispatchContext]);

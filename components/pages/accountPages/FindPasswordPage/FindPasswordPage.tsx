@@ -20,8 +20,8 @@ import {
     useAppDispatch,
 } from '@/redux/hooks';
 import { 
-    actionResetPasswordReset,
-    actionResetPasswordRequested, 
+    actionReset_ResetPassword,
+    actionRequested_ResetPassword, 
 } from '@/redux/slices/apiSlices/accountsApiSlice/accountsApiSlice';
 import { 
     AccountsLayoutContextState,
@@ -122,7 +122,7 @@ function FindPasswordPage() {
     }, []);
 
     const onClickSendEmail = () => {
-        dispatch(actionResetPasswordRequested({
+        dispatch(actionRequested_ResetPassword({
             email,
         }));
     };
@@ -156,7 +156,7 @@ function FindPasswordPage() {
     useEffect(function onResetSlices() {
         return () => {
             dispatchContext(resetFindPasswordContext());
-            dispatch(actionResetPasswordReset());
+            dispatch(actionReset_ResetPassword());
         };
     }, [dispatch, dispatchContext]);
 

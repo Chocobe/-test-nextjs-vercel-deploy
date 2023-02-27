@@ -9,25 +9,25 @@ import {
     PayloadAction,
 } from '@reduxjs/toolkit';
 import { 
-    actionSigninRequested,
-    actionSigninSucceeded,
-    actionSigninFailed,
+    actionRequested_Signin,
+    actionSucceeded_Signin,
+    actionFailed_Signin,
 
-    actionSignupRequested,
-    actionSignupSucceeded,
-    actionSignupFailed,
+    actionRequested_Signup,
+    actionSucceeded_Signup,
+    actionFailed_Signup,
 
-    actionConfirmSignupRequested,
-    actionConfirmSignupSucceeded,
-    actionConfirmSignupFailed,
+    actionRequested_ConfirmSignup,
+    actionSucceeded_ConfirmSignup,
+    actionFailed_ConfirmSignup,
 
-    actionResetPasswordRequested,
-    actionResetPasswordFailed,
-    actionResetPasswordSucceeded,
+    actionRequested_ResetPassword,
+    actionFailed_ResetPassword,
+    actionSucceeded_ResetPassword,
 
-    actionConfirmResetPasswordFailed,
-    actionConfirmResetPasswordSucceeded,
-    actionConfirmResetPasswordRequested,
+    actionFailed_ConfirmResetPassword,
+    actionSucceeded_ConfirmResetPassword,
+    actionRequested_ConfirmResetPassword,
 } from '@/redux/slices/apiSlices/accountsApiSlice/accountsApiSlice';
 // type
 import { 
@@ -61,9 +61,9 @@ function* signinSaga(
 
         const data = response?.data;
 
-        yield put(actionSigninSucceeded(data));
+        yield put(actionSucceeded_Signin(data));
     } catch(error: any) {
-        yield put(actionSigninFailed(error));
+        yield put(actionFailed_Signin(error));
     }
 }
 
@@ -78,9 +78,9 @@ function* signupSaga(
 
         const data = response?.data;
 
-        yield put(actionSignupSucceeded(data));
+        yield put(actionSucceeded_Signup(data));
     } catch(error: any) {
-        yield put(actionSignupFailed(error));
+        yield put(actionFailed_Signup(error));
     }
 }
 
@@ -95,9 +95,9 @@ function* confirmSignupSaga(
 
         const data = response?.data;
 
-        yield put(actionConfirmSignupSucceeded(data));
+        yield put(actionSucceeded_ConfirmSignup(data));
     } catch(error) {
-        yield put(actionConfirmSignupFailed(error));
+        yield put(actionFailed_ConfirmSignup(error));
     }
 }
 
@@ -112,9 +112,9 @@ function* resetPasswordSaga(
 
         const data = response?.data;
 
-        yield put(actionResetPasswordSucceeded(data));
+        yield put(actionSucceeded_ResetPassword(data));
     } catch(error) {
-        yield put(actionResetPasswordFailed(error));
+        yield put(actionFailed_ResetPassword(error));
     }
 }
 
@@ -129,18 +129,18 @@ function* confirmResetPasswordSaga(
 
         const data = response?.data;
 
-        yield put(actionConfirmResetPasswordSucceeded(data));
+        yield put(actionSucceeded_ConfirmResetPassword(data));
     } catch(error) {
-        yield put(actionConfirmResetPasswordFailed(error));
+        yield put(actionFailed_ConfirmResetPassword(error));
     }
 }
 
 function* accountsSaga() {
-    yield takeLatest(actionSigninRequested, signinSaga);
-    yield takeLatest(actionSignupRequested, signupSaga);
-    yield takeLatest(actionConfirmSignupRequested, confirmSignupSaga);
-    yield takeLatest(actionResetPasswordRequested, resetPasswordSaga);
-    yield takeLatest(actionConfirmResetPasswordRequested, confirmResetPasswordSaga);
+    yield takeLatest(actionRequested_Signin, signinSaga);
+    yield takeLatest(actionRequested_Signup, signupSaga);
+    yield takeLatest(actionRequested_ConfirmSignup, confirmSignupSaga);
+    yield takeLatest(actionRequested_ResetPassword, resetPasswordSaga);
+    yield takeLatest(actionRequested_ConfirmResetPassword, confirmResetPasswordSaga);
 }
 
 export default accountsSaga;

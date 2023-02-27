@@ -1,7 +1,6 @@
 // react
 import {
     useEffect,
-    ReactElement,
 } from 'react';
 // nextjs
 import {

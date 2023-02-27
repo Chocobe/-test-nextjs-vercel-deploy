@@ -20,8 +20,8 @@ import {
     useAppDispatch,
 } from '@/redux/hooks';
 import { 
-    actionConfirmResetPasswordRequested, 
-    actionConfirmResetPasswordReset,
+    actionRequested_ConfirmResetPassword, 
+    actionReset_ConfirmResetPassword,
 } from '@/redux/slices/apiSlices/accountsApiSlice/accountsApiSlice';
 import {
     useApiResponseHandler,
@@ -163,7 +163,7 @@ function ResetPasswordPage() {
     }, []);
 
     const onClickSubmit = useCallback(() => {
-        dispatch(actionConfirmResetPasswordRequested({
+        dispatch(actionRequested_ConfirmResetPassword({
             code,
             email,
             password,
@@ -211,7 +211,7 @@ function ResetPasswordPage() {
     //
     useEffect(function resetSlices() {
         return () => {
-            dispatch(actionConfirmResetPasswordReset());
+            dispatch(actionReset_ConfirmResetPassword());
             dispatchContext(resetResetPasswordContext());
         };
     }, [dispatch, dispatchContext]);

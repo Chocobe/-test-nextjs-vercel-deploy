@@ -61,14 +61,14 @@ const accountsApiSlice = createSlice({
         // 
         // signin
         //
-        actionSigninReset(state) {
+        actionReset_Signin(state) {
             state.signin = {
                 isLoading: false,
                 data: undefined,
                 error: undefined,
             };
         },
-        actionSigninRequested(
+        actionRequested_Signin(
             state, 
             _action: PayloadAction<TSigninApiPayload>
         ) {
@@ -78,7 +78,7 @@ const accountsApiSlice = createSlice({
                 error: null,
             };
         },
-        actionSigninSucceeded(
+        actionSucceeded_Signin(
             state,
             action: PayloadAction<TSigninApiResponse>
         ) {
@@ -88,7 +88,7 @@ const accountsApiSlice = createSlice({
                 error: null,
             };
         },
-        actionSigninFailed(
+        actionFailed_Signin(
             state,
             action: PayloadAction<any>
         ) {
@@ -102,14 +102,14 @@ const accountsApiSlice = createSlice({
         // 
         // signup
         // 
-        actionSignupReset(state) {
+        actionReset_Signup(state) {
             state.signup = {
                 isLoading: false,
                 data: undefined,
                 error: undefined,
             };
         },
-        actionSignupRequested(
+        actionRequested_Signup(
             state,
             _action: PayloadAction<TSignupApiPayload>
         ) {
@@ -119,7 +119,7 @@ const accountsApiSlice = createSlice({
                 error: null,
             };
         },
-        actionSignupSucceeded(
+        actionSucceeded_Signup(
             state,
             action: PayloadAction<TSignupApiResponse>
         ) {
@@ -129,7 +129,7 @@ const accountsApiSlice = createSlice({
                 error: null,
             };
         },
-        actionSignupFailed(
+        actionFailed_Signup(
             state,
             action: PayloadAction<any>
         ) {
@@ -143,14 +143,14 @@ const accountsApiSlice = createSlice({
         //
         // confirmSignup
         //
-        actionConfirmSignupReset(state) {
+        actionReset_ConfirmSignup(state) {
             state.confirmSignup = {
                 isLoading: false,
                 data: undefined,
                 error: undefined,
             };
         },
-        actionConfirmSignupRequested(
+        actionRequested_ConfirmSignup(
             state,
             _action: PayloadAction<TConfirmSignupPayload>
         ) {
@@ -160,7 +160,7 @@ const accountsApiSlice = createSlice({
                 error: null,
             };
         },
-        actionConfirmSignupSucceeded(
+        actionSucceeded_ConfirmSignup(
             state,
             action: PayloadAction<TConfirmSignupResponse>
         ) {
@@ -170,7 +170,7 @@ const accountsApiSlice = createSlice({
                 error: null,
             };
         },
-        actionConfirmSignupFailed(
+        actionFailed_ConfirmSignup(
             state,
             action: PayloadAction<any>
         ) {
@@ -184,14 +184,14 @@ const accountsApiSlice = createSlice({
         //
         // resetPassword
         //
-        actionResetPasswordReset(state) {
+        actionReset_ResetPassword(state) {
             state.resetPassword = {
                 isLoading: false,
                 data: undefined,
                 error: undefined,
             };
         },
-        actionResetPasswordRequested(
+        actionRequested_ResetPassword(
             state,
             _action: PayloadAction<TResetPasswordApiPayload>
         ) {
@@ -201,7 +201,7 @@ const accountsApiSlice = createSlice({
                 error: null,
             };
         },
-        actionResetPasswordSucceeded(
+        actionSucceeded_ResetPassword(
             state,
             action: PayloadAction<TResetPasswordApiResponse>
         ) {
@@ -211,7 +211,7 @@ const accountsApiSlice = createSlice({
                 error: null,
             };
         },
-        actionResetPasswordFailed(
+        actionFailed_ResetPassword(
             state,
             action: PayloadAction<any>
         ) {
@@ -225,14 +225,14 @@ const accountsApiSlice = createSlice({
         //
         // confirmResetPassword
         //
-        actionConfirmResetPasswordReset(state) {
+        actionReset_ConfirmResetPassword(state) {
             state.confirmResetPassword = {
                 isLoading: false,
                 data: undefined,
                 error: undefined,
             };
         },
-        actionConfirmResetPasswordRequested(
+        actionRequested_ConfirmResetPassword(
             state,
             _actions: PayloadAction<TConfirmResetPasswordApiPayload>
         ) {
@@ -242,7 +242,7 @@ const accountsApiSlice = createSlice({
                 error: null,
             };
         },
-        actionConfirmResetPasswordSucceeded(
+        actionSucceeded_ConfirmResetPassword(
             state,
             action: PayloadAction<TConfirmResetPasswordApiResponse>
         ) {
@@ -252,7 +252,7 @@ const accountsApiSlice = createSlice({
                 error: null,
             };
         },
-        actionConfirmResetPasswordFailed(
+        actionFailed_ConfirmResetPassword(
             state,
             action: PayloadAction<any>
         ) {
@@ -267,28 +267,28 @@ const accountsApiSlice = createSlice({
 
 export default accountsApiSlice;
 export const {
-    actionSigninReset,
-    actionSigninRequested,
-    actionSigninSucceeded,
-    actionSigninFailed,
+    actionReset_Signin,
+    actionRequested_Signin,
+    actionSucceeded_Signin,
+    actionFailed_Signin,
 
-    actionSignupReset,
-    actionSignupRequested,
-    actionSignupSucceeded,
-    actionSignupFailed,
+    actionReset_Signup,
+    actionRequested_Signup,
+    actionSucceeded_Signup,
+    actionFailed_Signup,
 
-    actionConfirmSignupReset,
-    actionConfirmSignupRequested,
-    actionConfirmSignupSucceeded,
-    actionConfirmSignupFailed,
+    actionReset_ConfirmSignup,
+    actionRequested_ConfirmSignup,
+    actionSucceeded_ConfirmSignup,
+    actionFailed_ConfirmSignup,
 
-    actionResetPasswordReset,
-    actionResetPasswordRequested,
-    actionResetPasswordSucceeded,
-    actionResetPasswordFailed,
+    actionReset_ResetPassword,
+    actionRequested_ResetPassword,
+    actionSucceeded_ResetPassword,
+    actionFailed_ResetPassword,
 
-    actionConfirmResetPasswordReset,
-    actionConfirmResetPasswordRequested,
-    actionConfirmResetPasswordSucceeded,
-    actionConfirmResetPasswordFailed,
+    actionReset_ConfirmResetPassword,
+    actionRequested_ConfirmResetPassword,
+    actionSucceeded_ConfirmResetPassword,
+    actionFailed_ConfirmResetPassword,
 } = accountsApiSlice.actions;
