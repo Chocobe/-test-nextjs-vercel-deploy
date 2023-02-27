@@ -36,6 +36,9 @@ import {
     setPasswordToResetPasswordContext,
     setPasswordConfirmToResetPasswordContext,
 } from '@/contexts/accountsLayoutContext/reducers/resetPasswordPageReducer';
+import { 
+    setHasExpiredToRequestVerifyEmailContext, 
+} from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailPageReducer';
 // styled-components
 import styled from 'styled-components';
 // UI components
@@ -189,11 +192,17 @@ function ResetPasswordPage() {
             },
             deps: [router],
         },
-        onFailed(error) {
-            openLabelrSnackbar({
-                type: 'danger',
-                content: error.errorData.detail,
-            });
+        onFailed: {
+            callback(error) {
+                openLabelrSnackbar({
+                    type: 'danger',
+                    content: error.errorData.detail,
+                });
+
+                dispatchContext(setHasExpiredToRequestVerifyEmailContext(true));
+                router.replace(RoutePathFactory.accounts['/request-verify-email']());
+            },
+            deps: [router],
         },
     });
 

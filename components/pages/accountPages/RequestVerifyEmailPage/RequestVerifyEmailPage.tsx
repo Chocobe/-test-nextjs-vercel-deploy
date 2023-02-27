@@ -142,6 +142,7 @@ function RequestVerifyEmailPage() {
             });
 
             router.replace(RoutePathFactory.accounts['/signin']());
+            return;
         }
 
         dispatch(typeInfo.action({} as any));
