@@ -30,7 +30,7 @@
     "/accounts/signin/HEADER__MESSAGE": "아직 계정이 없으세요?",
     "/accounts/signin/HEADER__TITLE": "레이블러 로그인",
     "/accounts/signin/SNACKBAR__CONFIRM_SIGNUP__MESSAGE": "이메일을 인증하였습니다.",
-    "/accounts/signin/SNACKBAR__INVALID_PASSWORD__MESSAGE": "비밀번호가 일치하지 않아요!",
+    "/accounts/signin/SNACKBAR__INVALID_PASSWORD__MESSAGE": "이메일 또는 비밀번호가 일치하지 않습니다.",
     "/accounts/signup/BODY__BUTTON": "로그인",
     "/accounts/signup/BODY__INPUT_EMAIL__PLACEHOLDER": "이메일 주소를 입력해 주세요",
     "/accounts/signup/BODY__INPUT_PASSWORD_CONFIRM__INVALID_MESSAGE": "비밀번호가 일치하지 않습니다.",
