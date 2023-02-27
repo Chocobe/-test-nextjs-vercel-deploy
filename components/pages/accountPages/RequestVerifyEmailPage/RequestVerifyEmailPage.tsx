@@ -77,6 +77,10 @@ function RequestVerifyEmailPage() {
         return state.requestVerifyEmail.type!;
     }, [state]);
 
+    const hasExpired = useMemo(() => {
+        return state.requestVerifyEmail.hasExpired;
+    }, [state]);
+
     //
     // api state
     //
@@ -111,14 +115,10 @@ function RequestVerifyEmailPage() {
     // cache
     //
     const title = useMemo(() => {
-        return i18next.t('/accounts/request-verify-email/HEADER__TITLE__RESULT');
-
-        // TODO: ExpiredVerifyEmailPage 만들기
-        // return hasExpired
-        //     ? i18next.t('/accounts/request-verify-email/HEADER__TITLE__EXPIRED')
-        //     : i18next.t('/accounts/request-verify-email/HEADER__TITLE__RESULT');
-    // }, [hasExpired, i18next]);
-    }, [i18next]);
+        return hasExpired
+            ? i18next.t('/accounts/request-verify-email/HEADER__TITLE__EXPIRED')
+            : i18next.t('/accounts/request-verify-email/HEADER__TITLE__RESULT');
+    }, [hasExpired, i18next]);
 
     //
     // callback

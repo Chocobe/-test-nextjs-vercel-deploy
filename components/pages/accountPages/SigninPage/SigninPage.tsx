@@ -41,6 +41,9 @@ import {
     setEmailToSigninContext,
     setPasswordToSigninContext,
 } from '@/contexts/accountsLayoutContext/reducers/signinPageReducer';
+import { 
+    setHasExpiredToRequestVerifyEmailContext,
+} from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailPageReducer';
 // types
 import { 
     accountPageFooterTypeMapper,
@@ -244,14 +247,8 @@ function SigninPage() {
         onFailed(error) {
             openLabelrSnackbar({
                 type: 'danger',
-                content: error.errorData?.detail || '/signin 요청 에러 (errorData.detail 없음)',
+                content: error.errorData?.detail,
             });
-
-            dispatch(actionSigninReset());
-
-            // TODO: 회원가입 유도 Modal 띄우기
-            // TODO: 회원가입 유도 Modal 띄우기
-            // TODO: 회원가입 유도 Modal 띄우기
         },
     });
 
@@ -262,16 +259,20 @@ function SigninPage() {
                 type: 'safe',
                 content: i18next.t('/accounts/signin/SNACKBAR__CONFIRM_SIGNUP__MESSAGE'),
             });
-
-            dispatch(actionConfirmSignupReset());
         },
-        onFailed(error) {
-            openLabelrSnackbar({
-                type: 'danger',
-                content: error.errorData.detail,
-            });
+        onFailed: {
+            callback(error) {
+                if (router.isReady) {
+                    openLabelrSnackbar({
+                        type: 'danger',
+                        content: error.errorData.detail,
+                    });
 
-            dispatch(actionConfirmResetPasswordReset());
+                    dispatchContext(setHasExpiredToRequestVerifyEmailContext(true));
+                    router.replace(RoutePathFactory.accounts['/request-verify-email']());
+                }
+            },
+            deps: [router],
         },
     });
 
@@ -287,6 +288,8 @@ function SigninPage() {
     useEffect(function resetState() {
         return () => {
             dispatchContext(resetSigninContext());
+            dispatch(actionConfirmSignupReset());
+            dispatch(actionConfirmResetPasswordReset());
         };
     }, [dispatchContext, dispatch]);
 
