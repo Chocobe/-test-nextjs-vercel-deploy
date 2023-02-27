@@ -31,11 +31,11 @@ export const setAuthTokensToLocalStorage = (
 };
 
 export const getAuthTokensFromLocalStorage = () => {
-    const accessToken = localStorage.getItem(
+    const accessToken = globalThis.localStorage?.getItem(
         ELocalStorageItemKey.LABELR_ACCESS_TOKEN_KEY
     );
 
-    const refreshToken = localStorage.getItem(
+    const refreshToken = globalThis.localStorage?.getItem(
         ELocalStorageItemKey.LABELR_REFRESH_TOKEN_KEY
     );
 

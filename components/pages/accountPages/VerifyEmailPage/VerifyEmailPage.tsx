@@ -67,8 +67,8 @@ function VerifyEmailPage() {
     // callback
     //
     const moveToSigninPage = useCallback(() => {
-        router.replace(pathOfRequestVerifyEmailPage);
-    }, [router, pathOfRequestVerifyEmailPage]);
+        router.replace(pathOfSigninPage);
+    }, [router, pathOfSigninPage]);
 
     return (
         <StyledVerifyEmailPageRoot>

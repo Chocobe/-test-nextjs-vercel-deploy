@@ -2,6 +2,10 @@
 import {
     useCallback,
 } from 'react';
+// redux
+import {
+    useAppSelector,
+} from '@/redux/hooks';
 // UI components
 import RouteGuardTemplate, {
     TRouteGuardProps,
@@ -13,11 +17,22 @@ function AuthRouteGuard(props: TRouteGuardProps) {
         children,
     } = props;
 
-    const onCheckIsRouteValid = useCallback(() => {
-        const hasSignin = true;
+    //
+    // api state
+    //
+    const signinApiData = useAppSelector(({ accountsApi }) => accountsApi.signin.data!);
 
-        return hasSignin;
-    }, []);
+    //
+    // callback
+    //
+    const onCheckIsRouteValid = useCallback(() => {
+        const {
+            accessToken,
+            refreshToken,
+        } = signinApiData ?? {};
+
+        return !!(accessToken && refreshToken);
+    }, [signinApiData]);
 
     return (
         <RouteGuardTemplate 

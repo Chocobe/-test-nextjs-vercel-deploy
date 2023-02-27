@@ -3,6 +3,7 @@ import {
     useReducer,
     PropsWithChildren,
 } from 'react';
+// layout
 import {
     accountsLayoutReducer,
     AccountsLayoutContextDispatch,
@@ -38,7 +39,7 @@ function AccountsLayout(props: PropsWithChildren) {
             <AccountsLayoutContextState.Provider value={state}>
                 <StyledAccountsLayoutRoot>
                     <main className="main">
-                        {props. children}
+                        {props.children}
                     </main>
                 </StyledAccountsLayoutRoot>
             </AccountsLayoutContextState.Provider>
