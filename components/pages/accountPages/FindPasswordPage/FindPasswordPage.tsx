@@ -28,12 +28,12 @@ import {
     AccountsLayoutContextDispatch,
 } from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import {
-    resetFindPasswordContext,
-    setEmailToFindPasswordContext,
-} from '@/contexts/accountsLayoutContext/reducers/findPasswordPageReducer';
+    reset_FindPasswordContext,
+    setEmail_FindPasswordContext,
+} from '@/contexts/accountsLayoutContext/reducers/findPasswordContextReducer';
 import { 
-    setTypeToRequestVerifyEmailContext,
-} from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailPageReducer';
+    setType_RequestVerifyEmailContext,
+} from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailContextReducer';
 import {
     useApiResponseHandler,
 } from '@/redux/hooks';
@@ -81,11 +81,11 @@ function FindPasswordPage() {
     //
     // context
     //
-    const dispatchContext = useContext(AccountsLayoutContextDispatch)!;
-    const state = useContext(AccountsLayoutContextState)!;
+    const dispatchContext = useContext(AccountsLayoutContextDispatch);
+    const state = useContext(AccountsLayoutContextState);
 
     const email = useMemo(() => {
-        return state.findPassword.email || '';
+        return state.findPassword.email;
     }, [state.findPassword.email]);
 
     //
@@ -114,7 +114,7 @@ function FindPasswordPage() {
     // callback
     //
     const onChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setEmailToFindPasswordContext(e.currentTarget.value));
+        dispatchContext(setEmail_FindPasswordContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onIsValidEmail = useCallback((isValidEmail: boolean) => {
@@ -135,7 +135,7 @@ function FindPasswordPage() {
         onSucceeded: {
             callback() {
                 if (router.isReady){
-                    dispatchContext(setTypeToRequestVerifyEmailContext(requestVerifyEmailType.RESET_PASSWORD));
+                    dispatchContext(setType_RequestVerifyEmailContext(requestVerifyEmailType.RESET_PASSWORD));
 
                     router.replace(RoutePathFactory.accounts['/verify-email']());
                 }
@@ -155,7 +155,7 @@ function FindPasswordPage() {
     //
     useEffect(function onResetSlices() {
         return () => {
-            dispatchContext(resetFindPasswordContext());
+            dispatchContext(reset_FindPasswordContext());
             dispatch(actionReset_ResetPassword());
         };
     }, [dispatch, dispatchContext]);

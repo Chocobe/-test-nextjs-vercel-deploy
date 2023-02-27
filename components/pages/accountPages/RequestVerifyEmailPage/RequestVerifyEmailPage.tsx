@@ -17,9 +17,9 @@ import {
     AccountsLayoutContextState,
 } from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import { 
-    setEmailToRequestVerifyEmailContext,
-    resetRequestVerifyEmailContext,
-} from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailPageReducer';
+    setEmail_RequestVerifyEmailContext,
+    reset_RequestVerifyEmailContext,
+} from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailContextReducer';
 // type
 import { 
     requestVerifyEmailTypeMapper,
@@ -66,8 +66,8 @@ function RequestVerifyEmailPage() {
     //
     // context
     //
-    const dispatchContext = useContext(AccountsLayoutContextDispatch)!;
-    const state = useContext(AccountsLayoutContextState)!;
+    const dispatchContext = useContext(AccountsLayoutContextDispatch);
+    const state = useContext(AccountsLayoutContextState);
 
     const email = useMemo(() => {
         return state.requestVerifyEmail.email;
@@ -80,21 +80,6 @@ function RequestVerifyEmailPage() {
     const hasExpired = useMemo(() => {
         return state.requestVerifyEmail.hasExpired;
     }, [state]);
-
-    //
-    // api state
-    //
-    // const resetPasswordApiState = useAppSelector(({ accountsApi }) => {
-    //     return accountsApi.resetPassword;
-    // });
-
-    // const resetPasswordApiData = useMemo(() => {
-    //     return resetPasswordApiState.data;
-    // }, [resetPasswordApiState]);
-
-    // const resetPasswordApiError = useMemo(() => {
-    //     return resetPasswordApiState.error;
-    // }, [resetPasswordApiState]);
 
     //
     // state
@@ -124,7 +109,7 @@ function RequestVerifyEmailPage() {
     // callback
     //
     const onChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setEmailToRequestVerifyEmailContext(e.currentTarget.value));
+        dispatchContext(setEmail_RequestVerifyEmailContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onIsValidEmail = useCallback((isValidEmail: boolean) => {
@@ -162,7 +147,7 @@ function RequestVerifyEmailPage() {
 
     useEffect(function resetSlices() {
         return () => {
-            dispatchContext(resetRequestVerifyEmailContext());
+            dispatchContext(reset_RequestVerifyEmailContext());
         };
     }, [dispatchContext]);
 

@@ -32,13 +32,13 @@ import {
     AccountsLayoutContextState,
 } from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import {
-    resetResetPasswordContext,
-    setPasswordToResetPasswordContext,
-    setPasswordConfirmToResetPasswordContext,
-} from '@/contexts/accountsLayoutContext/reducers/resetPasswordPageReducer';
+    reset_ResetPasswordContext,
+    setPassword_ResetPasswordContext,
+    setPasswordConfirm_ResetPasswordContext,
+} from '@/contexts/accountsLayoutContext/reducers/resetPasswordContextReducer';
 import { 
-    setHasExpiredToRequestVerifyEmailContext, 
-} from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailPageReducer';
+    setHasExpired_RequestVerifyEmailContext, 
+} from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailContextReducer';
 // styled-components
 import styled from 'styled-components';
 // UI components
@@ -84,8 +84,8 @@ function ResetPasswordPage() {
     //
     // context
     //
-    const dispatchContext = useContext(AccountsLayoutContextDispatch)!;
-    const state = useContext(AccountsLayoutContextState)!;
+    const dispatchContext = useContext(AccountsLayoutContextDispatch);
+    const state = useContext(AccountsLayoutContextState);
 
     const password = useMemo(() => {
         return state.resetPassword.password;
@@ -141,11 +141,11 @@ function ResetPasswordPage() {
     // callback
     //
     const onChangePassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setPasswordToResetPasswordContext(e.currentTarget.value));
+        dispatchContext(setPassword_ResetPasswordContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onChangePasswordConfirm = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setPasswordConfirmToResetPasswordContext(e.currentTarget.value));
+        dispatchContext(setPasswordConfirm_ResetPasswordContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onIsValidPassword = useCallback((isValidPassword: boolean) => {
@@ -199,7 +199,7 @@ function ResetPasswordPage() {
                     content: error.errorData.detail,
                 });
 
-                dispatchContext(setHasExpiredToRequestVerifyEmailContext(true));
+                dispatchContext(setHasExpired_RequestVerifyEmailContext(true));
                 router.replace(RoutePathFactory.accounts['/request-verify-email']());
             },
             deps: [router],
@@ -212,7 +212,7 @@ function ResetPasswordPage() {
     useEffect(function resetSlices() {
         return () => {
             dispatch(actionReset_ConfirmResetPassword());
-            dispatchContext(resetResetPasswordContext());
+            dispatchContext(reset_ResetPasswordContext());
         };
     }, [dispatch, dispatchContext]);
 

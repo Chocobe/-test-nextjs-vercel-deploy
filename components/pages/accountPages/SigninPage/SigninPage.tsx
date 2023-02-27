@@ -35,13 +35,13 @@ import {
     AccountsLayoutContextDispatch,
 } from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import { 
-    resetSigninContext,
-    setEmailToSigninContext,
-    setPasswordToSigninContext,
-} from '@/contexts/accountsLayoutContext/reducers/signinPageReducer';
+    reset_SigninContext,
+    setEmail_SigninContext,
+    setPassword_SigninContext,
+} from '@/contexts/accountsLayoutContext/reducers/signinContextReducer';
 import { 
-    setHasExpiredToRequestVerifyEmailContext,
-} from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailPageReducer';
+    setHasExpired_RequestVerifyEmailContext,
+} from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailContextReducer';
 // types
 import { 
     accountPageFooterTypeMapper,
@@ -116,16 +116,16 @@ function SigninPage() {
     //
     // context
     //
-    const dispatchContext = useContext(AccountsLayoutContextDispatch)!;
+    const dispatchContext = useContext(AccountsLayoutContextDispatch);
     const state = useContext(AccountsLayoutContextState);
 
     const email = useMemo(() => {
-        return state?.signinPage.email || '';
-    }, [state?.signinPage.email]);
+        return state.signin.email;
+    }, [state.signin.email]);
 
     const password = useMemo(() => {
-        return state?.signinPage.password || '';
-    }, [state?.signinPage.password]);
+        return state.signin.password;
+    }, [state.signin.password]);
 
     //
     // state
@@ -192,11 +192,11 @@ function SigninPage() {
     // callback
     //
     const onChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setEmailToSigninContext(e.currentTarget.value));
+        dispatchContext(setEmail_SigninContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onChangePassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setPasswordToSigninContext(e.currentTarget.value));
+        dispatchContext(setPassword_SigninContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onIsValidEmail = useCallback((isValidEmail: boolean) => {
@@ -266,7 +266,7 @@ function SigninPage() {
                         content: error.errorData.detail,
                     });
 
-                    dispatchContext(setHasExpiredToRequestVerifyEmailContext(true));
+                    dispatchContext(setHasExpired_RequestVerifyEmailContext(true));
                     router.replace(RoutePathFactory.accounts['/request-verify-email']());
                 }
             },
@@ -285,7 +285,7 @@ function SigninPage() {
 
     useEffect(function resetState() {
         return () => {
-            dispatchContext(resetSigninContext());
+            dispatchContext(reset_SigninContext());
             dispatch(actionReset_ConfirmSignup());
             dispatch(actionReset_ConfirmResetPassword());
         };
@@ -306,7 +306,7 @@ function SigninPage() {
                 <div className="inputWrapper">
                     <LabelrInputEmail
                         // value={email}
-                        value={state?.signinPage.email || ''}
+                        value={state?.signin.email || ''}
                         onChange={onChangeEmail}
                         onIsValid={onIsValidEmail}
                         placeholder={i18next.t('/accounts/signin/BODY__INPUT_EMAIL__PLACEHOLDER')}
@@ -315,7 +315,7 @@ function SigninPage() {
 
                     <LabelrInputPassword
                         // value={password}
-                        value={state?.signinPage.password || ''}
+                        value={state?.signin.password || ''}
                         onChange={onChangePassword}
                         onIsValid={onIsValidPassword}
                         placeholder={i18next.t('/accounts/signin/BODY__INPUT_PASSWORD__PLACEHOLDER')}

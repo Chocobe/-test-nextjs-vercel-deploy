@@ -6,7 +6,7 @@ import {
 
 const NAMESPACE = 'findPasswordPage';
 
-export type TFindPasswordPageState = {
+export type TFindPasswordContextState = {
     findPassword: {
         email: string;
     };
@@ -15,7 +15,7 @@ export type TFindPasswordPageState = {
 //
 // initialState
 //
-export const findPasswordPageInitialState: TFindPasswordPageState = {
+export const initialState_FindPasswordContext: TFindPasswordContextState = {
     findPassword: {
         email: '',
     },
@@ -24,20 +24,20 @@ export const findPasswordPageInitialState: TFindPasswordPageState = {
 //
 // actions
 //
-export const resetFindPasswordContext = createAction<void>(`${NAMESPACE}/resetFindPassword`);
-export const setEmailToFindPasswordContext = createAction<string>(`${NAMESPACE}/setEmail`);
+export const reset_FindPasswordContext = createAction<void>(`${NAMESPACE}/resetFindPassword`);
+export const setEmail_FindPasswordContext = createAction<string>(`${NAMESPACE}/setEmail`);
 
 //
 // reducer
 //
-export const findPasswordPageReducer = createReducer(findPasswordPageInitialState, builder => {
+export const reducer_FindPasswordContext = createReducer(initialState_FindPasswordContext, builder => {
     builder
-        .addCase(resetFindPasswordContext, state => {
+        .addCase(reset_FindPasswordContext, state => {
             state.findPassword = {
                 email: '',
             };
         })
-        .addCase(setEmailToFindPasswordContext, (
+        .addCase(setEmail_FindPasswordContext, (
             state, 
             action: PayloadAction<string>
         ) => {

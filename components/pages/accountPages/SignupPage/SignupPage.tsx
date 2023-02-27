@@ -30,14 +30,14 @@ import {
     AccountsLayoutContextDispatch,
 } from '@/contexts/accountsLayoutContext/accountsLayoutContext';
 import { 
-    resetSignupContext,
-    setEmailToSignupContext,
-    setPasswordToSignupContext,
-    setPasswordConfirmToSignupContext,
-} from '@/contexts/accountsLayoutContext/reducers/signupPageReducer';
+    reset_SignupContext,
+    setEmail_SignupContext,
+    setPassword_SignupContext,
+    setPasswordConfirm_SignupContext,
+} from '@/contexts/accountsLayoutContext/reducers/signupContextReducer';
 import { 
-    setTypeToRequestVerifyEmailContext,
-} from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailPageReducer';
+    setType_RequestVerifyEmailContext,
+} from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailContextReducer';
 import { 
     requestVerifyEmailType,
 } from '../RequestVerifyEmailPage/requestVerifyEmailPageTypes';
@@ -114,20 +114,20 @@ function SignupPage() {
     //
     // context
     //
-    const dispatchContext = useContext(AccountsLayoutContextDispatch)!;
+    const dispatchContext = useContext(AccountsLayoutContextDispatch);
     const state = useContext(AccountsLayoutContextState);
 
     const email = useMemo(() => {
-        return state?.signupPage.email || '';
-    }, [state?.signupPage.email]);
+        return state.signup.email;
+    }, [state.signup.email]);
 
     const password = useMemo(() => {
-        return state?.signupPage.password || '';
-    }, [state?.signupPage.password]);
+        return state.signup.password;
+    }, [state.signup.password]);
 
     const passwordConfirm = useMemo(() => {
-        return state?.signupPage.passwordConfirm || '';
-    }, [state?.signupPage.passwordConfirm]);
+        return state.signup.passwordConfirm;
+    }, [state.signup.passwordConfirm]);
 
     //
     // api state
@@ -171,15 +171,15 @@ function SignupPage() {
     // callback
     //
     const onChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setEmailToSignupContext(e.currentTarget.value));
+        dispatchContext(setEmail_SignupContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onChangePassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setPasswordToSignupContext(e.currentTarget.value));
+        dispatchContext(setPassword_SignupContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onChangePasswordConfirm = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatchContext(setPasswordConfirmToSignupContext(e.currentTarget.value));
+        dispatchContext(setPasswordConfirm_SignupContext(e.currentTarget.value));
     }, [dispatchContext]);
 
     const onIsValidEmail = useCallback((isValidEmail: boolean) => {
@@ -227,7 +227,7 @@ function SignupPage() {
         onSucceeded: {
             callback() {
                 if (router.isReady) {
-                    dispatchContext(setTypeToRequestVerifyEmailContext(
+                    dispatchContext(setType_RequestVerifyEmailContext(
                         requestVerifyEmailType.SIGNUP
                     ));
     
@@ -254,7 +254,7 @@ function SignupPage() {
     useEffect(function resetState() {
         return () => {
             dispatch(actionReset_Signup());
-            dispatchContext(resetSignupContext());
+            dispatchContext(reset_SignupContext());
         };
     }, [dispatch, dispatchContext]);
 

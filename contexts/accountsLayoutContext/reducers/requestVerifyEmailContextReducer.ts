@@ -20,7 +20,7 @@ export type TRequestVerifyEmailPageState = {
 //
 // initialState
 //
-export const requestVerifyEmailPageInitialState: TRequestVerifyEmailPageState = {
+export const initialState_RequestVerifyEmailContext: TRequestVerifyEmailPageState = {
     requestVerifyEmail: {
         email: '',
         type: undefined,
@@ -31,30 +31,30 @@ export const requestVerifyEmailPageInitialState: TRequestVerifyEmailPageState = 
 //
 // actions
 //
-export const resetRequestVerifyEmailContext = createAction<void>(`${NAMESPACE}/reset`);
-export const setEmailToRequestVerifyEmailContext = createAction<string>(`${NAMESPACE}/setEmail`);
-export const setTypeToRequestVerifyEmailContext = createAction<TRequestVerifyEmailType>(`${NAMESPACE}/setType`);
-export const setHasExpiredToRequestVerifyEmailContext = createAction<boolean>(`${NAMESPACE}/setHasExpired`);
+export const reset_RequestVerifyEmailContext = createAction<void>(`${NAMESPACE}/reset`);
+export const setEmail_RequestVerifyEmailContext = createAction<string>(`${NAMESPACE}/setEmail`);
+export const setType_RequestVerifyEmailContext = createAction<TRequestVerifyEmailType>(`${NAMESPACE}/setType`);
+export const setHasExpired_RequestVerifyEmailContext = createAction<boolean>(`${NAMESPACE}/setHasExpired`);
 
 //
 // reducer
 //
-export const requestVerifyEmailPageReducer = createReducer(requestVerifyEmailPageInitialState, builder => {
+export const reducer_requestVerifyEmailContext = createReducer(initialState_RequestVerifyEmailContext, builder => {
     builder
-        .addCase(resetRequestVerifyEmailContext, state => {
+        .addCase(reset_RequestVerifyEmailContext, state => {
             state.requestVerifyEmail = {
                 email: '',
                 type: undefined,
                 hasExpired: false,
             };
         })
-        .addCase(setEmailToRequestVerifyEmailContext, (state, action: PayloadAction<string>) => {
+        .addCase(setEmail_RequestVerifyEmailContext, (state, action: PayloadAction<string>) => {
             state.requestVerifyEmail.email = action.payload;
         })
-        .addCase(setTypeToRequestVerifyEmailContext, (state, action: PayloadAction<TRequestVerifyEmailType>) => {
+        .addCase(setType_RequestVerifyEmailContext, (state, action: PayloadAction<TRequestVerifyEmailType>) => {
             state.requestVerifyEmail.type = action.payload;
         })
-        .addCase(setHasExpiredToRequestVerifyEmailContext, (state, action: PayloadAction<boolean>) => {
+        .addCase(setHasExpired_RequestVerifyEmailContext, (state, action: PayloadAction<boolean>) => {
             state.requestVerifyEmail.hasExpired = action.payload;
         });
 });
