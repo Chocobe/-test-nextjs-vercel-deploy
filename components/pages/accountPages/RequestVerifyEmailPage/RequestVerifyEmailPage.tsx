@@ -130,9 +130,9 @@ function RequestVerifyEmailPage() {
             return;
         }
 
-        dispatch(typeInfo.action({} as any));
+        dispatch(typeInfo.action({ email } as any));
     }, [
-        requestVerifyEmailType, router, 
+        requestVerifyEmailType, email, router, 
         openLabelrSnackbar, dispatch, 
     ]);
 

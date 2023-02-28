@@ -40,7 +40,8 @@ import {
     setPassword_SigninContext,
 } from '@/contexts/accountsLayoutContext/reducers/signinContextReducer';
 import { 
-    setHasExpired_RequestVerifyEmailContext,
+    setType_RequestVerifyEmailContext,
+    setHasExpired_RequestVerifyEmailContext, 
 } from '@/contexts/accountsLayoutContext/reducers/requestVerifyEmailContextReducer';
 // types
 import { 
@@ -266,6 +267,7 @@ function SigninPage() {
                         content: error.errorData.detail,
                     });
 
+                    dispatchContext(setType_RequestVerifyEmailContext('signup'));
                     dispatchContext(setHasExpired_RequestVerifyEmailContext(true));
                     router.replace(RoutePathFactory.accounts['/request-verify-email']());
                 }
