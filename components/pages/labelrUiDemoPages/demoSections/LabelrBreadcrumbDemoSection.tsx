@@ -14,8 +14,8 @@ import {
 } from '@/components/ui/LabelrBreadcrumb/LabelrBreadcrumbItem';
 
 import { 
-    RoutePathFactory
-} from '@/router/RoutePathFactory';
+    RoutePathFactory,
+} from '@/router';
 
 function LabelrBreadcrumbDemoSection() {
     const [separator, setSeparator] = useState('〉');

@@ -9,8 +9,8 @@ import {
 } from 'next/router';
 import Link from 'next/link';
 import { 
-    RoutePathFactory
-} from '@/router/RoutePathFactory';
+    RoutePathFactory,
+} from '@/router';
 // UI components
 import AccountPageHeader from '../AccountPageHeader/AccountPageHeader';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';

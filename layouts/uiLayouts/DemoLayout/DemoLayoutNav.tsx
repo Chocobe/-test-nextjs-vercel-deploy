@@ -8,7 +8,9 @@ import classNames from 'classnames';
 import {
     labelrUiDemoRouteMapper,
 } from '@/router/routeMappers/labelrUiDemoRouteMapper';
-import { RoutePathFactory } from '@/router/RoutePathFactory';
+import { 
+    RoutePathFactory,
+} from '@/router';
 
 const StyledDemoLayoutNavRoot = styled.nav`
     width: fit-content;

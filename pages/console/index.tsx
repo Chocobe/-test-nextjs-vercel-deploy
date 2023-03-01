@@ -8,7 +8,7 @@ import {
 } from 'next/router';
 import { 
     RoutePathFactory,
-} from '@/router/RoutePathFactory';
+} from '@/router';
 
 function ConsoleIndex() {
     const router = useRouter();

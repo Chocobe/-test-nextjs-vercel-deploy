@@ -11,6 +11,11 @@ import {
 import {
     useRouter,
 } from 'next/router';
+import {
+    RoutePathFactory,
+} from '@/router';
+// redux
+import useAppDispatch from '@/redux/hooks/useAppDispatch';
 // context
 import {
     AccountsLayoutContextDispatch,
@@ -30,17 +35,14 @@ import styled from 'styled-components';
 import AccountPageHeader from '../AccountPageHeader/AccountPageHeader';
 import LabelrInputEmail from '@/components/ui/LabelrInputEmail/LabelrInputEmail';
 import LabelrButton from '@/components/ui/LabelrButton/LabelrButton';
+import { 
+    useLabelrSnackbar,
+} from '@/components/ui/LabelrSnackbar/hooks/useLabelrSnackbar';
 // i18n
 import {
     useTranslation,
 } from 'react-i18next';
 
-import {
-    RoutePathFactory
-} from '@/router/RoutePathFactory';
-import { useLabelrSnackbar } from '@/components/ui/LabelrSnackbar/hooks/useLabelrSnackbar';
-// import useAppSelector from '@/redux/hooks/useAppSelector';
-import useAppDispatch from '@/redux/hooks/useAppDispatch';
 
 const StyledRequestVerifyEmailPageRoot = styled.div`
     .message {

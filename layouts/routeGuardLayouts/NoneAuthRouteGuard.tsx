@@ -12,7 +12,7 @@ import RouteGuardTemplate, {
 } from './RouteGuardTemplate';
 import { 
     RoutePathFactory,
-} from '@/router/RoutePathFactory';
+} from '@/router';
 
 function NoneAuthRouteGuard(props: TRouteGuardProps) {
     const {

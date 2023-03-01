@@ -14,7 +14,7 @@ import {
 } from 'next/router';
 import { 
     RoutePathFactory,
-} from '@/router/RoutePathFactory';
+} from '@/router';
 // redux
 import {
     useAppSelector,

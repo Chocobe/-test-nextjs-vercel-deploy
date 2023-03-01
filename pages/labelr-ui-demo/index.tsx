@@ -6,8 +6,9 @@ import {
 import {
     useRouter,
 } from 'next/router';
-
-import { RoutePathFactory } from '@/router/RoutePathFactory';
+import { 
+    RoutePathFactory,
+} from '@/router';
 
 function LabelrUiDemoIndex() {
     const router = useRouter();

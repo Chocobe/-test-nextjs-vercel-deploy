@@ -16,8 +16,8 @@ import {
     NextRouter,
 } from 'next/router';
 import { 
-    RoutePathFactory
-} from '@/router/RoutePathFactory';
+    RoutePathFactory,
+} from '@/router';
 // styled-components
 import styled, {
     ThemeProvider,

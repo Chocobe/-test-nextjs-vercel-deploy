@@ -43,7 +43,7 @@ import {
 } from '../RequestVerifyEmailPage/requestVerifyEmailPageTypes';
 import {
     RoutePathFactory,
-} from '@/router/RoutePathFactory';
+} from '@/router';
 // type
 import { 
     accountPageFooterTypeMapper,

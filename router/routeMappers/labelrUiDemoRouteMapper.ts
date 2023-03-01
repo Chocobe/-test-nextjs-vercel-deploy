@@ -1,4 +1,6 @@
-import { RoutePathFactory } from '../RoutePathFactory';
+import { 
+    RoutePathFactory,
+} from '../';
 import {
     LabelrButtonDemoSection,
     LabelrSocialButtonDemoSection,
