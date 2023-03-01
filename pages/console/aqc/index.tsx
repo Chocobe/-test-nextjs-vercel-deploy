@@ -5,13 +5,13 @@ import {
 // layouts
 import AuthRouteGuard from '@/layouts/routeGuardLayouts/AuthRouteGuard';
 import ConsoleLayout from '@/layouts/uiLayouts/ConsoleLayout/ConsoleLayout';
-
+// router
 import { 
-    consoleRouteMapper,
-} from '@/router/routeMappers/consoleRouteMapper';
+    RouteMapper,
+} from '@/router';
 
 function AqcIndex() {
-    const AqcPageComponent = consoleRouteMapper.aqc.PageComponent;
+    const AqcPageComponent = RouteMapper.console.aqc.PageComponent;
     return <AqcPageComponent />;
 }
 

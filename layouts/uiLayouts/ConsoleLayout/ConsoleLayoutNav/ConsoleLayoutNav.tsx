@@ -10,8 +10,8 @@ import {
 // styled
 import styled from 'styled-components';
 import { 
-    consoleRouteMapper,
-} from '@/router/routeMappers/consoleRouteMapper';
+    RouteMapper,
+} from '@/router';
 // UI component
 import ConsoleLayoutNavItem from './ConsoleLayoutNavItem';
 
@@ -38,7 +38,7 @@ function ConsoleLayoutNav() {
 
     const navItems = useMemo(() => {
         return Object
-            .values(consoleRouteMapper)
+            .values(RouteMapper.console)
             .map(({ name, path, NavIconComponent }) => {
                 return { name, path, NavIconComponent };
             });

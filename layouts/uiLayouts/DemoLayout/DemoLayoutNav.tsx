@@ -5,11 +5,10 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import classNames from 'classnames';
 
+// router
 import {
-    labelrUiDemoRouteMapper,
-} from '@/router/routeMappers/labelrUiDemoRouteMapper';
-import { 
     RoutePathFactory,
+    RouteMapper,
 } from '@/router';
 
 const StyledDemoLayoutNavRoot = styled.nav`
@@ -37,11 +36,11 @@ const StyledDemoLayoutNavRoot = styled.nav`
 function DemoLayoutNav() {
     const router = useRouter();
     const demoName = router.query.demoName as string;
-    const currentPath = RoutePathFactory.labelrUiDemo['/[demoName]'](demoName);
+    const currentPath = RoutePathFactory['labelr-ui-demo']['/[demoName]'](demoName);
 
     return (
         <StyledDemoLayoutNavRoot>
-            {Object.entries(labelrUiDemoRouteMapper).map(([key, routeData]) => {
+            {Object.entries(RouteMapper['labelr-ui-demo']).map(([key, routeData]) => {
                 const {
                     name,
                     path,

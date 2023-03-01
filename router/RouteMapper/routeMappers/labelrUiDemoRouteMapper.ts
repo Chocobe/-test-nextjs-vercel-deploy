@@ -1,6 +1,6 @@
 import { 
     RoutePathFactory,
-} from '../';
+} from '@/router';
 import {
     LabelrButtonDemoSection,
     LabelrSocialButtonDemoSection,
@@ -22,63 +22,63 @@ export const labelrUiDemoRouteMapper = {
     /** buttons */
     button: {
         name: 'LabelrButton',
-        path: RoutePathFactory.labelrUiDemo['/[demoName]']('button'),
+        path: RoutePathFactory['labelr-ui-demo']['/[demoName]']('button'),
         DemoSectionComponent: LabelrButtonDemoSection,
     },
     socialButton: {
         name: 'LabelrSocialButton',
-        path: RoutePathFactory.labelrUiDemo['/[demoName]']('socialButton'),
+        path: RoutePathFactory['labelr-ui-demo']['/[demoName]']('socialButton'),
         DemoSectionComponent: LabelrSocialButtonDemoSection,
     },
 
     /** inputs */
     input: {
         name: 'LabelrInput',
-        path: RoutePathFactory.labelrUiDemo['/[demoName]']('input'),
+        path: RoutePathFactory['labelr-ui-demo']['/[demoName]']('input'),
         DemoSectionComponent: LabelrInputDemoSection,
     },
     inputEmail: {
         name: 'LabelrInputEmail',
-        path: RoutePathFactory.labelrUiDemo['/[demoName]']('inputEmail'),
+        path: RoutePathFactory['labelr-ui-demo']['/[demoName]']('inputEmail'),
         DemoSectionComponent: LabelrInputEmailDemoSection,
     },
     inputPassword: {
         name: 'LabelrInputPassword',
-        path: RoutePathFactory.labelrUiDemo['/[demoName]']('inputPassword'),
+        path: RoutePathFactory['labelr-ui-demo']['/[demoName]']('inputPassword'),
         DemoSectionComponent: LabelrInputPasswordDemoSection,
     },
     inputConfirm: {
         name: 'LabelrInputConfirm',
-        path: RoutePathFactory.labelrUiDemo['/[demoName]']('inputConfirm'),
+        path: RoutePathFactory['labelr-ui-demo']['/[demoName]']('inputConfirm'),
         DemoSectionComponent: LabelrInputConfirmDemoSection,
     },
     dropdown: {
         name: 'LabelrDropdown',
-        path: RoutePathFactory.labelrUiDemo['/[demoName]']('dropdown'),
+        path: RoutePathFactory['labelr-ui-demo']['/[demoName]']('dropdown'),
         DemoSectionComponent: LabelrDropdownDemoSection,
     },
 
     /** Overlay */
     useSnackbar: {
         name: 'useLabelrSnackbar',
-        path: RoutePathFactory.labelrUiDemo['/[demoName]']('useSnackbar'),
+        path: RoutePathFactory['labelr-ui-demo']['/[demoName]']('useSnackbar'),
         DemoSectionComponent: UseLabelrSnackbarDemoSection,
     },
     popover: {
         name: 'LabelrPopover',
-        path: RoutePathFactory.labelrUiDemo['/[demoName]']('popover'),
+        path: RoutePathFactory['labelr-ui-demo']['/[demoName]']('popover'),
         DemoSectionComponent: LabelrPopoverDemoSection,
     },
     modal: {
         name: 'LabelrModal',
-        path: RoutePathFactory.labelrUiDemo['/[demoName]']('modal'),
+        path: RoutePathFactory['labelr-ui-demo']['/[demoName]']('modal'),
         DemoSectionComponent: LabelrModalDemoSection,
     },
 
     /** Navigation */
     breadcrumb: {
         name: 'LabelrBreadcrumb',
-        path: RoutePathFactory.labelrUiDemo['/[demoName]']('breadcrumb'),
+        path: RoutePathFactory['labelr-ui-demo']['/[demoName]']('breadcrumb'),
         DemoSectionComponent: LabelrBreadcrumbDemoSection,
     },
 } as const;

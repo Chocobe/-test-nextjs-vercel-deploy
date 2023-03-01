@@ -1,16 +1,18 @@
 import {
-    RoutePathFactory,
-} from './RoutePathFactory/RoutePathFactory';
-import {
     RouteMapper,
     TRouteMapperKey,
-    TRouteMapperItem,
-    TConsoleRouteMapperKey,
-    TLabelrUiDemoRouteMapperKey,
 } from './RouteMapper';
+import { 
+    TRouteMapperItem,
+} from './routeMapperTypes';
+import { 
+    TConsoleRouteMapperKey,
+} from './routeMappers/consoleRouteMapper';
+import {
+    TLabelrUiDemoRouteMapperKey,
+} from './routeMappers/labelrUiDemoRouteMapper';
 
 export {
-    RoutePathFactory,
     RouteMapper,
     type TRouteMapperKey,
     type TRouteMapperItem,

@@ -1,10 +1,17 @@
+// react
+import { 
+    ReactElement, 
+} from 'react';
+// router
+import { 
+    RouteMapper,
+} from '@/router';
+// layout
 import AuthRouteGuard from '@/layouts/routeGuardLayouts/AuthRouteGuard';
 import ConsoleLayout from '@/layouts/uiLayouts/ConsoleLayout/ConsoleLayout';
-import { consoleRouteMapper } from '@/router/routeMappers/consoleRouteMapper';
-import { ReactElement } from 'react';
 
 function SettingsIndex() {
-    const SettingsPageComponent = consoleRouteMapper.settings.PageComponent;
+    const SettingsPageComponent = RouteMapper.console.settings.PageComponent;
     return <SettingsPageComponent />;
 }
 

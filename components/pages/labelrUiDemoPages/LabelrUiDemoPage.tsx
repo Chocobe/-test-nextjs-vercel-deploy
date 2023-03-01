@@ -1,17 +1,17 @@
+// react
 import {
     useMemo,
 } from 'react';
+import {
+    RouteMapper,
+    TLabelrUiDemoRouteMapperKey,
+} from '@/router';
 // nextjs
 import {
     useRouter,
 } from 'next/router';
 // styled-components
 import styled from 'styled-components';
-// UI components
-import {
-    labelrUiDemoRouteMapper,
-    TLabelrUiDemoRouteMapperKey,
-} from '@/router/routeMappers/labelrUiDemoRouteMapper';
 
 const StyledLabelrUiDemoPageRoot = styled.div`
     width: 100%;
@@ -28,7 +28,7 @@ function LabelrUiDemoPage() {
     const demoName = router.query.demoName as TLabelrUiDemoRouteMapperKey;
 
     const demoSection = useMemo(() => {
-        const DemoSectionComponent = labelrUiDemoRouteMapper[demoName]?.DemoSectionComponent;
+        const DemoSectionComponent = RouteMapper['labelr-ui-demo'][demoName]?.DemoSectionComponent;
 
         return DemoSectionComponent
             ? <DemoSectionComponent />

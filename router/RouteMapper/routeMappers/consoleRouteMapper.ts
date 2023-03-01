@@ -1,9 +1,15 @@
-// pages
+// EWF pages
 import EwfPage from '@/components/pages/consolePages/EwfPages/EwfPage';
+import LaunchWorkflowPage from '@/components/pages/consolePages/EwfPages/LaunchWorkflowPage/LaunchWorkflowPage';
+// AQC pages
 import AqcPage from '@/components/pages/consolePages/AqcPages/AqcPage';
+// Datasets pages
 import DatasetsPage from '@/components/pages/consolePages/DatasetsPages/DatasetsPage';
+// Team pages
 import TeamPage from '@/components/pages/consolePages/TeamPages/TeamPage';
+// Settings pages
 import SettingsPage from '@/components/pages/consolePages/SettingsPages/SettingsPage';
+
 // icons
 import { 
     FiLayers,
@@ -12,8 +18,10 @@ import {
     FiUsers,
     FiSettings,
 } from '@icons';
-
-import { RoutePathFactory } from '../RoutePathFactory';
+// router
+import { 
+    RoutePathFactory,
+} from '../../RoutePathFactory/RoutePathFactory';
 
 export const consoleRouteMapper = {
     ewf: {
@@ -25,6 +33,7 @@ export const consoleRouteMapper = {
             'launch-workflow': {
                 name: 'Launch Workflow',
                 path: RoutePathFactory.console['/ewf/launch-workflow'](),
+                PageComponent: LaunchWorkflowPage,
             },
         },
     },

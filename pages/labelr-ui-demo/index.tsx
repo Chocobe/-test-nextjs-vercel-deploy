@@ -15,7 +15,7 @@ function LabelrUiDemoIndex() {
 
     useEffect(() => {
         if (router.isReady) {
-            router.replace(RoutePathFactory.labelrUiDemo['/[demoName]']('button'));
+            router.replace(RoutePathFactory['labelr-ui-demo']['/[demoName]']('button'));
         }
     }, [router]);
 

@@ -5,13 +5,13 @@ import {
 // layouts
 import AuthRouteGuard from '@/layouts/routeGuardLayouts/AuthRouteGuard';
 import ConsoleLayout from '@/layouts/uiLayouts/ConsoleLayout/ConsoleLayout';
-
+// router
 import { 
-    consoleRouteMapper,
-} from '@/router/routeMappers/consoleRouteMapper';
+    RouteMapper,
+} from '@/router';
 
 function DatasetsIndex() {
-    const DatasetsPageComponent = consoleRouteMapper.datasets.PageComponent;
+    const DatasetsPageComponent = RouteMapper.console.datasets.PageComponent;
     return <DatasetsPageComponent />;
 }
 

@@ -5,13 +5,14 @@ import {
 // layouts
 import ConsoleLayout from '@/layouts/uiLayouts/ConsoleLayout/ConsoleLayout';
 import AuthRouteGuard from '@/layouts/routeGuardLayouts/AuthRouteGuard';
-// UI components
+// router
 import {
-    consoleRouteMapper,
-} from '@/router/routeMappers/consoleRouteMapper';
+    // consoleRouteMapper,
+    RouteMapper,
+} from '@/router';
 
 function EwfIndex() {
-    const PageComponent = consoleRouteMapper.ewf.PageComponent;
+    const PageComponent = RouteMapper.console.ewf.PageComponent;
 
     return <PageComponent />;
 }

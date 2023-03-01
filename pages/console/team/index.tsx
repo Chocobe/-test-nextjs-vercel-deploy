@@ -1,10 +1,17 @@
+// react
+import { 
+    ReactElement,
+} from 'react';
+// layout
 import AuthRouteGuard from '@/layouts/routeGuardLayouts/AuthRouteGuard';
 import ConsoleLayout from '@/layouts/uiLayouts/ConsoleLayout/ConsoleLayout';
-import { consoleRouteMapper } from '@/router/routeMappers/consoleRouteMapper';
-import { ReactElement } from 'react';
+// router
+import { 
+    RouteMapper,
+} from '@/router';
 
 function TeamIndex() {
-    const TeamPageComponent = consoleRouteMapper.team.PageComponent;
+    const TeamPageComponent = RouteMapper.console.team.PageComponent;
     return <TeamPageComponent />;
 }
 

@@ -42,39 +42,39 @@ function LabelrBreadcrumbDemoSection() {
 
     const breadcrumbItems = useMemo<TLabelrBreadcrumbItemProps[]>(() => [
         {
-            href: RoutePathFactory.labelrUiDemo['/[demoName]']('button'),
+            href: RoutePathFactory['labelr-ui-demo']['/[demoName]']('button'),
             text: 'Labelr',
         },
         {
-            href: RoutePathFactory.labelrUiDemo['/[demoName]']('input'),
+            href: RoutePathFactory['labelr-ui-demo']['/[demoName]']('input'),
             text: 'EWF(Elastic Workflow)',
         },
         {
-            href: RoutePathFactory.labelrUiDemo['/[demoName]']('button'),
+            href: RoutePathFactory['labelr-ui-demo']['/[demoName]']('button'),
             text: 'Launch Workflow',
         },
         {
-            href: RoutePathFactory.labelrUiDemo['/[demoName]']('button'),
+            href: RoutePathFactory['labelr-ui-demo']['/[demoName]']('button'),
             text: 'hello1',
         },
         {
-            href: RoutePathFactory.labelrUiDemo['/[demoName]']('input'),
+            href: RoutePathFactory['labelr-ui-demo']['/[demoName]']('input'),
             text: 'world1',
         },
         {
-            href: RoutePathFactory.labelrUiDemo['/[demoName]']('button'),
+            href: RoutePathFactory['labelr-ui-demo']['/[demoName]']('button'),
             text: 'hello2',
         },
         {
-            href: RoutePathFactory.labelrUiDemo['/[demoName]']('input'),
+            href: RoutePathFactory['labelr-ui-demo']['/[demoName]']('input'),
             text: 'world2',
         },
         {
-            href: RoutePathFactory.labelrUiDemo['/[demoName]']('button'),
+            href: RoutePathFactory['labelr-ui-demo']['/[demoName]']('button'),
             text: 'hello3',
         },
         {
-            href: RoutePathFactory.labelrUiDemo['/[demoName]']('input'),
+            href: RoutePathFactory['labelr-ui-demo']['/[demoName]']('input'),
             text: 'world3',
         },
     ], []);
