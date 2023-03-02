@@ -6,6 +6,8 @@ import {
 import ConsoleLayoutHeader from './ConsoleLayoutHeader';
 import ConsoleLayoutNav from './ConsoleLayoutNav/ConsoleLayoutNav';
 import ConsoleLayoutFooter from './ConsoleLayoutFooter';
+import LabelrBreadcrumb from '@/components/ui/LabelrBreadcrumb/LabelrBreadcrumb';
+import useLabelrBreadcrumbWithRouter from '@/components/ui/LabelrBreadcrumb/hooks/useLabelrBreadcrumbWithRouter';
 // styled-components
 import styled from 'styled-components';
 
@@ -36,6 +38,14 @@ const StyledConsoleLayoutRoot = styled.div`
             flex: 1;
             width: 100%;
             background-color: ${({ theme }) => theme.colors.gs[50]};
+
+            display: flex;
+            flex-flow: column;
+
+            .breadcrumbWrapper {
+                padding: 24px 24px 16px;
+                flex-shrink: 0;
+            }
         }
     }
 
@@ -45,6 +55,13 @@ const StyledConsoleLayoutRoot = styled.div`
 `;
 
 function ConsoleLayout(props: PropsWithChildren) {
+    //
+    // cache
+    //
+    const {
+        labelrBreadcrumbItems,
+    } = useLabelrBreadcrumbWithRouter();
+
     return (
         <StyledConsoleLayoutRoot>
             {/* header */}
@@ -59,6 +76,10 @@ function ConsoleLayout(props: PropsWithChildren) {
                 </div>
 
                 <div className="ConsoleLayout-body-contentWrapper">
+                    <div className="breadcrumbWrapper">
+                        <LabelrBreadcrumb items={labelrBreadcrumbItems} />
+                    </div>
+
                     {props.children}
                 </div>
             </div>

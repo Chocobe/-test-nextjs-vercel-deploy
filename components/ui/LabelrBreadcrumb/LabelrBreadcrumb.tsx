@@ -30,12 +30,12 @@ const StyledLabelrBreadcrumbRoot = styled.ul<{
     }
 `;
 
-export type TLabelrBreadcrumbItems = (Omit<TLabelrBreadcrumbItemProps, 'isCurrentPage'>)[];
+export type TLabelrBreadcrumbItem = (Omit<TLabelrBreadcrumbItemProps, 'isCurrentPage'>);
 
 export type TLabelrBreadcrumbProps = {
     separator?: string;
     spacing?: string;
-    items: TLabelrBreadcrumbItems;
+    items: TLabelrBreadcrumbItem[];
 };
 
 function LabelrBreadcrumb(props: TLabelrBreadcrumbProps) {
