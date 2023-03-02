@@ -67,6 +67,7 @@ import {
 } from 'react-i18next';
 // localStorage
 import { 
+    getAuthTokensFromLocalStorage,
     setAuthTokensToLocalStorage,
 } from '@/network/localStorageApi/localStorageApi';
 
@@ -237,8 +238,16 @@ function SigninPage() {
         onSucceeded: {
             callback(data) {
                 if (router.isReady) {
+                    
                     setAuthTokensToLocalStorage(data);
-                    router.replace(RoutePathFactory.console['/']());
+                    const {
+                        accessToken,
+                        refreshToken,
+                    } = getAuthTokensFromLocalStorage();
+                    
+                    if (accessToken && refreshToken) {
+                        router.replace(RoutePathFactory.console['/']());
+                    }
                 }
             },
             deps: [router],

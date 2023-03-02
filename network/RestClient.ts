@@ -24,12 +24,15 @@ export type TSendRequestParams = {
     callback?: (response: any) => any
 };
 
-const PROXY_URL = '/labelr-console-v2/api';
+const PROXY_URL = process.env.NODE_ENV === 'development' 
+    ? '/labelr-console-v2/api'
+    : process.env.NEXT_PUBLIC_LABELR_API_ENDPOINT;
 
 const axiosInstance = applyCaseMiddleware(axios.create({
     headers: {
         post: {
-            ['Content-type']: 'application/x-www-form-urlencoded',
+            // ['Content-type']: 'application/x-www-form-urlencoded',
+            ['Content-type']: 'application/json',
         }
     },
     timeout: 10000,

@@ -3,6 +3,7 @@ import AuthRouteGuard from '@/layouts/routeGuardLayouts/AuthRouteGuard';
 import { ReactElement } from 'react';
 
 function LaunchWorkflowIndex() {
+    // FIXME: consoleRouteMapper 에서 LaunchWorkflowPage 컴포넌트 각져오기
     return (
         <div>
             <h1>LaunchWorkflow Index page</h1>
